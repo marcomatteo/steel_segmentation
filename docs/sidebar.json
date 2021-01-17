@@ -1,6 +1,7 @@
 {
   "steel_segmentation": {
     "Overview": "/",
-    "Core": "core.html"
+    "Core": "core.html",
+    "Data": "data.html"
   }
 }

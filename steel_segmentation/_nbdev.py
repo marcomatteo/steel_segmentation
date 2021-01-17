@@ -4,14 +4,20 @@ __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"path": "00_core.ipynb",
          "print_competition_data": "00_core.ipynb",
+         "train_path": "00_core.ipynb",
+         "test_path": "00_core.ipynb",
+         "train_pfiles": "00_core.ipynb",
+         "test_pfiles": "00_core.ipynb",
          "get_train_df": "00_core.ipynb",
          "train": "00_core.ipynb",
          "train_all": "00_core.ipynb",
          "get_train_pivot": "00_core.ipynb",
          "get_classification_df": "00_core.ipynb",
-         "train_multi": "00_core.ipynb"}
+         "train_multi": "00_core.ipynb",
+         "defeat_position": "01_data.ipynb"}
 
-modules = ["core.py"]
+modules = ["core.py",
+           "data.py"]
 
 doc_url = "https://marcomatteo.github.io/steel_segmentation/"
 

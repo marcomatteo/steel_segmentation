@@ -143,6 +143,18 @@ checklink/cookies.txt
 kaggle.json
 
 # Kaggle Data
-data/test_images
-data/train_images
+*.jpg
+*.png
+*.zip
+
+# Keep only few images for tests
+!00a0b7730.jpg
+!0a1cade03.jpg
+
+# Keep csv files
+!.csv
+
+# Discard all other data stuff
+data/
+
 

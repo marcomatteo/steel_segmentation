@@ -82,7 +82,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
+<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
 </blockquote>
 
 </div>
@@ -253,7 +253,7 @@ data/sample_submission.csv
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>only_faulty</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L30" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>only_faulty</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Get training DataFrame with all the images in data/train_images.
 Returns only the faulty images if <code>only_faulty</code>.</p>
@@ -329,7 +329,7 @@ Returns only the faulty images if <code>only_faulty</code>.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
-<span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -389,27 +389,6 @@ Returns only the faulty images if <code>only_faulty</code>.</p>
       <td>3</td>
       <td>18661 28 18863 82 19091 110 19347 110 19603 110 19859 110 20115 110 20371 110 20627 110 20883 110 21139 110 21395 110 21651 110 21962 55 293125 251 293381 251 293637 251 293893 251 294149 251 294405 251 294661 251 294917 251 295173 251 295429 251 295685 251 295941 251 296197 251 296453 251 296709 251 296965 251 297221 251 297477 251 297733 251 297989 251 298245 251 298564 188 298945 63</td>
       <td>0007a71bf.jpg_3</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>000a4bcdd.jpg</td>
-      <td>1</td>
-      <td>37607 3 37858 8 38108 14 38359 20 38610 25 38863 28 39119 28 39375 29 39631 29 39887 29 40143 29 40399 29 40655 30 40911 30 41167 30 41423 30 41679 31 41935 31 42191 31 42447 31 42703 31 42960 31 43216 31 43472 31 43728 31 43984 31 44240 32 44496 32 44752 32 45008 32 45264 33 45520 33 45776 33 46032 33 46288 33 46544 34 46803 31 47065 25 47327 19 47588 15 47850 9 48112 3 62667 12 62923 23 63179 23 63348 3 63435 23 63604 7 63691 23 63860 11 63947 23 64116 15 64203 23 64372 19 64459 23 64628 24 64715 23 64884 28 64971 23 65139 33 65227 23 65395 37 65483 23 65651 41 65740 22 65907 45 65996 22...</td>
-      <td>000a4bcdd.jpg_1</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>000f6bf48.jpg</td>
-      <td>4</td>
-      <td>131973 1 132228 4 132483 6 132738 8 132993 11 133248 13 133503 16 133757 19 134012 22 134267 24 134522 26 134777 29 135032 31 135287 34 135542 36 135796 40 136050 43 136304 46 136558 50 136812 54 137066 56 137320 59 137574 61 137828 63 138082 65 138336 68 138590 70 138845 71 139101 71 139356 73 139612 73 139868 73 140123 74 140379 74 140634 75 140890 75 141145 77 141400 78 141654 80 141909 81 142164 82 142418 84 142673 85 142928 86 143182 88 143437 89 143692 90 143946 93 144201 94 144456 95 144710 97 144965 98 145220 99 145474 101 145729 103 145983 105 146237 107 146491 109 146745 112 1469...</td>
-      <td>000f6bf48.jpg_4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>0014fce06.jpg</td>
-      <td>3</td>
-      <td>229501 11 229741 33 229981 55 230221 77 230468 92 230623 10 230724 95 230845 11 230869 28 230979 97 231094 63 231235 97 231344 70 231490 99 231593 79 231746 183 232002 184 232257 186 232513 186 232769 185 233024 186 233280 185 233535 186 233791 185 234047 185 234302 186 234558 186 234813 186 235069 186 235327 184 235586 181 235845 177 236103 175 236362 172 236621 78 236714 71 236880 57 236972 61 237139 44 237229 52 237397 32 237486 11 237513 16 237656 19 237744 3 237915 6</td>
-      <td>0014fce06.jpg_3</td>
     </tr>
   </tbody>
 </table>
@@ -936,8 +915,8 @@ dtype: object</pre>
       <th>top</th>
       <td>ef24da2ba.jpg</td>
       <td>NaN</td>
-      <td>11480 7 11724 19 11968 31 12212 43 12456 55 12700 67 12950 73 13206 73 13462 73 13718 73 13973 74 14229 74 14485 74 14741 74 14997 74 15253 66 15508 52 15764 37 16020 23 16276 8 30496 21 30732 41 30988 41 31244 41 31500 42 31756 42 32012 42 32268 42 32524 42 32780 42 33036 42 33293 41 33549 42 33805 42 34061 42 34317 42 34573 42 34829 42 35085 42 35341 42 35597 43 35853 43 36109 43 36365 43 36621 43 36877 43 37133 43 37389 43 37645 44 37902 43 38158 43 38414 43 38670 39 38926 32 39182 25 39438 18 39694 11 39950 4 64300 13 64532 37 64776 49 65032 49 65288 48 65544 48 65800 48 66056 48 66312...</td>
-      <td>31a1081e9.jpg_4</td>
+      <td>245763 252 246019 252 246275 252 246532 251 246788 251 247044 250 247300 250 247556 250 247813 249 248069 248 248325 126 307610 1 307843 1 307864 5 308094 7 308118 8 308349 9 308373 10 308603 12 308627 14 308644 4 308822 6 308858 14 308881 26 309073 12 309112 17 309136 29 309322 21 309366 20 309390 33 309481 7 309570 37 309621 22 309644 37 309733 12 309823 50 309875 64 309985 16 310077 125 310237 21 310331 139 310489 25 310574 4 310585 186 310824 13 310839 189 311075 209 311328 213 311584 211 311841 202 312097 194 312353 186 312609 15 312625 162 312866 14 312883 118 313016 19 313122 13 313...</td>
+      <td>90b5b429a.jpg_1</td>
       <td>faulty</td>
     </tr>
     <tr>
@@ -972,7 +951,7 @@ dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_train_pivot" class="doc_header"><code>get_train_pivot</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_pivot</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_train_pivot" class="doc_header"><code>get_train_pivot</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L59" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_pivot</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Summarize the training csv with ClassId as columns and values EncodedPixels</p>
 
@@ -1089,7 +1068,7 @@ dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Get the DataFrame for the multiclass classification model</p>
 
