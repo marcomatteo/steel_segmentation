@@ -19,8 +19,8 @@ index = {"path": "00_core.ipynb",
          "multi_rle_to_mask": "01_data.ipynb",
          "img_with_mask": "01_data.ipynb",
          "plot_defected_image": "01_data.ipynb",
-         "get_perm_imgs_path": "01_data.ipynb",
          "get_random_idx": "01_data.ipynb",
+         "get_perm_imgs_path": "01_data.ipynb",
          "show_defects": "01_data.ipynb"}
 
 modules = ["core.py",
