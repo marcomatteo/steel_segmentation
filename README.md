@@ -38,7 +38,7 @@ Finally you can install the package with:
 
 ```
 git clone https://github.com/marcomatteo/steel-segmentation-nbdev.git
-cd steel-segmentation-nbdev
+cd steel_segmentation
 pip install -e .
 ```
 
