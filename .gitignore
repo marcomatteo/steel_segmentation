@@ -143,5 +143,6 @@ checklink/cookies.txt
 kaggle.json
 
 # Kaggle Data
-data/
+data/test_images
+data/train_images
 
