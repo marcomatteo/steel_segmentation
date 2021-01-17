@@ -44,13 +44,6 @@ nb_path: "01_data.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>From an <code>ImageId</code> we get the pixel coordinates or the mask for every defect. Here an example of steel image.</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -58,6 +51,19 @@ nb_path: "01_data.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="An-example">An example<a class="anchor-link" href="#An-example"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>From an <code>ImageId</code> we get the pixel coordinates or the mask for every defect. Here an example of steel image.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -148,6 +154,12 @@ nb_path: "01_data.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Discovery-defect-functions">Discovery defect functions<a class="anchor-link" href="#Discovery-defect-functions"> </a></h2>
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -159,7 +171,7 @@ nb_path: "01_data.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="defeat_position" class="doc_header"><code>defeat_position</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/data.py#L12" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>defeat_position</code>()</p>
+<h4 id="defeat_position" class="doc_header"><code>defeat_position</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/data.py#L13" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>defeat_position</code>()</p>
 </blockquote>
 <p>Get coordinates of defects <code>(x, y)</code> given an ImageId and a ClassId</p>
 <h2 id="Attributes">Attributes<a class="anchor-link" href="#Attributes"> </a></h2><p>img_id: str
@@ -194,7 +206,8 @@ nb_path: "01_data.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="o">=</span> <span class="n">defeat_position</span><span class="p">(</span><span class="n">img_id</span><span class="o">=</span><span class="s1">&#39;bca4ae758.jpg&#39;</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
@@ -209,7 +222,7 @@ nb_path: "01_data.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>1</pre>
+<pre>((2839,), (2839,))</pre>
 </div>
 
 </div>

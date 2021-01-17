@@ -7,6 +7,7 @@ from .core import *
 from PIL import Image
 
 import pandas as pd
+import numpy as np
 
 # Cell
 def defeat_position(img_id: str, class_id: int, df:pd.DataFrame=train):

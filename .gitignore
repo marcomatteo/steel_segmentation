@@ -147,14 +147,17 @@ kaggle.json
 *.png
 *.zip
 
-# Keep only few images for tests
+# Keep only few images 
+# from tests
 !00a0b7730.jpg
+# from train
 !0a1cade03.jpg
+!bca4ae758.jpg 	
 
 # Keep csv files
 !.csv
 
 # Discard all other data stuff
-data/
+#data/
 
 
