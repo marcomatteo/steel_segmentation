@@ -14,7 +14,14 @@ index = {"path": "00_core.ipynb",
          "get_train_pivot": "00_core.ipynb",
          "get_classification_df": "00_core.ipynb",
          "train_multi": "00_core.ipynb",
-         "defeat_position": "01_data.ipynb"}
+         "defeat_position": "01_data.ipynb",
+         "rle_to_mask": "01_data.ipynb",
+         "multi_rle_to_mask": "01_data.ipynb",
+         "img_with_mask": "01_data.ipynb",
+         "plot_defected_image": "01_data.ipynb",
+         "get_perm_imgs_path": "01_data.ipynb",
+         "get_random_idx": "01_data.ipynb",
+         "show_defects": "01_data.ipynb"}
 
 modules = ["core.py",
            "data.py"]
