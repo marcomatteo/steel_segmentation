@@ -53,10 +53,17 @@ nb_path: "00_core.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Utility-functions">Utility functions<a class="anchor-link" href="#Utility-functions"> </a></h2>
+<h2 id="Data-structure">Data structure<a class="anchor-link" href="#Data-structure"> </a></h2>
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To easly view a directory <code>Path</code> structure, the <a href="/steel_segmentation/core.html#print_competition_data"><code>print_competition_data</code></a> function prints out this for you.</p>
@@ -75,7 +82,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L25" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
+<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L27" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
 </blockquote>
 
 </div>
@@ -122,6 +129,1196 @@ data/train_images
 data/sample_submission.csv
 </pre>
 </div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The files in detail:</p>
+<ul>
+<li><strong>train_images/</strong> - folder of training images (12.5k images)</li>
+<li><strong>test_images/</strong> - folder of test images to segment and classify (5506 images)</li>
+<li><strong>train.csv</strong> - training annotations which provide segments for defects (<code>ClassId = [1, 2, 3, 4]</code>)</li>
+<li><strong>sample_submission.csv</strong> - a sample submission file in the correct format; note, each <code>ImageId</code> 4 rows, one for each of the 4 defect classes</li>
+</ul>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_pfiles</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(#5506) [Path(&#39;data/test_images/a182ee44c.jpg&#39;),Path(&#39;data/test_images/d3801de15.jpg&#39;),Path(&#39;data/test_images/69d9e3b5b.jpg&#39;),Path(&#39;data/test_images/0d70f61f0.jpg&#39;),Path(&#39;data/test_images/a15579e45.jpg&#39;),Path(&#39;data/test_images/848be142e.jpg&#39;),Path(&#39;data/test_images/36806ecb7.jpg&#39;),Path(&#39;data/test_images/961ea3fad.jpg&#39;),Path(&#39;data/test_images/de94107b9.jpg&#39;),Path(&#39;data/test_images/46aa8fef0.jpg&#39;)...]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Training-data">Training data<a class="anchor-link" href="#Training-data"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The training data is splitted in:</p>
+<ul>
+<li><p>faulty images: images that have at least one defect</p>
+</li>
+<li><p>hard negative images: images with no defects</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_pfiles</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(#12568) [Path(&#39;data/train_images/f9b98ab64.jpg&#39;),Path(&#39;data/train_images/d5b6bb4bb.jpg&#39;),Path(&#39;data/train_images/e589cb68b.jpg&#39;),Path(&#39;data/train_images/e869118bb.jpg&#39;),Path(&#39;data/train_images/fd2094971.jpg&#39;),Path(&#39;data/train_images/838135ec4.jpg&#39;),Path(&#39;data/train_images/bd9e49b45.jpg&#39;),Path(&#39;data/train_images/816a3d605.jpg&#39;),Path(&#39;data/train_images/1919bde53.jpg&#39;),Path(&#39;data/train_images/7ae7ede82.jpg&#39;)...]</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L36" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>only_faulty</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Get training DataFrame with all the images in data/train_images.
+Returns only the faulty images if <code>only_faulty</code>.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Faulty-images">Faulty images<a class="anchor-link" href="#Faulty-images"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Each Image may have <strong>no defects</strong>, a defect of a <strong>single class</strong>, or <strong>defects of multiple classes</strong> (<code>ClassId</code>).</p>
+<p>The <a href="/steel_segmentation/core.html#train.csv"><code>train.csv</code></a> file contains the informations about the faulty images. The columns are:</p>
+<ul>
+<li><p><strong>ImageId</strong>: image name</p>
+</li>
+<li><p><strong>ClassId</strong>: the class type</p>
+</li>
+<li><p><strong>EncodedPixels</strong>: the encoded pixels follows a run-length encoding rule, a sequence of pair values that contains a start position and a run length with the space as the delimiter. E.g. <code>1 3 10 5</code> means pixels <code>(1,2,3)</code> and <code>(10,11,12,13,14)</code>.</p>
+</li>
+</ul>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(7095, 4)
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ImageId</th>
+      <th>ClassId</th>
+      <th>EncodedPixels</th>
+      <th>ImageId_ClassId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0002cc93b.jpg</td>
+      <td>1</td>
+      <td>29102 12 29346 24 29602 24 29858 24 30114 24 30370 24 30626 24 30882 24 31139 23 31395 23 31651 23 31907 23 32163 23 32419 23 32675 23 77918 27 78174 55 78429 60 78685 64 78941 68 79197 72 79452 77 79708 81 79964 85 80220 89 80475 94 80731 98 80987 102 81242 105 81498 105 81754 104 82010 104 82265 105 82521 31 82556 69 82779 27 82818 63 83038 22 83080 57 83297 17 83342 50 83555 13 83604 44 83814 8 83866 37 84073 3 84128 31 84390 25 84652 18 84918 8 85239 10 85476 29 85714 47 85960 57 86216 57 86471 58 86727 58 86983 58 87238 59 87494 59 87750 59 88005 60 88261 60 88517 60 88772 61 89028 53...</td>
+      <td>0002cc93b.jpg_1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0007a71bf.jpg</td>
+      <td>3</td>
+      <td>18661 28 18863 82 19091 110 19347 110 19603 110 19859 110 20115 110 20371 110 20627 110 20883 110 21139 110 21395 110 21651 110 21962 55 293125 251 293381 251 293637 251 293893 251 294149 251 294405 251 294661 251 294917 251 295173 251 295429 251 295685 251 295941 251 296197 251 296453 251 296709 251 296965 251 297221 251 297477 251 297733 251 297989 251 298245 251 298564 188 298945 63</td>
+      <td>0007a71bf.jpg_3</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>000a4bcdd.jpg</td>
+      <td>1</td>
+      <td>37607 3 37858 8 38108 14 38359 20 38610 25 38863 28 39119 28 39375 29 39631 29 39887 29 40143 29 40399 29 40655 30 40911 30 41167 30 41423 30 41679 31 41935 31 42191 31 42447 31 42703 31 42960 31 43216 31 43472 31 43728 31 43984 31 44240 32 44496 32 44752 32 45008 32 45264 33 45520 33 45776 33 46032 33 46288 33 46544 34 46803 31 47065 25 47327 19 47588 15 47850 9 48112 3 62667 12 62923 23 63179 23 63348 3 63435 23 63604 7 63691 23 63860 11 63947 23 64116 15 64203 23 64372 19 64459 23 64628 24 64715 23 64884 28 64971 23 65139 33 65227 23 65395 37 65483 23 65651 41 65740 22 65907 45 65996 22...</td>
+      <td>000a4bcdd.jpg_1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>000f6bf48.jpg</td>
+      <td>4</td>
+      <td>131973 1 132228 4 132483 6 132738 8 132993 11 133248 13 133503 16 133757 19 134012 22 134267 24 134522 26 134777 29 135032 31 135287 34 135542 36 135796 40 136050 43 136304 46 136558 50 136812 54 137066 56 137320 59 137574 61 137828 63 138082 65 138336 68 138590 70 138845 71 139101 71 139356 73 139612 73 139868 73 140123 74 140379 74 140634 75 140890 75 141145 77 141400 78 141654 80 141909 81 142164 82 142418 84 142673 85 142928 86 143182 88 143437 89 143692 90 143946 93 144201 94 144456 95 144710 97 144965 98 145220 99 145474 101 145729 103 145983 105 146237 107 146491 109 146745 112 1469...</td>
+      <td>000f6bf48.jpg_4</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0014fce06.jpg</td>
+      <td>3</td>
+      <td>229501 11 229741 33 229981 55 230221 77 230468 92 230623 10 230724 95 230845 11 230869 28 230979 97 231094 63 231235 97 231344 70 231490 99 231593 79 231746 183 232002 184 232257 186 232513 186 232769 185 233024 186 233280 185 233535 186 233791 185 234047 185 234302 186 234558 186 234813 186 235069 186 235327 184 235586 181 235845 177 236103 175 236362 172 236621 78 236714 71 236880 57 236972 61 237139 44 237229 52 237397 32 237486 11 237513 16 237656 19 237744 3 237915 6</td>
+      <td>0014fce06.jpg_3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Every row of the DataFrame is a unique <code>(ImageId, ClassId)</code>. If there's duplicates the algorithms didn't work.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="ow">not</span> <span class="n">train</span><span class="o">.</span><span class="n">ImageId_ClassId</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">any</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>ImageId            object
+ClassId             int64
+EncodedPixels      object
+ImageId_ClassId    object
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">class_count</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s2">&quot;ClassId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="n">class_count</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">set_names</span><span class="p">(</span><span class="s2">&quot;ClassId&quot;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">class_count</span> <span class="o">=</span> <span class="n">class_count</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+<span class="n">class_count</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;ClassId&quot;</span><span class="p">:</span> <span class="s2">&quot;num&quot;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">class_count</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">freq</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">df</span><span class="p">:</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;num&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>num</th>
+      <th>freq</th>
+    </tr>
+    <tr>
+      <th>ClassId</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>897</td>
+      <td>0.126427</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>247</td>
+      <td>0.034813</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>5150</td>
+      <td>0.725863</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>801</td>
+      <td>0.112896</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">class_count</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Defects by ClassId count&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s2">&quot;ImageId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<span class="n">hist_counts</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">counts</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="s1">&#39;3&#39;</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">nums</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">hist_counts</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Num of defects per images&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:</span> <span class="n">c</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">hist_counts</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{1: 6239, 2: 425, 3: 2}</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Images have at least one defect and there's a small number of images with two or three defects.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Multiple defects:&quot;</span><span class="p">)</span>
+<span class="n">imgs_class_agg</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;ImageId&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s2">&quot;ClassId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="n">pairs</span> <span class="o">=</span> <span class="n">imgs_class_agg</span><span class="p">[</span><span class="n">imgs_class_agg</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">==</span><span class="mi">2</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">triples</span> <span class="o">=</span> <span class="n">imgs_class_agg</span><span class="p">[</span><span class="n">imgs_class_agg</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">==</span><span class="mi">3</span><span class="p">)]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+<span class="n">p</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">pairs</span><span class="p">))</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">l</span><span class="p">:</span> <span class="p">(</span><span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">l</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span> <span class="n">triples</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;ClassId </span><span class="si">{</span><span class="n">ids</span><span class="si">}</span><span class="s2"> counts </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> images&quot;</span> <span class="k">for</span> <span class="n">ids</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">p</span><span class="o">.</span><span class="n">most_common</span><span class="p">()]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;ClassId </span><span class="si">{</span><span class="n">ids</span><span class="si">}</span><span class="s2"> counts </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> images&quot;</span> <span class="k">for</span> <span class="n">ids</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">most_common</span><span class="p">()]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Multiple defects:
+ClassId (3, 4) counts 284 images
+ClassId (1, 3) counts 91 images
+ClassId (1, 2) counts 35 images
+ClassId (2, 3) counts 14 images
+ClassId (2, 4) counts 1 images
+ClassId (1, 2, 3) counts 2 images
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="All-training-images">All training images<a class="anchor-link" href="#All-training-images"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As we can see below, there're 7095 defects in 6666 images.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">unique_imgs</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)[</span><span class="s2">&quot;ImageId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">unique_imgs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>count     7095
+unique    6666
+Name: ImageId, dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">unique_imgs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7095</span>
+<span class="k">assert</span> <span class="n">unique_imgs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">6666</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Count imgs&quot;</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">fontdict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;fontsize&#39;</span><span class="p">:</span><span class="mi">14</span><span class="p">})</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">tick_top</span><span class="p">()</span>  <span class="c1"># Display x-axis ticks on top</span>
+
+<span class="p">(</span>
+    <span class="n">train_all</span><span class="p">[[</span><span class="s1">&#39;ImageId&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">]]</span>
+     <span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+     <span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+     <span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcoAAAGwCAYAAAApJSV7AAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjMuMiwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy8vihELAAAACXBIWXMAAAsTAAALEwEAmpwYAAAf+ElEQVR4nO3de5hU5Z3g8e8PEAnooBFjRJgg3hq6G5pLFCUrGhM14hUlG4NETBxGJ47RjChuRBNXJxqdWaNBfTTeYtj4RBPUJBqvoMbVVWgQ7xeEWZAExBFUELXl3T/q0NNi88qluwuqv5/n6Yfi1DlV76tUf/ucOn0qUkpIkqTmdSj3ACRJ2pwZSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEpqVkT8OCKeK/c4pHIzlFIbiIidIuLnETE3Ij6IiDci4t6IOKwMY7k5Iv64HqteDoxo7fFIm7tO5R6AVOkiog/wOPAucC7wDKUfUg8CrgX+vmyDy0gpvQe8V+5xSOXmHqXU+q4GAhiaUvptSunllNKLKaVfAAPXrBQRfx8RUyPi3eLr9xHRq8n9nzoUGhHjIuK9tdeJiG8Ve6/vRsSdEdFjzf3AicDIiEjF1wHNDXrt51uzJxoR50TE3yJieURcEhEdinWXFMvPWetx9oyIRyJiVUS8HBGHRcR7ETGuyTrnR8R/FHvbf4uIX23Ef2epVbhHKbWiiPg8cChwXrGH9gkppbeL9QK4E1gFfBVIwC+AOyPiy2nDrjXZB/jvwDFAN+A24GLgHykdTu0HfB4YW6z/nxvw2PsDC4EDgEHAFKAOmAV8pRj7NRHxYEppZkR0AKYCfwOGAZ8DrgC2XvOAEXEscBZwPPAs8IViXWmzYCil1rU7pb3JFz9jva9R2rvcLaU0HyAivg28RukQ7YMb8JydgHEppeXF41wHnASlw6kR8T7wQUrpbxvwmGssB76fUvoYeCki/gXomVI6tLj/lYiYCBwIzAS+DuwFHJxSeqMYz5mUDkWv8SXgr8D9KaWPgP8HzNiIsUmtwkOvUuuK9VyvH7BoTSQBUkqvA4uA/hv4nP+xJpKFRZT20lrCC0Uk11hMaS+QtZateb4qSvN6o8n9TwOrm/z9dqALMC8iboiI0RGxNdJmwlBKretVSodR+33GelGs15w1y1fz6fBu1cz6HzWzfUu91pt77Nzz5eZVWjmlBZT2Ov8ReAf4N2BmRHTb5NFKLcBQSq0opfSfwH3AaRGxzdr3R8R2xc0XgF2KM2TX3NcX6FncB/AmsFPxfuYadRsxrA+Bjhux3cZ4kdK8ejZZNpS1vveklFallP6UUjoT+DJQDQxvozFKWYZSan3/RGnPakZxWHGviKiKiFOBOcU6D1L6tZEpETEkIoZSOlGmHni4WGc6pZNw/kdE7BYR3wOO24jxzAdqinH0iIjm9kpbygPAy8AtETEwIoYB/w40UOxpFmfunhwRtRGxK6X3Uz+itDculZ2hlFpZSmkeMJhSNC6lFMeHgSMpHW6kOKv1aEp7jdOBaZTOFD16zRmvKaUXgVOB8cVjfB34140Y0vWU9vRmFM/XantuKaXVlM6+3Rp4CriF0hm4idIZvgDLgO8BjwHPAccCo4r/blLZxYaddS5JmyYiBgKzKf1e6cwyD0f6TIZSUquKiGOAFZQOpfahdOg1gEEb+PuhUln4e5SSWtu2lA459wbepnRo+UwjqS2Fe5SSJGV4Mo8kSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRntKpQRcWhEvBwRr0XExHKPZ31FxI0RsSQinmuy7PMR8UBEvFr8uX2T+84t5vhyRBzSZPmQiHi2uO/KtT7XsCwiondETIuIFyPi+Yj4QbG8UubXJSKeiohnivn9pFheEfMDiIiOETErIv5Y/L2S5ja/GNfsiJhRLKuk+W0XEXdExEvFa3DfSppfi0kptYsvSh9UOxfoC3Sm9Nl//cs9rvUc+/6UPqbpuSbLfgZMLG5PBC4tbvcv5rY1sGsx547FfU8B+1K6IPW9wDc2g7ntDAwubm8LvFLMoVLmF8A2xe2tgP8LDKuU+RXj+iHwv4E/VtK/zWJc84Eeay2rpPndApxc3O4MbFdJ82upr/a0R7k38FpK6fWU0ofAbcBRZR7TekkpPQr851qLj6L0j5ziz6ObLL8tpfRBKn2e32vA3hGxM/B3KaUnUulf9q+abFM2KaW/ppTqi9vvUvqcxF2onPmllNJ7xV+3Kr4SFTK/iOgFjAR+2WRxRcwtoyLmFxF/R+mH8BsAUkofppSWUSHza0ntKZS7AAua/H1hsWxLtVNK6a9Qig3whWL5uua5S3F77eWbjYjoAwyitNdVMfMrDk3OBpYAD6SUKml+VwBnA6ubLKuUuUHph5r7I2JmRIwvllXK/PpS+uDum4pD57+MiG5UzvxaTHsKZXPHzCvxo1PWNc/Nev4RsQ3wO+CMlNI7uVWbWbZZzy+l9HFKqQ7oRekn8JrM6lvM/CLicGBJWv8PX95i5tbE8JTSYOAbwPcjYv/Mulva/DpRekvnmpTSIEqfGZo7d2NLm1+LaU+hXEjp8/DW6AUsKtNYWsLi4pAHxZ9LiuXrmufC4vbay8suIraiFMkpKaXfF4srZn5rFIe1pgOHUhnzGw4cGRHzKb2V8dWI+DWVMTcAUkqLij+XAFMpvYVTKfNbCCwsjnAA3EEpnJUyvxbTnkL5NLBHROwaEZ2BbwF3l3lMm+Ju4MTi9onAXU2Wfysito6IXYE9gKeKQyjvRsSw4oy07zTZpmyKsdwAvJhS+vcmd1XK/HaMiO2K258Dvga8RAXML6V0bkqpV0qpD6XX08MppROogLkBRES3iNh2zW3gYOA5KmR+KaW/AQsiYq9i0UHAC1TI/FpUuc8massv4DBKZ1XOBX5U7vFswLh/A/wV+IjST2/fA3YAHgJeLf78fJP1f1TM8WWanH0GDKX0Qp8L/ILig7vLPLevUDpMMweYXXwdVkHzGwDMKub3HHB+sbwi5tdkbAfwX2e9VsTcKL2H90zx9fya7xmVMr9iXHXAjOLf553A9pU0v5b6imKSkiSpGe3p0KskSRvMUEqSlGEoJUnKMJSSJGW0u1A2ubpGRXJ+Wzbnt+Wq5LlB5c8vp92FEqj0/9nOb8vm/LZclTw3qPz5rVN7DKUkSeut3f0e5TbbbJOqqqrKPYxW8+abb7LjjjuWexitxvlt2Sp5fpU8N6j8+c2cOXNpSqnZCXZq68GUW1VVFTNmzCj3MCRJm5GI+I913eehV0mSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpIxO5R5AW3v2jeX0mfincg9DkjZb8y8ZWe4hbFbco5QkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVJGm4QyIqoiYnZEzIqI3TZi+x9HxFnF7XER0bPlRylJ0qe11R7l0cBdKaVBKaW5m/hY4wBDKUlqE58ZyojoExEvRsT1EfF8RNwfEZ+LiLqIeDIi5kTE1IjYfh3bHwacAZwcEdOKZXdGxMzi8cY3Wfe9JrePi4ib13qs44ChwJRiD3VkRExtcv/XI+L3G/afQJKkdVvfPco9gMkppWpgGXAs8CvgnJTSAOBZ4ILmNkwp3QNcC/yvlNKBxeLvppSGUIre6RGxw/oMIqV0BzADGJNSqgPuAfpFxI7FKicBN629XUSMj4gZETHj45XL1+epJEkC1j+U81JKs4vbM4HdgO1SSo8Uy24B9t+A5z09Ip4BngR6UwrxBkspJeBW4ISI2A7YF7i3mfWuSykNTSkN7di1+8Y8lSSpneq0nut90OT2x8B2G/uEEXEA8DVg35TSyoiYDnQp7k5NVu3C+rkJ+AOwCrg9pdSwsWOTJGltG3syz3Lg7Yj4b8XfxwKPZNZvqjvwdhHJKmBYk/sWR0S/iOgAHLOO7d8Ftl3zl5TSImARcB5w8/pPQZKkz7a+e5TNORG4NiK6Aq9Ten9wffwZOCUi5gAvUzr8usZE4I/AAuA5YJtmtr+5eN73Ke2Vvg9MAXZMKb2wMRORJGldovQ235YtIn4BzEop3fBZ62698x5p5xOvaP1BSdIWav4lI8s9hDYXETNTSkObu29T9ig3CxExE1gB/Eu5xyJJqjwtGsqImAwMX2vxz1NKn/qVjZZS/JqJJEmtokVDmVL6fks+niRJ5eZF0SVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjI6lXsAba12l+7MuGRkuYchSdpCuEcpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmGUpKkDEMpSVKGoZQkKcNQSpKUYSglScowlJIkZRhKSZIyDKUkSRmdyj2AtvbsG8vpM/FP5R6GJGkTzb9kZJs8j3uUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJymizUEbE6RHxYkRM2Yht50dEj4jYLiL+qTXGJ0lSc9pyj/KfgMNSSmM24TG2Kx5HkqQ20SahjIhrgb7A3RFxTkT8n4iYVfy5V7HOuIj4RZNt/hgRB6z1UJcAu0XE7Ii4LCJujYijmmwzJSKObP0ZSZLai05t8SQppVMi4lDgQOBD4N9SSg0R8TXgX4Fj1/OhJgI1KaU6gIgYAZwJ3BUR3YH9gBPX3igixgPjATr+3Y6bOBtJUnvSJqFcS3fglojYA0jAVhv7QCmlRyJickR8ARgF/C6l1NDMetcB1wFsvfMeaWOfT5LU/pTjrNf/CUxLKdUARwBdiuUNa42ny9obrsOtwBjgJOCmlhqkJElQnlB2B94obo9rsnw+UBcRHSKiN7B3M9u+C2y71rKbgTMAUkrPt+A4JUkqSyh/Bvw0Ih4HOjZZ/jgwD3gWuByoX3vDlNJbwOMR8VxEXFYsWwy8iHuTkqRW0GbvUaaU+hQ3lwJ7NrlrUnF/onQINbctKaVvN70vIroCewC/abnRSpJUskVfmac4a/Yl4KqU0vJyj0eSVHnKcdZri0kpPQj8fbnHIUmqXFv0HqUkSa3NUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMgylJEkZhlKSpAxDKUlShqGUJCnDUEqSlGEoJUnKMJSSJGUYSkmSMjqVewBtrXaX7sy4ZGS5hyFJ2kK4RylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpRhKCVJyjCUkiRlGEpJkjIMpSRJGYZSkqQMQylJUoahlCQpw1BKkpQRKaVyj6FNRcRqIMo9DmlzEBG0t+8B0jqklFKzO4+d2nokm4F298OBtC6GUiqJiHXuQHnoVZvsyiuvpF+/fowZM2aDt+3Tpw9Lly5l2bJlXH311a0wOmnz8dJLL1FXV8egQYOYO3fuBm//4x//mMsvvxyAm2++mUWLFrX0ENUMQ6lNdvXVV3PPPfcwZcqUjX4MQ6n24M477+Soo45i1qxZ7Lbbbpv0WIay7RhKbZJTTjmF119/nSOPPJJLL72U/fbbj0GDBrHffvvx8ssvA6UX9Gmnnda4zeGHH8706dM/8TgTJ05k7ty51NXVMWHCBMaOHctdd93VeP+YMWO4++6722ROUnPmz59Pv379+Id/+Aeqq6s5+OCDef/995k9ezbDhg1jwIABHHPMMbz99tvNbn/PPfdwxRVX8Mtf/pIDDzwQgKOPPpohQ4ZQXV3Ndddd17juNtts03j7jjvuYNy4cZ94rDvuuIMZM2YwZswY6urq+NOf/sQxxxzTeP8DDzzAqFGjWnD27VxKqV19laaslvSlL30pvfnmm2n58uXpo48+Siml9MADD6RRo0allFK66aab0ve///3G9UeOHJmmTZv2iW3nzZuXqqurG9eZPn16Ouqoo1JKKS1btiz16dOn8bHVcnw9rL958+aljh07plmzZqWUUho9enS69dZbU21tbZo+fXpKKaVJkyalH/zgB+t8jAsuuCBddtlljX9/6623UkoprVy5MlVXV6elS5emlFLq1q1b4zq33357OvHEEz+1/YgRI9LTTz+dUkpp9erVaa+99kpLlixJKaV0/PHHp7vvvnvTJ92OFK+FZrvhHqVazPLlyxk9ejQ1NTWceeaZPP/88xv9WCNGjOC1115jyZIl/OY3v+HYY4+lU6f2eO6ZNie77rordXV1AAwZMoS5c+eybNkyRowYAcCJJ57Io48+ut6Pd+WVVzJw4ECGDRvGggULePXVVzdqXBHB2LFj+fWvf82yZct44okn+MY3vrFRj6VP8zuPWsykSZM48MADmTp1KvPnz+eAAw4AoFOnTqxevbpxvVWrVq3X440dO5YpU6Zw2223ceONN7bGkKUNsvXWWzfe7tixI8uWLdvox5o+fToPPvggTzzxBF27duWAAw5ofG00PQFzfV8vJ510EkcccQRdunRh9OjR/mDZgtyjVItZvnw5u+yyC1B6X3KNPn36MHv2bFavXs2CBQt46qmnPrXttttuy7vvvvuJZePGjeOKK64AoLq6utXGLW2s7t27s/322/PYY48BcOuttzbuXX6W5cuXs/3229O1a1deeuklnnzyycb7dtppJ1588UVWr17N1KlTm91+7ddMz5496dmzJxdddNGn3tPUpjGUajFnn3025557LsOHD+fjjz9uXD58+HB23XVXamtrOeussxg8ePCntt1hhx0YPnw4NTU1TJgwASh9s+jXrx8nnXRSm81B2lC33HILEyZMYMCAAcyePZvzzz9/vbY79NBDaWhoYMCAAUyaNIlhw4Y13nfJJZdw+OGH89WvfpWdd9652e3HjRvHKaecQl1dHe+//z5QOumtd+/e9O/ff9Mnpkbt7pfvIyK1tzlvqVauXEltbS319fV079693MOpSF5woLKcdtppDBo0iO9973vlHsoWp3gtNHvRAfcotVl68MEHqaqq4p//+Z+NpLQehgwZwpw5czjhhBPKPZSK06p7lJ/73Of+tmrVqp1a7Qk2QpcuXdb7zXGp0vl6kEq6dOmy+v333+/Y3H2tGsrN8TCnh5qk/+LrQSrZ7A+9XnHFFaxcubLF1pPKZdmyZRx33HFUVVXRr18/nnjiCQCuuuoq9tprL6qrqzn77LMb158zZw777rsv1dXV1NbWNu7dffjhh4wfP54999yTqqoqfve735VlPtKm6NOnD7W1tdTV1TF06FAAnnnmGfbdd19qa2s54ogjeOeddxrX/+lPf8ruu+/OXnvtxX333QeUzlUYOXIkVVVVVFdXM3HixLafyLquRNASX6znVT/WXJ2lpdbLWd8xSRvjO9/5Trr++utTSil98MEH6e23304PP/xwOuigg9KqVatSSiktXrw4pZTSRx99lGpra9Ps2bNTSiktXbo0NTQ0pJRSOv/889OPfvSjlFJKH3/88Sb/u18XXw9qTc19zx46dGjjlYxuuOGGdN5556WUUnr++efTgAED0qpVq9Lrr7+e+vbtmxoaGtKKFSvSww8/nFIqvaa+8pWvpHvuuafFx8rmdGWeFStWMHLkSAYOHEhNTQ0/+clPWLRoEQceeGDj9Q9PPfVUhg4dSnV1NRdccAFQuoLF2uut63qIt99+OzU1NQwcOJD999+/bSeoduudd97h0UcfbTzjsHPnzmy33XZcc801TJw4sfGX1b/whS8AcP/99zNgwAAGDhwIlH5FpmPH0lskN954I+eeey4AHTp0oEePHm09HalVvPzyy43fl7/+9a83Hi256667+Na3vsXWW2/Nrrvuyu67785TTz1F165dG7/nd+7cmcGDB7Nw4cI2HXObh/LPf/4zPXv25JlnnuG5557jjDPOoGfPnkybNo1p06YBcPHFFzNjxgzmzJnDI488wpw5czj99NM/td66XHjhhdx3330888wzXkhbbeb1119nxx135KSTTmLQoEGcfPLJrFixgldeeYXHHnuMffbZhxEjRvD0008D8MorrxARHHLIIQwePJif/exnAI1Xe5k0aRKDBw9m9OjRLF68uFzTkjZaRHDwwQczZMiQxou+19TUNH5fvv3221mwYAEAb7zxBr17927ctlevXrzxxhufeLxly5bxhz/8gYMOOqiNZlDS5qGsra3lwQcf5JxzzuGxxx5r9tT/3/72twwePJhBgwbx/PPP88ILL2zQcwwfPpxx48Zx/fXXf+IX36XW1NDQQH19PaeeeiqzZs2iW7duXHLJJTQ0NPD222/z5JNPctlll/HNb36TlBINDQ385S9/YcqUKfzlL39h6tSpPPTQQzQ0NLBw4UKGDx9OfX09++67L2eddVa5pydtsMcff5z6+nruvfdeJk+ezKOPPsqNN97I5MmTGTJkCO+++y6dO3cGaPaksqaX8mtoaOD444/n9NNPp2/fvm02ByhDKPfcc09mzpxJbW0t5557LhdeeOEn7p83bx6XX345Dz30EHPmzGHkyJHrPH19XddDvPbaa7noootYsGABdXV1vPXWW60zGamJXr160atXL/bZZx8AjjvuOOrr6+nVqxejRo0iIth7773p0KEDS5cupVevXowYMYIePXrQtWtXDjvsMOrr69lhhx3o2rVr48cmjR49mvr6+nJOTdooPXv2BEpvNxxzzDE89dRTVFVVcf/99zNz5kyOP/74xs/l7NWrV+PeJcDChQsbtwcYP348e+yxB2eccUabzgHKEMpFixbRtWtXTjjhBM466yzq6+s/cc3Cd955h27dutG9e3cWL17Mvffe27jt2tc2XNf1EOfOncs+++zDhRdeSI8ePT7xH19qLV/84hfp3bt34+dwPvTQQ/Tv35+jjz6ahx9+GCgdbv3www/p0aMHhxxyCHPmzGHlypU0NDTwyCOP0L9/fyKCI444ovEzO9c8jrQlWbFiReP36xUrVnD//fdTU1PDkiVLAFi9ejUXXXQRp5xyCgBHHnkkt912Gx988AHz5s3j1VdfZe+99wbgvPPOY/ny5Y3Xfm5rbX55+WeffZYJEybQoUMHttpqK6655prGj4TZeeedmTZtGoMGDaK6upq+ffsyfPjwxm3Hjx//ifXWXA+xd+/e1NTU8N577wEwYcIEXn31VVJKHHTQQY0nS0it7aqrrmLMmDF8+OGH9O3bl5tuuolu3brx3e9+l5qaGjp37swtt9xCRLD99tvzwx/+kC9/+ctEBIcddhgjR44E4NJLL2Xs2LGcccYZ7Ljjjtx0001lnpm0YRYvXtx4VKShoYFvf/vbHHroofz85z9n8uTJAIwaNarxWs7V1dV885vfpH///nTq1InJkyfTsWNHFi5cyMUXX0xVVVXjdaJPO+00Tj755DabixcckNoxXw9SyWZ/wQFJkjZXrXrotUuXLosjYnO71uvqiPAHBAlfD9IaXbp0WefvYLW7j9mSJGlD+JOkJEkZhlKSpAxDKUlShqGUJCnDUEqSlPH/AdgyM0/tRr+LAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_all</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>ImageId              object
+ClassId               int64
+EncodedPixels        object
+ImageId_ClassId      object
+status             category
+dtype: object</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_all</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)[:</span><span class="mi">4</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ImageId</th>
+      <th>ClassId</th>
+      <th>EncodedPixels</th>
+      <th>ImageId_ClassId</th>
+      <th>status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>12997</td>
+      <td>12997.0</td>
+      <td>7095</td>
+      <td>7095</td>
+      <td>12997</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>12568</td>
+      <td>NaN</td>
+      <td>7095</td>
+      <td>7095</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>ef24da2ba.jpg</td>
+      <td>NaN</td>
+      <td>11480 7 11724 19 11968 31 12212 43 12456 55 12700 67 12950 73 13206 73 13462 73 13718 73 13973 74 14229 74 14485 74 14741 74 14997 74 15253 66 15508 52 15764 37 16020 23 16276 8 30496 21 30732 41 30988 41 31244 41 31500 42 31756 42 32012 42 32268 42 32524 42 32780 42 33036 42 33293 41 33549 42 33805 42 34061 42 34317 42 34573 42 34829 42 35085 42 35341 42 35597 43 35853 43 36109 43 36365 43 36621 43 36877 43 37133 43 37389 43 37645 44 37902 43 38158 43 38414 43 38670 39 38926 32 39182 25 39438 18 39694 11 39950 4 64300 13 64532 37 64776 49 65032 49 65288 48 65544 48 65800 48 66056 48 66312...</td>
+      <td>31a1081e9.jpg_4</td>
+      <td>faulty</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>3</td>
+      <td>NaN</td>
+      <td>1</td>
+      <td>1</td>
+      <td>7095</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_train_pivot" class="doc_header"><code>get_train_pivot</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L65" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_pivot</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Summarize the training csv with ClassId as columns and values EncodedPixels</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_pivot</span> <span class="o">=</span> <span class="n">get_train_pivot</span><span class="p">()</span>
+<span class="n">train_pivot</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ClassId</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>n</th>
+    </tr>
+    <tr>
+      <th>ImageId</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0002cc93b.jpg</th>
+      <td>29102 12 29346 24 29602 24 29858 24 30114 24 30370 24 30626 24 30882 24 31139 23 31395 23 31651 23 31907 23 32163 23 32419 23 32675 23 77918 27 78174 55 78429 60 78685 64 78941 68 79197 72 79452 77 79708 81 79964 85 80220 89 80475 94 80731 98 80987 102 81242 105 81498 105 81754 104 82010 104 82265 105 82521 31 82556 69 82779 27 82818 63 83038 22 83080 57 83297 17 83342 50 83555 13 83604 44 83814 8 83866 37 84073 3 84128 31 84390 25 84652 18 84918 8 85239 10 85476 29 85714 47 85960 57 86216 57 86471 58 86727 58 86983 58 87238 59 87494 59 87750 59 88005 60 88261 60 88517 60 88772 61 89028 53...</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>0007a71bf.jpg</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18661 28 18863 82 19091 110 19347 110 19603 110 19859 110 20115 110 20371 110 20627 110 20883 110 21139 110 21395 110 21651 110 21962 55 293125 251 293381 251 293637 251 293893 251 294149 251 294405 251 294661 251 294917 251 295173 251 295429 251 295685 251 295941 251 296197 251 296453 251 296709 251 296965 251 297221 251 297477 251 297733 251 297989 251 298245 251 298564 188 298945 63</td>
+      <td>NaN</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Get the DataFrame for the multiclass classification model</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_multi</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ClassId</th>
+      <th>ImageId</th>
+      <th>ClassId_multi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0002cc93b.jpg</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>00031f466.jpg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>000418bfc.jpg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>000789191.jpg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0007a71bf.jpg</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Count of <code>ClassId</code> per image.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_multi</span><span class="p">[</span><span class="s2">&quot;ClassId_multi&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0        5902
+3        4759
+1         769
+4         516
+3 4       284
+2         195
+1 3        91
+1 2        35
+2 3        14
+1 2 3       2
+2 4         1
+Name: ClassId_multi, dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_multi</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>ClassId</th>
+      <th>ImageId</th>
+      <th>ClassId_multi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>12568</td>
+      <td>12568</td>
+    </tr>
+    <tr>
+      <th>unique</th>
+      <td>12568</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <th>top</th>
+      <td>c32d6a8c5.jpg</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>freq</th>
+      <td>1</td>
+      <td>5902</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
 </div>
 
 </div>

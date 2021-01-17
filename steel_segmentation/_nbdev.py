@@ -3,7 +3,13 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"path": "00_core.ipynb",
-         "print_competition_data": "00_core.ipynb"}
+         "print_competition_data": "00_core.ipynb",
+         "get_train_df": "00_core.ipynb",
+         "train": "00_core.ipynb",
+         "train_all": "00_core.ipynb",
+         "get_train_pivot": "00_core.ipynb",
+         "get_classification_df": "00_core.ipynb",
+         "train_multi": "00_core.ipynb"}
 
 modules = ["core.py"]
 
