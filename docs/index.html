@@ -157,6 +157,37 @@ pip install -e steel_segmentation</code></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Developing">Developing<a class="anchor-link" href="#Developing"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To set up the developer enviroment to build the package or try different Deep Learning models using this repository, follow these commands:</p>
+
+<pre><code>conda create -n env_nbdev
+conda activate env_nbdev
+conda install -c fastai -c pytorch fastai
+conda install -c conda-forge jupyter_contrib_nbextensions
+git clone https://github.com/fastai/nbdev
+pip install -e nbdev
+git clone https://github.com/marcomatteo/steel_segmentation.git
+cd steel_segmentation
+nbdev_install_git_hooks
+jupyter notebook</code></pre>
+<p>Now you can edit the Jupyter Notebook files.</p>
+<p>To save the new functions or classes from the notebooks to a <code>.py</code> module in <code>steel_segmentation</code> (only the cells with #exp at the beginning) and create the relative documentation, run:</p>
+
+<pre><code>nbdev_build_lib
+nbdev_build_docs</code></pre>
+<p>Hint: for a complete understanding of <code>nbdev</code> check this <a href="https://nbdev.fast.ai/">link</a>.</p>
+<p>NB: I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="How-to-use">How to use<a class="anchor-link" href="#How-to-use"> </a></h2>
 </div>
 </div>
