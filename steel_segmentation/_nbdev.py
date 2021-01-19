@@ -24,7 +24,8 @@ index = {"path": "00_core.ipynb",
          "show_defects": "01_data.ipynb"}
 
 modules = ["core.py",
-           "data.py"]
+           "data.py",
+           "preprocessing.py"]
 
 doc_url = "https://marcomatteo.github.io/steel_segmentation/"
 

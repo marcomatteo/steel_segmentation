@@ -2,6 +2,7 @@
   "steel_segmentation": {
     "Overview": "/",
     "Core": "core.html",
-    "Data": "data.html"
+    "Data": "data.html",
+    "Preprocessing": "preprocessing.html"
   }
 }
