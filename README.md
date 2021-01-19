@@ -14,23 +14,23 @@ To install this package you need to fullfill the following requirements.
 
 3. run the following cell code (if is not already done)
 
-```python
+```
 !cp kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're ready to install the Kaggle API with:
 
-```python
+```
 !pip install kaggle
 ```
 
 And then the download and unzip the data with:
 
-```python
+```
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```python
+```
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
@@ -45,7 +45,7 @@ pip install -e steel_segmentation
 
 With the `show_defects` function you can easly view the defected images:
 
-```python
+```
 show_defects(n=5, multi_defects=True)
 ```
 

@@ -44,7 +44,7 @@ def get_train_df(only_faulty=False):
     train_all["status"] = train_all["status"].cat.rename_categories(rename_dict)
     train_all.ClassId.fillna(0, inplace=True)
     train_all.ClassId = train_all.ClassId.astype('int64')
-    # train_all.EncodedPixels.fillna(-1, inplace=True)
+    train_all.EncodedPixels.fillna(-1, inplace=True)
 
     return train_all
 
