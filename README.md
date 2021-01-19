@@ -37,22 +37,34 @@ And then the download and unzip the data with:
 Finally you can install the package with:
 
 ```
-git clone https://github.com/marcomatteo/steel-segmentation-nbdev.git
-cd steel_segmentation
-pip install -e .
+git clone https://github.com/marcomatteo/steel_segmentation.git
+pip install -e steel_segmentation
 ```
 
 ## How to use
 
-Fill me in please! Don't forget code examples:
+With the `show_defects` function you can easly view the defected images:
 
 ```python
-1+1
+show_defects(n=5)
 ```
 
 
+![png](docs/images/output_13_0.png)
 
 
-    2
 
+![png](docs/images/output_13_1.png)
+
+
+
+![png](docs/images/output_13_2.png)
+
+
+
+![png](docs/images/output_13_3.png)
+
+
+
+![png](docs/images/output_13_4.png)
 
