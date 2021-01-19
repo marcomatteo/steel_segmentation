@@ -58,6 +58,7 @@ nbdev_install_git_hooks
 jupyter notebook
 ```
 
+If there's some issues with `nbdev`, try to uninstall with `pip uninstall nbdev` and install again with `pip install nbdev`.
 Now you can edit the Jupyter Notebook files.
 
 To save the new functions or classes from the notebooks to a `.py` module in `steel_segmentation` (only the cells with #exp at the beginning) and create the relative documentation, run:
