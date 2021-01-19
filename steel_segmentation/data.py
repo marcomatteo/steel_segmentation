@@ -14,7 +14,7 @@ import pandas as pd
 import numpy as np
 
 # Cell
-def defeat_position(img_id: str, class_id: int, df:pd.DataFrame=train):
+def defeat_position(img_id:str, class_id:int, df:pd.DataFrame=train):
     """
     Get coordinates of defects `(x, y)` given an ImageId and a ClassId
     """
@@ -39,7 +39,7 @@ def defeat_position(img_id: str, class_id: int, df:pd.DataFrame=train):
     return x, y
 
 # Cell
-def rle_to_mask(rle: str, class_id: int, height: int, width: int) -> np.ndarray:
+def rle_to_mask(rle:str, class_id:int, height:int, width:int) -> np.ndarray:
     """
     Convert RLE encoded pixels to numpy array for only one class_id
     """
@@ -61,7 +61,7 @@ def rle_to_mask(rle: str, class_id: int, height: int, width: int) -> np.ndarray:
     return mask.T
 
 # Cell
-def multi_rle_to_mask(img_path: str, df:pd.DataFrame=train_all) -> np.ndarray:
+def multi_rle_to_mask(img_path:str, df:pd.DataFrame=train_all) -> np.ndarray:
     """
     Convert all RLE encoded pixels for an image and returns the mask
     """
@@ -91,7 +91,7 @@ def img_with_mask(img_path:str):
     return np.array(Image.open(img_path)), multi_rle_to_mask(img_path)
 
 # Cell
-def plot_defected_image(img_path: str, df:pd.DataFrame=train):
+def plot_defected_image(img_path:str, df:pd.DataFrame=train):
     """
     Plot image with segmented area
     """
