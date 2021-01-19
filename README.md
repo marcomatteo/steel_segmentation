@@ -46,7 +46,7 @@ pip install -e steel_segmentation
 With the `show_defects` function you can easly view the defected images:
 
 ```python
-show_defects(n=5)
+show_defects(n=5, multi_defects=True)
 ```
 
 
