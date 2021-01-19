@@ -6,7 +6,6 @@ __all__ = ['path', 'print_competition_data', 'train_path', 'test_path', 'train_p
 # Cell
 from fastai.vision.all import *
 from fastai.metrics import *
-
 import pandas as pd
 
 # Cell
