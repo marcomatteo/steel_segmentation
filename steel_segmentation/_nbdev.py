@@ -21,7 +21,9 @@ index = {"path": "00_core.ipynb",
          "plot_defected_image": "01_data.ipynb",
          "get_random_idx": "01_data.ipynb",
          "get_perm_imgs_path": "01_data.ipynb",
-         "show_defects": "01_data.ipynb"}
+         "show_defects": "01_data.ipynb",
+         "create_masks": "02_preprocessing.ipynb",
+         "labels_dir": "02_preprocessing.ipynb"}
 
 modules = ["core.py",
            "data.py",
