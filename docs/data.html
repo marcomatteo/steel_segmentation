@@ -537,7 +537,7 @@ nb_path: "01_data.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_random_idx" class="doc_header"><code>get_random_idx</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/data.py#L132" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_random_idx</code>(<strong><code>n</code></strong>:<code>int</code>)</p>
 </blockquote>
-<p>Return a random sequence of size <code>n</code></p>
+<p>Return a random sequence of size <code>n</code>.</p>
 
 </div>
 
@@ -604,7 +604,7 @@ nb_path: "01_data.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="get_perm_imgs_path" class="doc_header"><code>get_perm_imgs_path</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/data.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_perm_imgs_path</code>(<strong><code>train_pfiles</code></strong>:<code>L</code>, <strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
-<p>Return img Path list of selected df</p>
+<p>Return img Path list of selected df.</p>
 
 </div>
 
@@ -675,15 +675,12 @@ nb_path: "01_data.ipynb"
 <div class="output_markdown rendered_html output_subarea ">
 <h4 id="show_defects" class="doc_header"><code>show_defects</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/data.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>show_defects</code>(<strong><code>class_id</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>only_defects</code></strong>=<em><code>True</code></em>, <strong><code>multi_defects</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
-<p>Plot multiple images</p>
-<p>class_id: str or int
-If provided, all plots have this class_id</p>
-<p>n: int
-Num of images to plot</p>
-<p>only_defects : bool, default True
-If False it shows even the no faulty images</p>
-<p>multi_defects : bool, default False
-If True it shows imgs with multi defects</p>
+<p>Plot multiple images.
+Attributes:
+<code>class_id</code>: [str or int] select a type of defect otherwise plot all kinds,
+<code>n</code>: select the number of images to plot
+<code>only_defects</code> [bool, default True]: if False it shows even the no faulty images
+<code>multi_defects</code> [bool, default False]: if True it shows imgs with multi defects</p>
 
 </div>
 

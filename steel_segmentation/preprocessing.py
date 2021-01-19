@@ -7,15 +7,18 @@ from .core import *
 from .data import *
 from fastcore.foundation import *
 from fastai.vision.all import *
+from PIL import Image
+from collections import defaultdict
 from matplotlib import pyplot as plt
 
+import pandas as pd
 import numpy as np
 
 # Cell
 labels_dir = path / "labels"
 
 def create_masks(df: pd.DataFrame):
-    """Create the mask files under the labels_dir"""
+    """Create the mask files under the `labels_dir`"""
     for img_path in get_selected_imgs_path(df):
         mask = multi_rle_to_mask(img_path)
         im = Image.fromarray(mask)

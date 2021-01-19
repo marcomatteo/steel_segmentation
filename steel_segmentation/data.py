@@ -131,7 +131,7 @@ def plot_defected_image(img_path: str, df:pd.DataFrame=train):
 # Cell
 def get_random_idx(n: int) -> np.ndarray:
     """
-    Return a random sequence of size `n`
+    Return a random sequence of size `n`.
     """
     rng = np.random.default_rng()
     return rng.permutation(n)
@@ -139,7 +139,7 @@ def get_random_idx(n: int) -> np.ndarray:
 # Cell
 def get_perm_imgs_path(train_pfiles: L, df: pd.DataFrame) -> L:
     """
-    Return img Path list of selected df
+    Return img Path list of selected df.
     """
     imgId_vals = df["ImageId"].drop_duplicates().values
     path_idx = train_pfiles.argwhere(lambda x: x.name in imgId_vals)
@@ -150,19 +150,12 @@ def get_perm_imgs_path(train_pfiles: L, df: pd.DataFrame) -> L:
 # Cell
 def show_defects(class_id=None, n=20, only_defects=True, multi_defects=False):
     """
-    Plot multiple images
-
-    class_id: str or int
-    If provided, all plots have this class_id
-
-    n: int
-    Num of images to plot
-
-    only_defects : bool, default True
-    If False it shows even the no faulty images
-
-    multi_defects : bool, default False
-    If True it shows imgs with multi defects
+    Plot multiple images.
+    Attributes:
+    `class_id`: [str or int] select a type of defect otherwise plot all kinds,
+    `n`: select the number of images to plot
+    `only_defects` [bool, default True]: if False it shows even the no faulty images
+    `multi_defects` [bool, default False]: if True it shows imgs with multi defects
     """
     df = train_multi
 
