@@ -19,7 +19,7 @@ To install this package you need to fullfill the following requirements.
 ```
 
 ```python
-!cp kaggle.json ~/.kaggle/kaggle.json
+!cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're ready to install the Kaggle API with:

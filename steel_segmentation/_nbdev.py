@@ -2,7 +2,8 @@
 
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
-index = {"path": "00_core.ipynb",
+index = {"curr_dir_name": "00_core.ipynb",
+         "path": "00_core.ipynb",
          "print_competition_data": "00_core.ipynb",
          "train_path": "00_core.ipynb",
          "test_path": "00_core.ipynb",
