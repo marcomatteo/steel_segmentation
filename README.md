@@ -81,6 +81,7 @@ NB: I tried to work in MacOS and Linux enviroment, not sure this is working also
 With the `show_defects` function you can easly view the defected images:
 
 ```python
+#missing
 show_defects(n=5, multi_defects=True)
 ```
 
