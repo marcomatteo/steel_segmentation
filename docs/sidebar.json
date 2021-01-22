@@ -3,6 +3,8 @@
     "Overview": "/",
     "Core": "core.html",
     "Data": "data.html",
-    "Preprocessing": "preprocessing.html"
+    "Preprocessing": "preprocessing.html",
+    "Fastai": "model.fastai.html",
+    "Metrics": "model.metrics.html"
   }
 }

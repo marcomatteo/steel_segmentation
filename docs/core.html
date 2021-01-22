@@ -26,21 +26,6 @@ nb_path: "nbs/00_core.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/mmb/miniconda3/envs/env_nbdev/lib/python3.8/site-packages/torch/cuda/__init__.py:52: UserWarning: CUDA initialization: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx (Triggered internally at  /opt/conda/conda-bld/pytorch_1607370172916/work/c10/cuda/CUDAFunctions.cpp:100.)
-  return torch._C._cuda_getDeviceCount() &gt; 0
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -82,7 +67,7 @@ nb_path: "nbs/00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L20" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
+<h4 id="print_competition_data" class="doc_header"><code>print_competition_data</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L22" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>print_competition_data</code>(<strong><code>p</code></strong>:<code>Path</code>=<em><code>Path('data')</code></em>)</p>
 </blockquote>
 
 </div>
@@ -255,7 +240,7 @@ nb_path: "nbs/00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L31" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>only_faulty</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L33" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>only_faulty</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Get training DataFrame with all the images in data/train_images.
 Returns only the faulty images if <code>only_faulty</code>.</p>
@@ -899,35 +884,35 @@ dtype: object</pre>
   <tbody>
     <tr>
       <th>count</th>
-      <td>7096</td>
-      <td>7096.0</td>
-      <td>7096</td>
+      <td>12997</td>
+      <td>12997.0</td>
+      <td>12997.0</td>
       <td>7095</td>
-      <td>7096</td>
+      <td>12997</td>
     </tr>
     <tr>
       <th>unique</th>
-      <td>6667</td>
+      <td>12568</td>
       <td>NaN</td>
-      <td>7096</td>
+      <td>7096.0</td>
       <td>7095</td>
-      <td>3</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>top</th>
       <td>ef24da2ba.jpg</td>
       <td>NaN</td>
-      <td>77270 43 77441 128 77612 12714 90369 128 90625 43 176918 3 177170 7 177422 11 177674 15 177926 20 178180 22 178436 22 178692 22 178948 22 179204 22 179460 23 179716 23 179972 23 180229 22 180485 22 180741 22 180997 23 181253 23 181509 23 181765 23 182021 23 182277 23 182533 23 182789 24 183045 24 183301 24 183557 24 183814 23 184070 23 184326 24 184582 24 184838 24 185094 24 185350 24 185606 24 185866 21 186128 15 186390 9 186652 3 378062 42 378276 84 378532 84 378788 84 379044 84 379300 84 379556 84 379812 84 380068 84 380324 84 380580 84 380836 84 381092 84 381348 84 381604 84 381860 84 ...</td>
-      <td>7f30a2a1e.jpg_3</td>
-      <td>right_only</td>
+      <td>-1.0</td>
+      <td>dd9e0257b.jpg_3</td>
+      <td>faulty</td>
     </tr>
     <tr>
       <th>freq</th>
       <td>3</td>
       <td>NaN</td>
+      <td>5902.0</td>
       <td>1</td>
-      <td>1</td>
-      <td>7090</td>
+      <td>7095</td>
     </tr>
   </tbody>
 </table>
@@ -953,7 +938,7 @@ dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_train_pivot" class="doc_header"><code>get_train_pivot</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_pivot</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_train_pivot" class="doc_header"><code>get_train_pivot</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_pivot</code>(<strong><code>df</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Summarize the training csv with ClassId as columns and values EncodedPixels</p>
 
@@ -1070,7 +1055,7 @@ dtype: object</pre>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
+<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/core.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Get the DataFrame for the multiclass classification model</p>
 
@@ -1149,22 +1134,22 @@ dtype: object</pre>
     </tr>
     <tr>
       <th>1</th>
-      <td>0007a71bf.jpg</td>
-      <td>3</td>
+      <td>00031f466.jpg</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>000a4bcdd.jpg</td>
-      <td>1</td>
+      <td>000418bfc.jpg</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>000f6bf48.jpg</td>
-      <td>4</td>
+      <td>000789191.jpg</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0014fce06.jpg</td>
+      <td>0007a71bf.jpg</td>
       <td>3</td>
     </tr>
   </tbody>
@@ -1209,7 +1194,8 @@ dtype: object</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>3        4759
+<pre>0        5902
+3        4759
 1         769
 4         516
 3 4       284
@@ -1219,7 +1205,6 @@ dtype: object</pre>
 2 3        14
 1 2 3       2
 2 4         1
-0           1
 Name: ClassId_multi, dtype: int64</pre>
 </div>
 
@@ -1277,23 +1262,23 @@ Name: ClassId_multi, dtype: int64</pre>
   <tbody>
     <tr>
       <th>count</th>
-      <td>6667</td>
-      <td>6667</td>
+      <td>12568</td>
+      <td>12568</td>
     </tr>
     <tr>
       <th>unique</th>
-      <td>6667</td>
+      <td>12568</td>
       <td>11</td>
     </tr>
     <tr>
       <th>top</th>
-      <td>5d8c2d90e.jpg</td>
-      <td>3</td>
+      <td>0934b8bff.jpg</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>freq</th>
       <td>1</td>
-      <td>4759</td>
+      <td>5902</td>
     </tr>
   </tbody>
 </table>

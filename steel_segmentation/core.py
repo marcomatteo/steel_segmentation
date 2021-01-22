@@ -4,8 +4,10 @@ __all__ = ['curr_dir_name', 'path', 'print_competition_data', 'train_path', 'tes
            'get_train_df', 'train', 'train_all', 'get_train_pivot', 'get_classification_df', 'train_multi']
 
 # Cell
-from fastai.vision.all import *
-from fastai.metrics import *
+import warnings
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    from fastai.vision.all import *
 import pandas as pd
 import os
 

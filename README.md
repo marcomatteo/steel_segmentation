@@ -58,6 +58,7 @@ git clone https://github.com/fastai/nbdev
 pip install -e nbdev
 git clone https://github.com/marcomatteo/steel_segmentation.git
 cd steel_segmentation
+pip install -e .
 nbdev_install_git_hooks
 jupyter notebook
 ```
@@ -65,20 +66,20 @@ jupyter notebook
 If there's some issues with `nbdev`, try to uninstall with `pip uninstall nbdev` and install again with `pip install nbdev`.
 Now you can edit the Jupyter Notebook files.
 
-To save the new functions or classes from the notebooks to a `.py` module in `steel_segmentation` (only the cells with #exp at the beginning) and create the relative documentation, run:
+To edit the `.py` modules in `steel_segmentation` you need to modify the Jupyter Notebooks inside the `nbs` folder (in the notebooks, only cells starting with #exp will be exported to the modules) and create the relative documentation, run:
 
 ```
 nbdev_build_lib
 nbdev_build_docs
 ```
 
-Hint: for a complete understanding of `nbdev` check this [link](https://nbdev.fast.ai/).
+Hint: this repository is build on `nbdev`. For more infos check the [nbdev repository](https://nbdev.fast.ai/).
 
 NB: I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.
 
 ## How to use
 
-With the `show_defects` function you can easly view the defected images:
+To visualize better the dataset, the `show_defects` function helps you to visualize the defected images.
 
 ```python
 #missing
