@@ -156,9 +156,10 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">im</span> <span class="o">=</span> <span class="n">rle_to_mask</span><span class="p">(</span><span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;EncodedPixels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;ClassId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">im</span> <span class="o">=</span> <span class="n">rle_to_mask</span><span class="p">(</span><span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;EncodedPixels&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                 <span class="n">tmp_df</span><span class="p">[</span><span class="s2">&quot;ClassId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -199,7 +200,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="multi_rle_to_mask" class="doc_header"><code>multi_rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>multi_rle_to_mask</code>()</p>
+<h4 id="multi_rle_to_mask" class="doc_header"><code>multi_rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>multi_rle_to_mask</code>()</p>
 </blockquote>
 <p>Convert all RLE encoded pixels for an image and returns the mask</p>
 
@@ -229,7 +230,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">im</span> <span class="o">=</span> <span class="n">multi_rle_to_mask</span><span class="p">(</span><span class="n">img_path</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -270,7 +271,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="img_with_mask" class="doc_header"><code>img_with_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L66" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_with_mask</code>(<strong><code>img_path</code></strong>:<code>str</code>)</p>
+<h4 id="img_with_mask" class="doc_header"><code>img_with_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_with_mask</code>(<strong><code>img_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>
@@ -423,7 +424,7 @@ Then I created the masks for all the images in the training folder.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_masks" class="doc_header"><code>create_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L72" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_masks</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
+<h4 id="create_masks" class="doc_header"><code>create_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_masks</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
 <p>Create the masks for ImageId in df</p>
 
@@ -475,9 +476,27 @@ Then I created the masks for all the images in the training folder.</p>
 
 <div class="inner_cell">
     <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">ntraining</span> <span class="o">=</span> <span class="n">get_image_files</span><span class="p">(</span><span class="n">train_path</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ntraining</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">masks</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">idx</span> <span class="o">=</span> <span class="n">get_random_idx</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">masks</span><span class="p">))</span>
 <span class="n">im</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">masks</span><span class="p">[</span><span class="n">idx</span><span class="p">[</span><span class="mi">0</span><span class="p">]]))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">im</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -491,8 +510,18 @@ Then I created the masks for all the images in the training folder.</p>
 
 
 
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;matplotlib.image.AxesImage at 0x7fdc94878490&gt;</pre>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,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
 "
 >
 </div>

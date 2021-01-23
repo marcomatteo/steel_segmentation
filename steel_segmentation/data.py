@@ -13,7 +13,7 @@ import pandas as pd
 import numpy as np
 
 # Cell
-def defeat_position(img_id:str, class_id:int, df:pd.DataFrame=train):
+def defeat_position(img_id: str, class_id: int, df: pd.DataFrame = train):
     """
     Get coordinates of defects `(x, y)` given an ImageId and a ClassId
     """
@@ -22,7 +22,8 @@ def defeat_position(img_id:str, class_id:int, df:pd.DataFrame=train):
     cond = (df.ImageId == img_id) & (df.ClassId == class_id)
     train_s = df[cond]
 
-    encoded_pixels = [int(i) for i in train_s.EncodedPixels.values[0].split(" ")]
+    encoded_pixels = [int(i)
+                      for i in train_s.EncodedPixels.values[0].split(" ")]
 
     pixcels = []
     pos_pixels = encoded_pixels[0:len(encoded_pixels):2]
@@ -57,7 +58,7 @@ def get_perm_imgs_path(train_pfiles: L, df: pd.DataFrame) -> L:
     return sel_paths[idx]
 
 # Cell
-def plot_defected_image(img_path:str, df:pd.DataFrame=train):
+def plot_defected_image(img_path: str, df: pd.DataFrame = train):
     """
     Plot image with segmented area
     """
@@ -70,11 +71,13 @@ def plot_defected_image(img_path:str, df:pd.DataFrame=train):
 
     def plot(im, imgid, classids):
         clip_im = np.clip(im, 0, 255)
-        title = "ImageId: {} - ClassId: {}".format(imgid, " ".join(map(str, classids)))
+        title = "ImageId: {} - ClassId: {}".format(
+            imgid, " ".join(map(str, classids)))
 
-        plt.figure(figsize=(25,5))
+        plt.figure(figsize=(25, 5))
         plt.imshow(clip_im)
-        plt.xticks([]);plt.yticks([]);
+        plt.xticks([])
+        plt.yticks([])
         plt.title(title, fontsize=20)
         plt.show()
 
@@ -90,7 +93,7 @@ def plot_defected_image(img_path:str, df:pd.DataFrame=train):
 
         x, y = defeat_position(img_id, classid)
 
-        color(x,y,classid)
+        color(x, y, classid)
 
     plot(im, img_id, classids)
 
@@ -110,9 +113,9 @@ def show_defects(class_id=None, n=20, only_defects=True, multi_defects=False):
     cond_multi_defects = df["ClassId_multi"].map(lambda x: len(x) > 1)
     cond_classId = df["ClassId_multi"].map(lambda x: str(class_id) in x)
 
-    df = df.loc[cond_no_defects]    if not only_defects else df.loc[~cond_no_defects]
-    df = df.loc[cond_multi_defects] if multi_defects    else df.loc[~cond_multi_defects]
-    df = df.loc[cond_classId]       if class_id         else df
+    df = df.loc[cond_no_defects] if not only_defects else df.loc[~cond_no_defects]
+    df = df.loc[cond_multi_defects] if multi_defects else df.loc[~cond_multi_defects]
+    df = df.loc[cond_classId] if class_id else df
 
     imgid_from_df = df["ImageId"].tolist()
     pfiles_list = L([train_path / imgid for imgid in imgid_from_df])

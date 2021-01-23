@@ -15,7 +15,7 @@ with warnings.catch_warnings():
 from fastcore.foundation import *
 
 # Cell
-def get_classification_dls(bs, with_tfms:bool=True, size=None):
+def get_classification_dls(bs, with_tfms: bool = True, size=None):
     """
     Dataloaders from train DataFrame
     """
@@ -23,23 +23,24 @@ def get_classification_dls(bs, with_tfms:bool=True, size=None):
 
     if with_tfms:
         b_tfms += aug_transforms(
-                            size=size if size else (256,1600),
-                            max_warp=0.,
-                            flip_vert=True,
-                            max_rotate=5.,
-                            max_lighting=0.1)
+            size=size if size else (256, 1600),
+            max_warp=0.,
+            flip_vert=True,
+            max_rotate=5.,
+            max_lighting=0.1)
 
     dblock = DataBlock(
-                blocks = (ImageBlock, MultiCategoryBlock()),
-                get_x = ColReader(0, pref=train_path),
-                get_y = ColReader(1, label_delim=' '),
-                splitter = RandomSplitter(valid_pct=0.2, seed=42),
-                batch_tfms = b_tfms)
+        blocks=(ImageBlock, MultiCategoryBlock()),
+        get_x=ColReader(0, pref=train_path),
+        get_y=ColReader(1, label_delim=' '),
+        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        batch_tfms=b_tfms)
 
     return dblock.dataloaders(train_multi, bs=bs)
 
 # Cell
 classes = [0, 1, 2, 3, 4]
+
 
 def get_segmentation_dls(bs, size, with_btfms=True):
     """Dataloaders from `train_path` folder"""
@@ -48,21 +49,21 @@ def get_segmentation_dls(bs, size, with_btfms=True):
 
     if with_btfms:
         b_tfms += aug_transforms(
-                            size=size if size else (256,1600),
-                            max_warp=0.,
-                            flip_vert=True,
-                            max_rotate=5.,
-                            max_lighting=0.1)
+            size=size if size else (256, 1600),
+            max_warp=0.,
+            flip_vert=True,
+            max_rotate=5.,
+            max_lighting=0.1)
 
     def get_labels_from_img(p):
         return labels_dir/f'{p.stem}_P.png'
 
     dblock = DataBlock(
-        blocks = (ImageBlock, MaskBlock(codes=classes)),
-        get_items = get_image_files,
-        get_y = get_labels_from_img,
-        splitter = RandomSplitter(valid_pct=0.2, seed=42),
-        batch_tfms = aug_transforms(size=size, max_warp=0.))
+        blocks=(ImageBlock, MaskBlock(codes=classes)),
+        get_items=get_image_files,
+        get_y=get_labels_from_img,
+        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        batch_tfms=aug_transforms(size=size, max_warp=0.))
 
     return dblock.dataloaders(train_path, bs=bs)
 
@@ -78,10 +79,10 @@ def get_segmentation_dls_from_df(train_df, bs, size):
         return labels_dir / img_name
 
     dblock = DataBlock(
-        blocks = (ImageBlock, MaskBlock(codes=classes)),
-        get_x = get_x,
-        get_y = get_y,
-        splitter = RandomSplitter(valid_pct=0.2, seed=42),
-        batch_tfms = aug_transforms(size=size))
+        blocks=(ImageBlock, MaskBlock(codes=classes)),
+        get_x=get_x,
+        get_y=get_y,
+        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        batch_tfms=aug_transforms(size=size))
 
     return dblock.dataloaders(train_df, bs=bs)

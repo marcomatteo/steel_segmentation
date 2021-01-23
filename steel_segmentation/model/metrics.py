@@ -17,10 +17,12 @@ from fastcore.foundation import *
 # Cell
 class DiceMulti(Metric):
     "Averaged Dice metric (Macro F1) for multiclass target in segmentation"
+
     def __init__(self, axis=1): self.axis = axis
-    def reset(self): self.inter,self.union = {},{}
+    def reset(self): self.inter, self.union = {}, {}
+
     def accumulate(self, learn):
-        pred,targ = flatten_check(learn.pred.argmax(dim=self.axis), learn.y)
+        pred, targ = flatten_check(learn.pred.argmax(dim=self.axis), learn.y)
         for c in range(learn.pred.shape[self.axis]):
             p = torch.where(pred == c, 1, 0)
             t = torch.where(targ == c, 1, 0)
@@ -33,31 +35,35 @@ class DiceMulti(Metric):
             else:
                 self.inter[c] = c_inter
                 self.union[c] = c_union
+
     @property
     def value(self):
         binary_dice_scores = np.array([])
         for c in self.inter:
-            binary_dice_scores = np.append(binary_dice_scores, 2.*self.inter[c]/self.union[c] if self.union[c] > 0 else np.nan)
+            binary_dice_scores = np.append(
+                binary_dice_scores, 2.*self.inter[c]/self.union[c] if self.union[c] > 0 else np.nan)
         return np.nanmean(binary_dice_scores)
 
 # Cell
-def dice_kaggle(input:Tensor, targs:Tensor, iou:bool=False, eps:float=1e-8):
+def dice_kaggle(input: Tensor, targs: Tensor, iou: bool = False, eps: float = 1e-8):
     """From https://www.kaggle.com/iafoss/severstal-fast-ai-256x256-crops"""
-    n,c = targs.shape[0], input.shape[1]
-    input = input.argmax(dim=1).view(n,-1)
-    targs = targs.view(n,-1)
+    n, c = targs.shape[0], input.shape[1]
+    input = input.argmax(dim=1).view(n, -1)
+    targs = targs.view(n, -1)
 
-    intersect,union = [],[]
-    for i in range(1,c):
+    intersect, union = [], []
+    for i in range(1, c):
         inp, trgs = TensorBase(input), TensorBase(targs)
-        intersect.append(((inp==i) & (trgs==i)).sum(-1).float())
-        union.append(((inp==i).sum(-1) + (trgs==i).sum(-1)).float())
+        intersect.append(((inp == i) & (trgs == i)).sum(-1).float())
+        union.append(((inp == i).sum(-1) + (trgs == i).sum(-1)).float())
 
     intersect = torch.stack(intersect)
     union = torch.stack(union)
 
-    if not iou: return ((2.0*intersect + eps) / (union+eps)).mean()
-    else: return ((intersect + eps) / (union - intersect + eps)).mean()
+    if not iou:
+        return ((2.0*intersect + eps) / (union+eps)).mean()
+    else:
+        return ((intersect + eps) / (union - intersect + eps)).mean()
 
 # Cell
 def metric(probability, truth, threshold=0.5, reduction='none'):

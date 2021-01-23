@@ -15,7 +15,7 @@ import pandas as pd
 import numpy as np
 
 # Cell
-def rle_to_mask(rle:str, class_id:int, height:int, width:int) -> np.ndarray:
+def rle_to_mask(rle: str, class_id: int, height: int, width: int) -> np.ndarray:
     """
     Convert RLE encoded pixels to numpy array for only one class_id
     """
@@ -27,17 +27,18 @@ def rle_to_mask(rle:str, class_id:int, height:int, width:int) -> np.ndarray:
 
     encoded_pixels = [int(i) for i in rle.split(" ")]
 
-    rle_pairs = np.array(encoded_pixels).reshape(-1, 2) # (n, 2) as [[pos, offs], ... ]
+    # (n, 2) as [[pos, offs], ... ]
+    rle_pairs = np.array(encoded_pixels).reshape(-1, 2)
 
     for index, length in rle_pairs:
         index -= 1
-        mask[index : (index + length)] = class_id
+        mask[index: (index + length)] = class_id
 
     mask = mask.reshape(cols, rows)
     return mask.T
 
 # Cell
-def multi_rle_to_mask(img_path:str, df:pd.DataFrame=train_all) -> np.ndarray:
+def multi_rle_to_mask(img_path: str, df: pd.DataFrame = train_all) -> np.ndarray:
     """
     Convert all RLE encoded pixels for an image and returns the mask
     """
@@ -46,7 +47,8 @@ def multi_rle_to_mask(img_path:str, df:pd.DataFrame=train_all) -> np.ndarray:
     def build_mask(df) -> np.ndarray:
         masks = defaultdict(np.ndarray)
         for num, row in enumerate(df.itertuples()):
-            masks[num] = rle_to_mask(row.EncodedPixels, row.ClassId, height, width)
+            masks[num] = rle_to_mask(
+                row.EncodedPixels, row.ClassId, height, width)
 
         mask = masks.pop(0)
 
@@ -63,11 +65,12 @@ def multi_rle_to_mask(img_path:str, df:pd.DataFrame=train_all) -> np.ndarray:
     return build_mask(img_df)
 
 # Cell
-def img_with_mask(img_path:str):
+def img_with_mask(img_path: str):
     return np.array(Image.open(img_path)), multi_rle_to_mask(img_path)
 
 # Cell
 labels_dir = path / "labels"
+
 
 def create_masks(df: pd.DataFrame):
     """Create the masks for ImageId in df"""

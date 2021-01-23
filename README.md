@@ -2,43 +2,13 @@
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
-This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition (ended in November 2019) by the Living Lab Research team of [IP4FVG](https://www.ip4fvg.it/), the Digital Innovation Hub of Friuli Venezia Giulia.
+This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition (ended in November 2019).
+
+I used `pytorch` ([Pytorch website](https://pytorch.org/get-started/locally/)) and `fastai` ([FastAI docs](https://docs.fast.ai/#Installing)) as Deep Learning Framework to this project.
 
 ## Install
 
-To install this package you need to fullfill the following requirements.
-
-1. make sure to install properly the `pytorch` ([pytorch installation](https://pytorch.org/get-started/locally/)) and `fastai` ([fastai installation](https://docs.fast.ai/#Installing)) packages.
-
-2. download the data from Kaggle. If this is the first time with the API, you'll need a [Kaggle](https://www.kaggle.com/) account. Then follow this [link](https://github.com/Kaggle/kaggle-api) to understand how to download the credentials in the repository directory `kaggle.json` file.
-
-3. run the following cell code (if is not already done)
-
-```python
-!mkdir ~/.kaggle
-```
-
-```python
-!cp ../kaggle.json ~/.kaggle/kaggle.json
-```
-
-Now you're ready to install the Kaggle API with:
-
-```python
-!pip install kaggle
-```
-
-And then the download and unzip the data with:
-
-```python
-!kaggle competitions download -c severstal-steel-defect-detection -p {path}
-```
-
-```python
-!unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
-```
-
-Finally you can install the package with:
+To install this package you only need to clone the repository and install via pip:
 
 ```
 git clone https://github.com/marcomatteo/steel_segmentation.git
@@ -77,6 +47,43 @@ Hint: this repository is build on `nbdev`. For more infos check the [nbdev repos
 
 NB: I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.
 
+## Requirements
+
+You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is the first time with the API, follow this [link](https://github.com/Kaggle/kaggle-api) and download the credentials.
+
+Copy the `kaggle.json` file in the repository directory.
+
+```python
+!mkdir ~/.kaggle
+```
+
+```python
+!cp ../kaggle.json ~/.kaggle/kaggle.json
+```
+
+Now you're ready to install the Kaggle API with:
+
+```python
+!pip install kaggle
+```
+
+And then the download and unzip the data with:
+
+```python
+!kaggle competitions download -c severstal-steel-defect-detection -p {path}
+```
+
+```python
+!unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
+```
+
+Finally you can install the package with:
+
+```
+git clone https://github.com/marcomatteo/steel_segmentation.git
+pip install -e steel_segmentation
+```
+
 ## How to use
 
 To visualize better the dataset, the `show_defects` function helps you to visualize the defected images.
@@ -87,21 +94,21 @@ show_defects(n=5, multi_defects=True)
 ```
 
 
-![png](docs/images/output_16_0.png)
+![png](docs/images/output_18_0.png)
 
 
 
-![png](docs/images/output_16_1.png)
+![png](docs/images/output_18_1.png)
 
 
 
-![png](docs/images/output_16_2.png)
+![png](docs/images/output_18_2.png)
 
 
 
-![png](docs/images/output_16_3.png)
+![png](docs/images/output_18_3.png)
 
 
 
-![png](docs/images/output_16_4.png)
+![png](docs/images/output_18_4.png)
 

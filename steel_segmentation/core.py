@@ -19,15 +19,15 @@ if not path.is_dir():
     path.mkdir(parents=True, exist_ok=True)
 
 # Cell
-def print_competition_data(p:Path = path):
+def print_competition_data(p: Path = path):
     for elem in p.ls():
         print(elem)
 
 # Cell
 train_path = path/"train_images"
-test_path  = path/"test_images"
+test_path = path/"test_images"
 train_pfiles = get_image_files(train_path)
-test_pfiles  = get_image_files(test_path)
+test_pfiles = get_image_files(test_path)
 
 # Cell
 def get_train_df(only_faulty=False):
@@ -36,16 +36,20 @@ def get_train_df(only_faulty=False):
     Returns only the faulty images if `only_faulty`.
     """
     train = pd.read_csv(path/"train.csv")
-    train["ImageId_ClassId"] = train["ImageId"] + "_" + train["ClassId"].astype('str')
-    if only_faulty: return train
+    train["ImageId_ClassId"] = train["ImageId"] + \
+        "_" + train["ClassId"].astype('str')
+    if only_faulty:
+        return train
 
-    img_names = [ img_path.name for img_path in train_pfiles ]
+    img_names = [img_path.name for img_path in train_pfiles]
     df_all = pd.DataFrame({'ImageId': img_names})
-    train_all = pd.merge(df_all, train, on="ImageId", how="outer", indicator=True)
+    train_all = pd.merge(df_all, train, on="ImageId",
+                         how="outer", indicator=True)
     # Renaming and fillna
     train_all.rename(columns={'_merge': 'status'}, inplace=True)
     rename_dict = {"both": "faulty", "left_only": "no_faulty"}
-    train_all["status"] = train_all["status"].cat.rename_categories(rename_dict)
+    train_all["status"] = train_all["status"].cat.rename_categories(
+        rename_dict)
     train_all.ClassId.fillna(0, inplace=True)
     train_all.ClassId = train_all.ClassId.astype('int64')
     train_all.EncodedPixels.fillna(-1, inplace=True)
@@ -63,13 +67,15 @@ def get_train_pivot(df=None):
     """
     Summarize the training csv with ClassId as columns and values EncodedPixels
     """
-    if not df: df = train
-    train_pivot = df.pivot(index="ImageId", columns="ClassId", values="EncodedPixels")
+    if not df:
+        df = train
+    train_pivot = df.pivot(
+        index="ImageId", columns="ClassId", values="EncodedPixels")
     train_pivot["n"] = train_pivot.notnull().sum(1)
     return train_pivot
 
 # Cell
-def get_classification_df(df:pd.DataFrame=None):
+def get_classification_df(df: pd.DataFrame = None):
     """
     Get the DataFrame for the multiclass classification model
     """
@@ -81,15 +87,19 @@ def get_classification_df(df:pd.DataFrame=None):
 
         cols = [fill_cols(x[i]) for i in range(5)]
         cols = [col.replace('5', '') for col in cols]
-        ClassId_multi = cols[0] + " " + cols[1] + " " + cols[2] + " " + cols[3] + " " + cols[4]
+        ClassId_multi = cols[0] + " " + cols[1] + " " + \
+            cols[2] + " " + cols[3] + " " + cols[4]
         ClassId_multi = ClassId_multi.str.strip()
         ClassId_multi = ClassId_multi.str.replace('  ', ' ')
 
         return ClassId_multi.str.strip()
 
-    if not df: df = train_all
-    train_multi = df.pivot(index="ImageId", columns="ClassId", values="ClassId")
-    train_multi = train_multi.assign(ClassId_multi = lambda x: assign_multi_ClassId(x))
+    if not df:
+        df = train_all
+    train_multi = df.pivot(
+        index="ImageId", columns="ClassId", values="ClassId")
+    train_multi = train_multi.assign(
+        ClassId_multi=lambda x: assign_multi_ClassId(x))
     return train_multi.reset_index()[["ImageId", "ClassId_multi"]]
 
 # Cell
