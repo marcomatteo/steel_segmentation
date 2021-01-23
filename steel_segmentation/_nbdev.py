@@ -32,18 +32,18 @@ index = {"curr_dir_name": "00_core.ipynb",
          "DiceMulti": "04_model.metrics.ipynb",
          "dice_kaggle": "04_model.metrics.ipynb",
          "metric": "04_model.metrics.ipynb",
-         "models_dir": "05_models.module.ipynb",
-         "class_metrics": "05_models.module.ipynb",
-         "get_classifier_learner": "05_models.module.ipynb",
-         "seg_metrics": "05_models.module.ipynb",
-         "get_segmentation_learner": "05_models.module.ipynb"}
+         "models_dir": "05_models.model.ipynb",
+         "class_metrics": "05_models.model.ipynb",
+         "get_classifier_learner": "05_models.model.ipynb",
+         "seg_metrics": "05_models.model.ipynb",
+         "get_segmentation_learner": "05_models.model.ipynb"}
 
 modules = ["core.py",
            "data.py",
            "preprocessing.py",
            "models/dls.py",
            "models/metrics.py",
-           "models/module.py"]
+           "models/model.py"]
 
 doc_url = "https://marcomatteo.github.io/steel_segmentation/"
 
