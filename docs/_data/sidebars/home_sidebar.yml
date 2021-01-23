@@ -25,7 +25,7 @@ entries:
       title: Metrics
       url: model.metrics.html
     - output: web,pdf
-      title: Module
+      title: Models
       url: models.module.html
     output: web
     title: steel_segmentation

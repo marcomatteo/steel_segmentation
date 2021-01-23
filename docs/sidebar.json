@@ -6,6 +6,6 @@
     "Preprocessing": "preprocessing.html",
     "DataLoaders": "models.dls.html",
     "Metrics": "model.metrics.html",
-    "Module": "models.module.html"
+    "Models": "models.module.html"
   }
 }
