@@ -39,7 +39,7 @@ seg_metrics = [DiceMulti(), dice_kaggle]
 
 # Cell
 def get_segmentation_learner(bs: int, szs, arch=resnet18, metrics=seg_metrics, toload: str = None):
-    dls = get_segmentation_dls(bs, szs)
+    dls = get_segmentation_dls_from_df(train_multi, bs, szs)
     segmentation_learner = unet_learner(
         dls=dls, arch=arch, metrics=metrics, pretrained=True)
     if toload and toload.endswith('.pt'):
