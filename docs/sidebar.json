@@ -4,7 +4,7 @@
     "Core": "core.html",
     "Data": "data.html",
     "Preprocessing": "preprocessing.html",
-    "Fastai": "models.dls.html",
+    "DataLoaders": "models.dls.html",
     "Metrics": "model.metrics.html",
     "Module": "models.module.html"
   }

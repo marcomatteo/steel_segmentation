@@ -19,7 +19,7 @@ entries:
       title: Preprocessing
       url: preprocessing.html
     - output: web,pdf
-      title: Fastai
+      title: DataLoaders
       url: models.dls.html
     - output: web,pdf
       title: Metrics
