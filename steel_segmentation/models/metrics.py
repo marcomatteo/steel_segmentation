@@ -6,6 +6,7 @@ __all__ = ['DiceMulti', 'dice_kaggle', 'metric']
 from ..core import *
 from ..data import *
 from ..preprocessing import *
+from .dls import *
 
 import warnings
 with warnings.catch_warnings():

@@ -20,10 +20,13 @@ entries:
       url: preprocessing.html
     - output: web,pdf
       title: Fastai
-      url: model.fastai.html
+      url: models.dls.html
     - output: web,pdf
       title: Metrics
       url: model.metrics.html
+    - output: web,pdf
+      title: Module
+      url: models.module.html
     output: web
     title: steel_segmentation
   output: web

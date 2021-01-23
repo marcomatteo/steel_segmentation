@@ -4,7 +4,8 @@
     "Core": "core.html",
     "Data": "data.html",
     "Preprocessing": "preprocessing.html",
-    "Fastai": "model.fastai.html",
-    "Metrics": "model.metrics.html"
+    "Fastai": "models.dls.html",
+    "Metrics": "model.metrics.html",
+    "Module": "models.module.html"
   }
 }
