@@ -30,7 +30,9 @@ def get_classifier_learner(bs:int, arch=resnet18, metrics=class_metrics, toload:
     learner = cnn_learner(dls=dls, arch=arch, metrics=metrics, pretrained=True)
 
     if toload and toload.endswith(".pth"):
-        return learner.load(models_dir/toload)
+        learner.model_dir = models_dir
+        toload = toload.split(".")[0]
+        return learner.load(toload)
 
     return learner
 
