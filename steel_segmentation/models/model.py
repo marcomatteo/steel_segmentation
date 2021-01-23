@@ -17,7 +17,7 @@ with warnings.catch_warnings():
 from fastcore.foundation import *
 
 # Cell
-models_dir = path / "models"
+models_dir = path.parent / "models"
 
 # Cell
 class_metrics = [accuracy_multi, PrecisionMulti(), RecallMulti()]
