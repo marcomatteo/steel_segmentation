@@ -47,7 +47,7 @@ class DiceMulti(Metric):
 
 # Cell
 def dice_kaggle(input: Tensor, targs: Tensor, iou: bool = False, eps: float = 1e-8):
-    """From https://www.kaggle.com/iafoss/severstal-fast-ai-256x256-crops"""
+    """From [kaggle](https://www.kaggle.com/iafoss/severstal-fast-ai-256x256-crops)"""
     n, c = targs.shape[0], input.shape[1]
     input = input.argmax(dim=1).view(n, -1)
     targs = targs.view(n, -1)

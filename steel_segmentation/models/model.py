@@ -54,17 +54,21 @@ torch.backends.cudnn.deterministic = True
 class Trainer:
     '''This class takes care of training and validation of our model'''
 
-    def __init__(self, model):
-        self.num_workers = 6
-        self.batch_size = {"train": 16, "val": 8}
+    def __init__(self, model, save_path,
+                 num_epochs=20, lr=5e-4,
+                 bs=16, num_workers=6):
+        self.num_workers = num_workers
+        self.batch_size = {"train": bs, "val": bs//2}
         self.accumulation_steps = 32 // self.batch_size['train']
-        self.lr = 5e-4
-        self.num_epochs = 20
+        self.lr = lr
+        self.num_epochs = num_epochs
+        self.net = model
+        self.save_path = save_path
+
         self.best_loss = float("inf")
         self.phases = ["train", "val"]
         self.device = torch.device("cuda:0")
         torch.set_default_tensor_type("torch.cuda.FloatTensor")
-        self.net = model
         self.loss_fn = torch.nn.BCEWithLogitsLoss()
         self.optimizer = optim.Adam(self.net.parameters(), lr=self.lr)
         self.scheduler = ReduceLROnPlateau(self.optimizer, mode="min", patience=3, verbose=True)
@@ -72,9 +76,8 @@ class Trainer:
         cudnn.benchmark = True
 
         self.dataloaders = {
-            phase: provider(
-                data_folder=data_folder,
-                df_path=train_df_path,
+            phase: kaggle_provider(
+                data_folder=path,
                 phase=phase,
                 mean=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),
@@ -162,5 +165,5 @@ class Trainer:
             if val_loss < self.best_loss:
                 print("******** New optimal found, saving state ********")
                 state["best_loss"] = self.best_loss = val_loss
-                torch.save(state, "./models/kaggle_model.pth")
+                torch.save(state, self.save_path)
             print()

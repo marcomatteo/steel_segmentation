@@ -42,7 +42,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 <p>To get a <code>DataLoaders</code> object for training FastAI models, the <code>get_dls</code> functions will:</p>
 <ul>
 <li>load the training images</li>
-<li>load the corrisponding labels (saved in <a href="/steel_segmentation/preprocessing.html#labels_dir"><code>labels_dir</code></a> by the <a href="/steel_segmentation/preprocessing.html"><code>preprocessing</code></a> module with the <code>create_mask</code> function)</li>
+<li>load the corrisponding labels (saved in <a href="/steel_segmentation/preprocessing.html#labels_dir"><code>labels_dir</code></a> by the <code>preprocessing</code> module with the <code>create_mask</code> function)</li>
 <li>pair the images with labels with a <code>Dataset</code></li>
 <li>split the dataset into training and validation and pair them with a <code>Datasets</code> object.</li>
 <li>for each dataset, create a <code>DataLoader</code> with a batch size and pair them with a <code>DataLoaders</code> object.</li>
@@ -100,11 +100,18 @@ nb_path: "nbs/03_models.dls.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <a href="/steel_segmentation/models.dls.html#get_classification_dls"><code>get_classification_dls</code></a> function elaborates the training and validation examples (with hard negatives) from the <a href="/steel_segmentation/core.html#train_multi"><code>train_multi</code></a> DataFrame built in the <a href="/steel_segmentation/core.html"><code>core</code></a> module.</p>
+<p>The <a href="/steel_segmentation/models.dls.html#get_classification_dls"><code>get_classification_dls</code></a> function elaborates the training and validation examples (with hard negatives) from the <a href="/steel_segmentation/core.html#train_multi"><code>train_multi</code></a> DataFrame built in the <code>core</code> module.</p>
 
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -126,13 +133,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -276,6 +276,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -293,13 +300,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -327,6 +327,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -344,13 +351,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -538,6 +538,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -596,13 +603,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -680,6 +680,13 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -697,13 +704,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
