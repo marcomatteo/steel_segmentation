@@ -46,13 +46,6 @@ nb_path: "nbs/04_model.metrics.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -106,12 +99,44 @@ nb_path: "nbs/04_model.metrics.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Kaggle-metrics">Kaggle metrics<a class="anchor-link" href="#Kaggle-metrics"> </a></h2>
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
+</blockquote>
+<p>computes IoU for one ground truth mask and predicted mask</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -130,9 +155,9 @@ nb_path: "nbs/04_model.metrics.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
+<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L87" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
-<p>Calculates dice of positive and negative images seperately</p>
+<p>computes mean iou for a batch of ground truth masks and predicted masks</p>
 
 </div>
 
@@ -140,6 +165,171 @@ nb_path: "nbs/04_model.metrics.ipynb"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
+</blockquote>
+<p>Calculates dice of positive and negative images seperately
+<code>probability</code> and <code>truth</code> must be <code>torch.Tensors</code>.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
+</blockquote>
+<p>X is sigmoid output of the model</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L137" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
+</blockquote>
+<p>A meter to keep track of iou and dice scores throughout an epoch</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L159" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
+</blockquote>
+<p>Calc the mean of dices metrics (dice, dice_neg, dice_pos)
+and IoU mean.</p>
+<p>Returns:
+    <code>dices</code> as list of means <code>[dice, dice_neg, dice_pos]</code>,
+    <code>iou</code> as mean of IoUs</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/metrics.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
+</blockquote>
+<p>logging the metrics at the end of an epoch</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}

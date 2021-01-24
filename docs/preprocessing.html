@@ -40,7 +40,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>To build a segmentation DataLoader we need:</p>
 <ol>
-<li><p><a href="#Masks-from-RLE">Masks from RLE</a>: functions to convert RLE encoded pixels to masks</p>
+<li><p><a href="#RLE-utilities">RLE utilities</a>: functions to convert RLE encoded pixels to masks</p>
 </li>
 <li><p><a href="#Codes">Codes</a>: the type of pixels in the images</p>
 </li>
@@ -53,13 +53,13 @@ nb_path: "nbs/02_preprocessing.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Masks-from-RLE">Masks from RLE<a class="anchor-link" href="#Masks-from-RLE"> </a></h2>
+<h2 id="RLE-utilities">RLE utilities<a class="anchor-link" href="#RLE-utilities"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As for the <code>data</code> module, I first select an image to test the functions.</p>
+<p>As for the <a href="/steel_segmentation/data.html"><code>data</code></a> module, I first select an image to test the functions.</p>
 
 </div>
 </div>
@@ -121,13 +121,6 @@ nb_path: "nbs/02_preprocessing.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -135,7 +128,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="rle_to_mask" class="doc_header"><code>rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L18" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rle_to_mask</code>(<strong><code>rle</code></strong>:<code>str</code>, <strong><code>class_id</code></strong>:<code>int</code>, <strong><code>height</code></strong>:<code>int</code>, <strong><code>width</code></strong>:<code>int</code>)</p>
+<h4 id="rle_to_mask" class="doc_header"><code>rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L19" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rle_to_mask</code>(<strong><code>rle</code></strong>:<code>str</code>, <strong><code>class_id</code></strong>:<code>int</code>, <strong><code>height</code></strong>:<code>int</code>, <strong><code>width</code></strong>:<code>int</code>)</p>
 </blockquote>
 <p>Convert RLE encoded pixels to numpy array for only one class_id</p>
 
@@ -145,6 +138,13 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -193,13 +193,6 @@ nb_path: "nbs/02_preprocessing.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -207,7 +200,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="multi_rle_to_mask" class="doc_header"><code>multi_rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L41" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>multi_rle_to_mask</code>()</p>
+<h4 id="multi_rle_to_mask" class="doc_header"><code>multi_rle_to_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L42" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>multi_rle_to_mask</code>()</p>
 </blockquote>
 <p>Convert all RLE encoded pixels for an image and returns the mask</p>
 
@@ -217,6 +210,13 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -264,13 +264,6 @@ nb_path: "nbs/02_preprocessing.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -278,7 +271,7 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="img_with_mask" class="doc_header"><code>img_with_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L68" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_with_mask</code>(<strong><code>img_path</code></strong>:<code>str</code>)</p>
+<h4 id="img_with_mask" class="doc_header"><code>img_with_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>img_with_mask</code>(<strong><code>img_path</code></strong>:<code>str</code>)</p>
 </blockquote>
 
 </div>
@@ -287,6 +280,13 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -319,6 +319,121 @@ nb_path: "nbs/02_preprocessing.ipynb"
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="From-Kaggle-notebook">From Kaggle notebook<a class="anchor-link" href="#From-Kaggle-notebook"> </a></h3>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="mask2rle" class="doc_header"><code>mask2rle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L73" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mask2rle</code>(<strong><code>img</code></strong>)</p>
+</blockquote>
+<p>From #<a href="https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode">https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode</a></p>
+<p>Attributes: <code>img</code>: numpy array, 1 -&gt; mask, 0 -&gt; background.</p>
+<p>Returns: run length as string formated</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="make_mask" class="doc_header"><code>make_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L88" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_mask</code>()</p>
+</blockquote>
+<p>Given a row index, return image_id and mask (256, 1600, 4)
+from the dataframe <code>df</code></p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">row_id</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">imgid</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">make_mask</span><span class="p">(</span><span class="n">row_id</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>df</code> is the original <a href="/steel_segmentation/core.html#train"><code>train</code></a> DataFrame. The Kaggle functions have a binary mask instead of multi-class masks used in fastai.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">1600</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -417,13 +532,6 @@ Then I created the masks for all the images in the training folder.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -431,7 +539,7 @@ Then I created the masks for all the images in the training folder.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="create_masks" class="doc_header"><code>create_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L75" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_masks</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
+<h4 id="create_masks" class="doc_header"><code>create_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/preprocessing.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>create_masks</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
 <p>Create the masks for ImageId in df</p>
 
@@ -441,6 +549,13 @@ Then I created the masks for all the images in the training folder.</p>
 
 </div>
 </div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
