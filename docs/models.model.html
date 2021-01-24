@@ -61,6 +61,13 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the Paperspace Gradient machine I stored these models:</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -122,38 +129,13 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_classifier_learner" class="doc_header"><code>get_classifier_learner</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L26" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classifier_learner</code>(<strong><code>bs</code></strong>:<code>int</code>, <strong><code>arch</code></strong>=<em><code>resnet18</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;function accuracy_multi at 0x7f1738170820&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f1796115340&gt;, &lt;fastai.metrics.AccumMetric object at 0x7f1796115490&gt;]</code></em>, <strong><code>toload</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Get a classification <code>Learner</code></p>
-
-</div>
-
-</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These lines of code allow me to create a classification <code>Learner</code>.</p>
 
 </div>
 </div>
-
 </div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -162,7 +144,10 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bs</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">class_learner</span> <span class="o">=</span> <span class="n">get_classifier_learner</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
+
+<span class="n">dls</span> <span class="o">=</span> <span class="n">get_classification_dls</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
+<span class="n">arch</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">resnet18</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">class_learner</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span><span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">arch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">class_metrics</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -195,6 +180,13 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>These lines of code allow me to create a segmentation <code>Learner</code>.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -204,9 +196,93 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bs</span> <span class="o">=</span> <span class="mi">4</span> 
 <span class="n">szs</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
+
+<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmentation_dls_from_df</span><span class="p">(</span><span class="n">train_multi</span><span class="p">,</span> <span class="n">bs</span><span class="p">,</span> <span class="n">szs</span><span class="p">)</span>
+<span class="n">segmentation_learner</span> <span class="o">=</span> <span class="n">unet_learner</span><span class="p">(</span>
+        <span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">resnet18</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">seg_metrics</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To load a custom head in a Unet model:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoder_path</span> <span class="o">=</span> <span class="n">models_dir</span> <span class="o">/</span> <span class="s2">&quot;ResNet18-2_class.pt&quot;</span>
+<span class="n">segmentation_learner</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">encoder_path</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kaggle-kernels">Kaggle kernels<a class="anchor-link" href="#Kaggle-kernels"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The code in this project is not only FastAi. I based an alternative solution based on this <a href="https://www.kaggle.com/rishabhiitbhu/unet-starter-kernel-pytorch-lb-0-88">kernel</a>. 
+In this notebook I will go through each part of the model from that kernel.</p>
+<p>Starting from the Unet architecture from the <a href="https://github.com/qubvel/segmentation_models.pytorch">segmentation_models.pytorch</a> repository.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="preprocess_input" class="doc_header"><code>preprocess_input</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>preprocess_input</code>(<strong><code>x</code></strong>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>, <strong><code>input_space</code></strong>=<em><code>'RGB'</code></em>, <strong><code>input_range</code></strong>=<em><code>None</code></em>, <strong>**<code>kwargs</code></strong>)</p>
+</blockquote>
+<p>Preprocessing the <code>x</code> inputs with normalization.</p>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -231,7 +307,307 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_segmentation_learner" class="doc_header"><code>get_segmentation_learner</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L43" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_segmentation_learner</code>(<strong><code>bs</code></strong>:<code>int</code>, <strong><code>szs</code></strong>, <strong><code>arch</code></strong>=<em><code>resnet18</code></em>, <strong><code>metrics</code></strong>=<em><code>[&lt;fastai.metrics.DiceMulti object at 0x7f1796115460&gt;, &lt;function dice_kaggle at 0x7f1737814e50&gt;]</code></em>, <strong><code>toload</code></strong>:<code>str</code>=<em><code>None</code></em>)</p>
+<h2 id="Model" class="doc_header"><code>class</code> <code>Model</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L63" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Model</code>() :: <code>Module</code></p>
+</blockquote>
+<p>Custom <code>nn.Module</code> class with <code>kaiming_normal_</code> initialization</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Conv2dReLU" class="doc_header"><code>class</code> <code>Conv2dReLU</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L77" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Conv2dReLU</code>(<strong><code>in_channels</code></strong>, <strong><code>out_channels</code></strong>, <strong><code>kernel_size</code></strong>, <strong><code>padding</code></strong>=<em><code>0</code></em>, <strong><code>stride</code></strong>=<em><code>1</code></em>, <strong><code>use_batchnorm</code></strong>=<em><code>True</code></em>, <strong>**<code>batchnorm_params</code></strong>) :: <code>Module</code></p>
+</blockquote>
+<p>Conv-(BatchNorm)-Relu block</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="EncoderDecoder" class="doc_header"><code>class</code> <code>EncoderDecoder</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L99" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>EncoderDecoder</code>(<strong><code>encoder</code></strong>, <strong><code>decoder</code></strong>, <strong><code>activation</code></strong>) :: <a href="/steel_segmentation/models.model.html#Model"><code>Model</code></a></p>
+</blockquote>
+<p>Custom <code>nn.Module</code> class with <code>kaiming_normal_</code> initialization</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="DecoderBlock" class="doc_header"><code>class</code> <code>DecoderBlock</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L143" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DecoderBlock</code>(<strong><code>in_channels</code></strong>, <strong><code>out_channels</code></strong>, <strong><code>use_batchnorm</code></strong>=<em><code>True</code></em>) :: <code>Module</code></p>
+</blockquote>
+<p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<p>:ivar training: Boolean represents whether this module is in training or
+                evaluation mode.
+:vartype training: bool</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="CenterBlock" class="doc_header"><code>class</code> <code>CenterBlock</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L160" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>CenterBlock</code>(<strong><code>in_channels</code></strong>, <strong><code>out_channels</code></strong>, <strong><code>use_batchnorm</code></strong>=<em><code>True</code></em>) :: <a href="/steel_segmentation/models.model.html#DecoderBlock"><code>DecoderBlock</code></a></p>
+</blockquote>
+<p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<p>:ivar training: Boolean represents whether this module is in training or
+                evaluation mode.
+:vartype training: bool</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="UnetDecoder" class="doc_header"><code>class</code> <code>UnetDecoder</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L166" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>UnetDecoder</code>(<strong><code>encoder_channels</code></strong>, <strong><code>decoder_channels</code></strong>=<em><code>(256, 128, 64, 32, 16)</code></em>, <strong><code>final_channels</code></strong>=<em><code>1</code></em>, <strong><code>use_batchnorm</code></strong>=<em><code>True</code></em>, <strong><code>center</code></strong>=<em><code>False</code></em>) :: <a href="/steel_segmentation/models.model.html#Model"><code>Model</code></a></p>
+</blockquote>
+<p>Custom <code>nn.Module</code> class with <code>kaiming_normal_</code> initialization</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="ResNetEncoder" class="doc_header"><code>class</code> <code>ResNetEncoder</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L223" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ResNetEncoder</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>) :: <code>ResNet</code></p>
+</blockquote>
+<p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<p>:ivar training: Boolean represents whether this module is in training or
+                evaluation mode.
+:vartype training: bool</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_encoder" class="doc_header"><code>get_encoder</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L306" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_encoder</code>(<strong><code>name</code></strong>, <strong><code>encoder_weights</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -247,14 +623,92 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seg_learn</span> <span class="o">=</span> <span class="n">get_segmentation_learner</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">szs</span><span class="p">)</span>
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
 
-    </div>
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_encoder_names" class="doc_header"><code>get_encoder_names</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L317" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_encoder_names</code>()</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="get_preprocessing_fn" class="doc_header"><code>get_preprocessing_fn</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_preprocessing_fn</code>(<strong><code>encoder_name</code></strong>, <strong><code>pretrained</code></strong>=<em><code>'imagenet'</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="Unet" class="doc_header"><code>class</code> <code>Unet</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L334" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Unet</code>(<strong><code>encoder_name</code></strong>=<em><code>'resnet34'</code></em>, <strong><code>encoder_weights</code></strong>=<em><code>'imagenet'</code></em>, <strong><code>decoder_use_batchnorm</code></strong>=<em><code>True</code></em>, <strong><code>decoder_channels</code></strong>=<em><code>(256, 128, 64, 32, 16)</code></em>, <strong><code>classes</code></strong>=<em><code>1</code></em>, <strong><code>activation</code></strong>=<em><code>'sigmoid'</code></em>, <strong><code>center</code></strong>=<em><code>False</code></em>) :: <a href="/steel_segmentation/models.model.html#EncoderDecoder"><code>EncoderDecoder</code></a></p>
+</blockquote>
+<p>Unet_ is a fully convolution neural network for image semantic segmentation</p>
+<p>Args:
+    encoder_name: name of classification model (without last dense layers) used as feature
+        extractor to build segmentation model.
+    encoder_weights: one of <code>None</code> (random initialization), <code>imagenet</code> (pre-training on ImageNet).
+    decoder_channels: list of numbers of <code>Conv2D</code> layer filters in decoder blocks
+    decoder_use_batchnorm: if <code>True</code>, <code>BatchNormalisation</code> layer between <code>Conv2D</code> and <code>Activation</code> layers
+        is used.
+    classes: a number of classes for output (output shape - <code>(batch, classes, h, w)</code>).
+    activation: activation function used in <code>.predict(x)</code> method for inference.
+        One of [<code>sigmoid</code>, <code>softmax</code>, callable, None]
+    center: if <code>True</code> add <code>Conv2dReLU</code> block on encoder head (useful for VGG models)</p>
+<p>Returns:
+    <code>torch.nn.Module</code>: <strong>Unet</strong></p>
+<p>.. _Unet:
+    <a href="https://arxiv.org/pdf/1505.04597">https://arxiv.org/pdf/1505.04597</a></p>
+
+</div>
+
+</div>
+
 </div>
 </div>
 
