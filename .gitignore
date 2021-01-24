@@ -172,6 +172,7 @@ kaggle.json
 !.csv
 
 # Discard all pretrained .pth and .pt
-models/
+*.pth
+*.pt
 
 
