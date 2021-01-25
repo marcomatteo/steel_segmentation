@@ -76,7 +76,7 @@ class Trainer:
         cudnn.benchmark = True
 
         self.dataloaders = {
-            phase: kaggle_provider(
+            phase: get_kaggle_train_dls(
                 data_folder=path,
                 phase=phase,
                 mean=(0.485, 0.456, 0.406),
