@@ -24,7 +24,7 @@ models_dir = path.parent / "models"
 class_metrics = [accuracy_multi, PrecisionMulti(), RecallMulti()]
 
 # Cell
-seg_metrics = [DiceMulti(), dice_kaggle]
+seg_metrics = [ModDiceMulti(), dice_kaggle]
 
 # Cell
 import os

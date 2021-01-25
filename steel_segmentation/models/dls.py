@@ -12,6 +12,7 @@ import warnings
 with warnings.catch_warnings():
     warnings.simplefilter('ignore')
     from fastai.vision.all import *
+    from fastai.data.all import *
     import fastai
 from fastcore.foundation import *
 
@@ -198,7 +199,6 @@ def get_classification_dls(bs, with_tfms: bool = True, size=None):
 # Cell
 classes = [0, 1, 2, 3, 4]
 
-
 def get_segmentation_dls(bs, size, with_btfms=True):
     """Dataloaders from `train_path` folder"""
 
@@ -220,7 +220,7 @@ def get_segmentation_dls(bs, size, with_btfms=True):
         get_items=get_image_files,
         get_y=get_labels_from_img,
         splitter=RandomSplitter(valid_pct=0.2, seed=42),
-        batch_tfms=aug_transforms(size=size, max_warp=0.))
+        batch_tfms=b_tfms)
 
     return dblock.dataloaders(train_path, bs=bs)
 
@@ -249,8 +249,9 @@ import os
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset, sampler
 from albumentations import (
-    HorizontalFlip, ShiftScaleRotate, Normalize, Resize, Compose, GaussNoise)
+    HorizontalFlip, ShiftScaleRotate, Resize, Compose, GaussNoise)
 from albumentations.pytorch import ToTensor
+import albumentations as alb
 
 # Cell
 def get_transforms(phase, mean, std):
@@ -263,7 +264,7 @@ def get_transforms(phase, mean, std):
         )
     list_transforms.extend(
         [
-            Normalize(mean=mean, std=std, p=1),
+            alb.Normalize(mean=mean, std=std, p=1),
             ToTensor(),
         ]
     )

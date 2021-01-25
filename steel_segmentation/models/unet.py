@@ -5,17 +5,11 @@ __all__ = ['Model', 'Conv2dReLU', 'DecoderBlock', 'CenterBlock', 'EncoderDecoder
            'get_preprocessing_fn', 'Unet']
 
 # Cell
-from ..core import *
-from ..data import *
-from ..preprocessing import *
-from .dls import *
-from .metrics import *
 import functools
 import torch.utils.model_zoo as model_zoo
-from torchvision.models.resnet import ResNet
-from torchvision.models.resnet import BasicBlock
-from torchvision.models.resnet import Bottleneck
+from torchvision.models.resnet import ResNet, BasicBlock, Bottleneck
 from pretrainedmodels.models.torchvision_models import pretrained_settings
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
