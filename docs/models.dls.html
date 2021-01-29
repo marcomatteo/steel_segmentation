@@ -38,11 +38,17 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="From-fast.ai">From fast.ai<a class="anchor-link" href="#From-fast.ai"> </a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>In this module you can have functions for a classification and a segmentation problem.</p>
 <p>To get a <code>DataLoaders</code> object for training FastAI models, the <code>get_dls</code> functions will:</p>
 <ul>
 <li>load the training images</li>
-<li>load the corrisponding labels (saved in <a href="/steel_segmentation/preprocessing.html#labels_dir"><code>labels_dir</code></a> by the <a href="/steel_segmentation/preprocessing.html"><code>preprocessing</code></a> module with the <code>create_mask</code> function)</li>
+<li>load the corrisponding labels (saved in <a href="/steel_segmentation/preprocessing.html#labels_dir"><code>labels_dir</code></a> by the <code>preprocessing</code> module with the <code>create_mask</code> function)</li>
 <li>pair the images with labels with a <code>Dataset</code></li>
 <li>split the dataset into training and validation and pair them with a <code>Datasets</code> object.</li>
 <li>for each dataset, create a <code>DataLoader</code> with a batch size and pair them with a <code>DataLoaders</code> object.</li>
@@ -94,17 +100,24 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Classification">Classification<a class="anchor-link" href="#Classification"> </a></h2>
+<h3 id="Classification">Classification<a class="anchor-link" href="#Classification"> </a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The <a href="/steel_segmentation/models.dls.html#get_classification_dls"><code>get_classification_dls</code></a> function elaborates the training and validation examples (with hard negatives) from the <a href="/steel_segmentation/core.html#train_multi"><code>train_multi</code></a> DataFrame built in the <a href="/steel_segmentation/core.html"><code>core</code></a> module.</p>
+<p>The <a href="/steel_segmentation/models.dls.html#get_classification_dls"><code>get_classification_dls</code></a> function elaborates the training and validation examples (with hard negatives) from the <a href="/steel_segmentation/core.html#train_multi"><code>train_multi</code></a> DataFrame built in the <code>core</code> module.</p>
 
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -116,7 +129,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_classification_dls" class="doc_header"><code>get_classification_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L177" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_dls</code>(<strong><code>bs</code></strong>, <strong><code>with_tfms</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>size</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_classification_dls" class="doc_header"><code>get_classification_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_dls</code>(<strong><code>bs</code></strong>, <strong><code>with_tfms</code></strong>:<code>bool</code>=<em><code>True</code></em>, <strong><code>size</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Dataloaders from train DataFrame</p>
 
@@ -126,13 +139,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -261,7 +267,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Segmentation">Segmentation<a class="anchor-link" href="#Segmentation"> </a></h2>
+<h3 id="Segmentation">Segmentation<a class="anchor-link" href="#Segmentation"> </a></h3>
 </div>
 </div>
 </div>
@@ -276,6 +282,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -283,7 +296,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_segmentation_dls" class="doc_header"><code>get_segmentation_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L203" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_segmentation_dls</code>(<strong><code>bs</code></strong>, <strong><code>size</code></strong>, <strong><code>with_btfms</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="get_segmentation_dls" class="doc_header"><code>get_segmentation_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_segmentation_dls</code>(<strong><code>bs</code></strong>, <strong><code>size</code></strong>, <strong><code>with_btfms</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>Dataloaders from <a href="/steel_segmentation/core.html#train_path"><code>train_path</code></a> folder</p>
 
@@ -293,13 +306,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -327,6 +333,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -334,7 +347,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_segmentation_dls_from_df" class="doc_header"><code>get_segmentation_dls_from_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L229" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_segmentation_dls_from_df</code>(<strong><code>train_df</code></strong>, <strong><code>bs</code></strong>, <strong><code>size</code></strong>)</p>
+<h4 id="get_segmentation_dls_from_df" class="doc_header"><code>get_segmentation_dls_from_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L230" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_segmentation_dls_from_df</code>(<strong><code>train_df</code></strong>, <strong><code>bs</code></strong>, <strong><code>size</code></strong>)</p>
 </blockquote>
 <p>Dataloaders from <a href="/steel_segmentation/core.html#train"><code>train</code></a> DataFrame</p>
 
@@ -344,13 +357,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -534,6 +540,20 @@ nb_path: "nbs/03_models.dls.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the Kaggle kernel are applied only few preprocessing transforms. In the trainig phase only the horizontal flip.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -545,7 +565,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_transforms" class="doc_header"><code>get_transforms</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L259" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_transforms</code>(<strong><code>phase</code></strong>, <strong><code>mean</code></strong>, <strong><code>std</code></strong>)</p>
+<h4 id="get_transforms" class="doc_header"><code>get_transforms</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L260" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_transforms</code>(<strong><code>phase</code></strong>, <strong><code>mean</code></strong>, <strong><code>std</code></strong>)</p>
 </blockquote>
 
 </div>
@@ -554,13 +574,6 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -607,6 +620,13 @@ nb_path: "nbs/03_models.dls.ipynb"
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -614,7 +634,7 @@ nb_path: "nbs/03_models.dls.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SteelDataset" class="doc_header"><code>class</code> <code>SteelDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L277" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SteelDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
+<h2 id="SteelDataset" class="doc_header"><code>class</code> <code>SteelDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L278" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SteelDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
 </blockquote>
 <p>An abstract class representing a :class:<code>Dataset</code>.</p>
 <p>All datasets that represent a map from keys to data samples should subclass
@@ -634,13 +654,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -701,6 +714,13 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -708,7 +728,7 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TestDataset" class="doc_header"><code>class</code> <code>TestDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L303" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TestDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
+<h2 id="TestDataset" class="doc_header"><code>class</code> <code>TestDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L304" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TestDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
 </blockquote>
 <p>Dataset for test prediction</p>
 
@@ -718,13 +738,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -794,6 +807,13 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -801,7 +821,7 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_kaggle_train_dls" class="doc_header"><code>get_kaggle_train_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L328" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_kaggle_train_dls</code>(<strong><code>phase</code></strong>, <strong><code>data_folder</code></strong>=<em><code>Path('data')</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>, <strong><code>batch_size</code></strong>=<em><code>8</code></em>, <strong><code>num_workers</code></strong>=<em><code>4</code></em>)</p>
+<h4 id="get_kaggle_train_dls" class="doc_header"><code>get_kaggle_train_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L329" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_kaggle_train_dls</code>(<strong><code>phase</code></strong>, <strong><code>data_folder</code></strong>=<em><code>Path('data')</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>, <strong><code>batch_size</code></strong>=<em><code>8</code></em>, <strong><code>num_workers</code></strong>=<em><code>4</code></em>)</p>
 </blockquote>
 <p>Returns dataloader for the model training.</p>
 
@@ -811,13 +831,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -844,6 +857,13 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -851,7 +871,7 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_kaggle_test_dls" class="doc_header"><code>get_kaggle_test_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L358" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_kaggle_test_dls</code>(<strong><code>sample_submission_path</code></strong>, <strong><code>best_threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>num_workers</code></strong>=<em><code>2</code></em>, <strong><code>batch_size</code></strong>=<em><code>4</code></em>, <strong><code>min_size</code></strong>=<em><code>3500</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="get_kaggle_test_dls" class="doc_header"><code>get_kaggle_test_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/dls.py#L359" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_kaggle_test_dls</code>(<strong><code>sample_submission_path</code></strong>, <strong><code>best_threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>num_workers</code></strong>=<em><code>2</code></em>, <strong><code>batch_size</code></strong>=<em><code>4</code></em>, <strong><code>min_size</code></strong>=<em><code>3500</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Returns dataloader for testing.</p>
 
@@ -861,13 +881,6 @@ of :class:<code>~torch.utils.data.DataLoader</code>.</p>
 
 </div>
 </div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
