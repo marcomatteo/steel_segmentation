@@ -53,30 +53,27 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Copy the `kaggle.json` file in the repository directory.
 
-```
+```python
 !mkdir ~/.kaggle
 ```
 
-    mkdir: /Users/marco/.kaggle: File exists
-
-
-```
+```python
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
-Now you're ready to install the Kaggle API with:
+Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
-!pip install kaggle
-```
-
-And then the download and unzip the data with:
-
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```
+    Warning: Your Kaggle API key is readable by other users on this system! To fix this, you can run 'chmod 600 /home/marco/.kaggle/kaggle.json'
+    Downloading severstal-steel-defect-detection.zip to ../data
+    100%|█████████████████████████████████████▉| 1.57G/1.57G [14:32<00:00, 1.97MB/s]
+    100%|██████████████████████████████████████| 1.57G/1.57G [14:32<00:00, 1.93MB/s]
+
+
+```python
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
@@ -91,27 +88,27 @@ pip install -e steel_segmentation
 
 To visualize better the dataset, the `show_defects` function helps you to visualize the defected images.
 
-```
+```python
 #missing
 show_defects(n=5, multi_defects=True)
 ```
 
 
-![png](docs/images/output_18_0.png)
+![png](docs/images/output_16_0.png)
 
 
 
-![png](docs/images/output_18_1.png)
+![png](docs/images/output_16_1.png)
 
 
 
-![png](docs/images/output_18_2.png)
+![png](docs/images/output_16_2.png)
 
 
 
-![png](docs/images/output_18_3.png)
+![png](docs/images/output_16_3.png)
 
 
 
-![png](docs/images/output_18_4.png)
+![png](docs/images/output_16_4.png)
 

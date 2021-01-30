@@ -16,11 +16,8 @@ entries:
       title: Data
       url: data.html
     - output: web,pdf
-      title: Preprocessing
-      url: preprocessing.html
-    - output: web,pdf
       title: DataLoaders
-      url: models.dls.html
+      url: dataset.html
     - output: web,pdf
       title: Metrics
       url: model.metrics.html
