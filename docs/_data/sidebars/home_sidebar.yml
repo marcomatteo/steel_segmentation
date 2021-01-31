@@ -17,7 +17,7 @@ entries:
       url: data.html
     - output: web,pdf
       title: DataLoaders
-      url: dataset.html
+      url: dataloaders.html
     - output: web,pdf
       title: Metrics
       url: model.metrics.html

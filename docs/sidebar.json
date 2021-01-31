@@ -3,7 +3,7 @@
     "Overview": "/",
     "Core": "core.html",
     "Data": "data.html",
-    "DataLoaders": "dataset.html",
+    "DataLoaders": "dataloaders.html",
     "Metrics": "model.metrics.html",
     "Unet Architecture": "models.unet.html",
     "Models": "models.model.html"
