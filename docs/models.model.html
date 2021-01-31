@@ -36,6 +36,37 @@ nb_path: "nbs/06_models.model.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="seed_everything" class="doc_header"><code>seed_everything</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>seed_everything</code>(<strong><code>seed</code></strong>=<em><code>69</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>First we create a classification model to get an encoder that know how to classify defects pixels.
@@ -87,24 +118,64 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>../models/ResNet50_class.pt
-../models/ResNet18_class.pt
-../models/ResNet18-Unet-128-stage2.pth
-../models/ResNet18-Unet-128-stage3.pth
-../models/ResNet18-Unet-128-stage1.pth
-../models/Resnet50-stage1.pth
-../models/ResNet18-Unet-256-stage2.pth
-../models/ResNet18-Unet-256-stage3.pth
-../models/ResNet18-Unet-256-stage1.pth
-../models/ResNet34-Unet-128-stage3.pth
-../models/ResNet34-Unet-128-stage2.pth
-../models/ResNet18_kaggle_class.pth
-../models/ResNet34-stage1.pth
-../models/ResNet18-stage1.pth
-../models/ResNet34_class.pt
-../models/kaggle_model.pth
-</pre>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-5-2f07bcf429a2&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">      1</span> <span class="ansi-red-fg"># missing</span>
+<span class="ansi-green-fg">----&gt; 2</span><span class="ansi-red-fg"> </span>print_competition_data<span class="ansi-blue-fg">(</span>models_dir<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/Sviluppatore/GitHub/steel_segmentation/steel_segmentation/core.py</span> in <span class="ansi-cyan-fg">print_competition_data</span><span class="ansi-blue-fg">(p)</span>
+<span class="ansi-green-intense-fg ansi-bold">     22</span> <span class="ansi-red-fg"># Cell</span>
+<span class="ansi-green-intense-fg ansi-bold">     23</span> <span class="ansi-green-fg">def</span> print_competition_data<span class="ansi-blue-fg">(</span>p<span class="ansi-blue-fg">:</span> Path <span class="ansi-blue-fg">=</span> path<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">---&gt; 24</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">for</span> elem <span class="ansi-green-fg">in</span> p<span class="ansi-blue-fg">.</span>ls<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">     25</span>         print<span class="ansi-blue-fg">(</span>elem<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     26</span> 
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/site-packages/fastcore/xtras.py</span> in <span class="ansi-cyan-fg">ls</span><span class="ansi-blue-fg">(self, n_max, file_type, file_exts)</span>
+<span class="ansi-green-intense-fg ansi-bold">    117</span>     res <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>o <span class="ansi-green-fg">for</span> o <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>iterdir<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">if</span> has_extns <span class="ansi-green-fg">or</span> o<span class="ansi-blue-fg">.</span>suffix <span class="ansi-green-fg">in</span> extns<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    118</span>     <span class="ansi-green-fg">if</span> n_max <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> itertools<span class="ansi-blue-fg">.</span>islice<span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">,</span> n_max<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">--&gt; 119</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> L<span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    120</span> 
+<span class="ansi-green-intense-fg ansi-bold">    121</span> <span class="ansi-red-fg"># Cell</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/site-packages/fastcore/foundation.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(cls, x, *args, **kwargs)</span>
+<span class="ansi-green-intense-fg ansi-bold">    120</span>     <span class="ansi-green-fg">def</span> __call__<span class="ansi-blue-fg">(</span>cls<span class="ansi-blue-fg">,</span> x<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    121</span>         <span class="ansi-green-fg">if</span> <span class="ansi-green-fg">not</span> args <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> kwargs <span class="ansi-green-fg">and</span> x <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span> <span class="ansi-green-fg">and</span> isinstance<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span>cls<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> <span class="ansi-green-fg">return</span> x
+<span class="ansi-green-fg">--&gt; 122</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__call__<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    123</span> 
+<span class="ansi-green-intense-fg ansi-bold">    124</span> <span class="ansi-red-fg"># Cell</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/site-packages/fastcore/foundation.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, items, use_list, match, *rest)</span>
+<span class="ansi-green-intense-fg ansi-bold">    128</span>     <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> items<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>rest<span class="ansi-blue-fg">,</span> use_list<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span> match<span class="ansi-blue-fg">=</span><span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    129</span>         <span class="ansi-green-fg">if</span> <span class="ansi-blue-fg">(</span>use_list <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">or</span> <span class="ansi-green-fg">not</span> is_array<span class="ansi-blue-fg">(</span>items<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-fg">--&gt; 130</span><span class="ansi-red-fg">             </span>items <span class="ansi-blue-fg">=</span> listify<span class="ansi-blue-fg">(</span>items<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>rest<span class="ansi-blue-fg">,</span> use_list<span class="ansi-blue-fg">=</span>use_list<span class="ansi-blue-fg">,</span> match<span class="ansi-blue-fg">=</span>match<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    131</span>         super<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>items<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    132</span> 
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/site-packages/fastcore/basics.py</span> in <span class="ansi-cyan-fg">listify</span><span class="ansi-blue-fg">(o, use_list, match, *rest)</span>
+<span class="ansi-green-intense-fg ansi-bold">     53</span>     <span class="ansi-green-fg">elif</span> isinstance<span class="ansi-blue-fg">(</span>o<span class="ansi-blue-fg">,</span> list<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> o
+<span class="ansi-green-intense-fg ansi-bold">     54</span>     <span class="ansi-green-fg">elif</span> isinstance<span class="ansi-blue-fg">(</span>o<span class="ansi-blue-fg">,</span> str<span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">or</span> is_array<span class="ansi-blue-fg">(</span>o<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>o<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-fg">---&gt; 55</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">elif</span> is_iter<span class="ansi-blue-fg">(</span>o<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> list<span class="ansi-blue-fg">(</span>o<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">     56</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span>o<span class="ansi-blue-fg">]</span>
+<span class="ansi-green-intense-fg ansi-bold">     57</span>     <span class="ansi-green-fg">if</span> match <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/site-packages/fastcore/xtras.py</span> in <span class="ansi-cyan-fg">&lt;genexpr&gt;</span><span class="ansi-blue-fg">(.0)</span>
+<span class="ansi-green-intense-fg ansi-bold">    115</span>     <span class="ansi-green-fg">if</span> file_type<span class="ansi-blue-fg">:</span> extns <span class="ansi-blue-fg">+=</span> L<span class="ansi-blue-fg">(</span>k <span class="ansi-green-fg">for</span> k<span class="ansi-blue-fg">,</span>v <span class="ansi-green-fg">in</span> mimetypes<span class="ansi-blue-fg">.</span>types_map<span class="ansi-blue-fg">.</span>items<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">if</span> v<span class="ansi-blue-fg">.</span>startswith<span class="ansi-blue-fg">(</span>file_type<span class="ansi-blue-fg">+</span><span class="ansi-blue-fg">&#39;/&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    116</span>     has_extns <span class="ansi-blue-fg">=</span> len<span class="ansi-blue-fg">(</span>extns<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">==</span><span class="ansi-cyan-fg">0</span>
+<span class="ansi-green-fg">--&gt; 117</span><span class="ansi-red-fg">     </span>res <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span>o <span class="ansi-green-fg">for</span> o <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>iterdir<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span> <span class="ansi-green-fg">if</span> has_extns <span class="ansi-green-fg">or</span> o<span class="ansi-blue-fg">.</span>suffix <span class="ansi-green-fg">in</span> extns<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    118</span>     <span class="ansi-green-fg">if</span> n_max <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span> res <span class="ansi-blue-fg">=</span> itertools<span class="ansi-blue-fg">.</span>islice<span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">,</span> n_max<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    119</span>     <span class="ansi-green-fg">return</span> L<span class="ansi-blue-fg">(</span>res<span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">~/anaconda3/envs/severstal/lib/python3.8/pathlib.py</span> in <span class="ansi-cyan-fg">iterdir</span><span class="ansi-blue-fg">(self)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1116</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>_closed<span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1117</span>             self<span class="ansi-blue-fg">.</span>_raise_closed<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
+<span class="ansi-green-fg">-&gt; 1118</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">for</span> name <span class="ansi-green-fg">in</span> self<span class="ansi-blue-fg">.</span>_accessor<span class="ansi-blue-fg">.</span>listdir<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1119</span>             <span class="ansi-green-fg">if</span> name <span class="ansi-green-fg">in</span> <span class="ansi-blue-fg">{</span><span class="ansi-blue-fg">&#39;.&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;..&#39;</span><span class="ansi-blue-fg">}</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1120</span>                 <span class="ansi-red-fg"># Yielding a path object for these makes little sense</span>
+
+<span class="ansi-red-fg">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;../models&#39;</pre>
 </div>
 </div>
 
@@ -247,7 +318,7 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kaggle-kernel">Kaggle kernel<a class="anchor-link" href="#Kaggle-kernel"> </a></h2>
+<h2 id="Pytorch-Trainer">Pytorch Trainer<a class="anchor-link" href="#Pytorch-Trainer"> </a></h2>
 </div>
 </div>
 </div>
@@ -262,6 +333,16 @@ In this notebook I will go through each part of the model from that kernel.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seed_everything</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -273,7 +354,10 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">Unet</span><span class="p">(</span><span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> <span class="n">encoder_weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">smp</span><span class="o">.</span><span class="n">Unet</span><span class="p">(</span><span class="s2">&quot;resnet18&quot;</span><span class="p">,</span> 
+                 <span class="n">encoder_weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span> 
+                 <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
+                 <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -297,199 +381,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Unet(
-  (encoder): ResNetEncoder(
-    (conv1): Conv2d(3, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-    (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-    (relu): ReLU(inplace=True)
-    (maxpool): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False)
-    (layer1): Sequential(
-      (0): BasicBlock(
-        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-      )
-      (1): BasicBlock(
-        (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-      )
-    )
-    (layer2): Sequential(
-      (0): BasicBlock(
-        (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (downsample): Sequential(
-          (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False)
-          (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        )
-      )
-      (1): BasicBlock(
-        (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-      )
-    )
-    (layer3): Sequential(
-      (0): BasicBlock(
-        (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (downsample): Sequential(
-          (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False)
-          (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        )
-      )
-      (1): BasicBlock(
-        (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-      )
-    )
-    (layer4): Sequential(
-      (0): BasicBlock(
-        (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (downsample): Sequential(
-          (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False)
-          (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        )
-      )
-      (1): BasicBlock(
-        (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-        (relu): ReLU(inplace=True)
-        (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-        (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-      )
-    )
-    (avgpool): AdaptiveAvgPool2d(output_size=(1, 1))
-  )
-  (decoder): UnetDecoder(
-    (layer1): DecoderBlock(
-      (block): Sequential(
-        (0): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(768, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-        (1): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-      )
-    )
-    (layer2): DecoderBlock(
-      (block): Sequential(
-        (0): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(384, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-        (1): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-      )
-    )
-    (layer3): DecoderBlock(
-      (block): Sequential(
-        (0): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(192, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-        (1): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-      )
-    )
-    (layer4): DecoderBlock(
-      (block): Sequential(
-        (0): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-        (1): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(32, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-      )
-    )
-    (layer5): DecoderBlock(
-      (block): Sequential(
-        (0): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-        (1): Conv2dReLU(
-          (block): Sequential(
-            (0): Conv2d(16, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
-            (1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
-            (2): ReLU(inplace=True)
-          )
-        )
-      )
-    )
-    (final_conv): Conv2d(16, 4, kernel_size=(1, 1), stride=(1, 1))
-  )
-)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     {% endraw %}
 
@@ -504,7 +395,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L52" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
+<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L53" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
 </blockquote>
 <p>This class takes care of training and validation of our model</p>
 
@@ -528,16 +419,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -546,7 +427,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.__init__" class="doc_header"><code>Trainer.__init__</code><a href="__main__.py#L5" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.__init__</code>(<strong><code>model</code></strong>)</p>
+<h4 id="Trainer.__init__" class="doc_header"><code>Trainer.__init__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L56" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.__init__</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
 </blockquote>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 
@@ -563,16 +444,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -581,9 +452,9 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.forward" class="doc_header"><code>Trainer.forward</code><a href="__main__.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.forward</code>(<strong><code>images</code></strong>, <strong><code>targets</code></strong>)</p>
+<h4 id="Trainer.forward" class="doc_header"><code>Trainer.forward</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.forward</code>(<strong><code>images</code></strong>, <strong><code>targets</code></strong>)</p>
 </blockquote>
-<p>Forward pass: 
+<p>Forward pass:
     load to GPU the imgs and masks,
     calculate predictions,
     calculate loss</p>
@@ -603,16 +474,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -621,9 +482,9 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.iterate" class="doc_header"><code>Trainer.iterate</code><a href="__main__.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.iterate</code>(<strong><code>epoch</code></strong>, <strong><code>phase</code></strong>)</p>
+<h4 id="Trainer.iterate" class="doc_header"><code>Trainer.iterate</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L109" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.iterate</code>(<strong><code>epoch</code></strong>, <strong><code>phase</code></strong>)</p>
 </blockquote>
-<p>Iterate throught each batch in training or validatio phase.</p>
+<p>Iterate throught each batch in training or validation phase.</p>
 
 </div>
 
@@ -638,16 +499,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
 
 <div class="output_wrapper">
 <div class="output">
@@ -656,7 +507,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.start" class="doc_header"><code>Trainer.start</code><a href="__main__.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.start</code>()</p>
+<h4 id="Trainer.start" class="doc_header"><code>Trainer.start</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L149" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.start</code>()</p>
 </blockquote>
 <p>Training loop for each epochs.</p>
 
@@ -677,7 +528,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
 </pre></div>
 
     </div>

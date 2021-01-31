@@ -68,7 +68,7 @@ train = get_train_df(only_faulty=True)
 train_all = get_train_df()
 
 # Cell
-def get_train_pivot(df=train):
+def get_train_pivot(df=train_all):
     """
     Summarize the training csv with ClassId as columns and values EncodedPixels
     """

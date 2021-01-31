@@ -15,6 +15,7 @@ from fastai.vision.all import Image
 
 import pandas as pd
 import numpy as np
+from pathlib import Path
 
 # Cell
 def defeat_position(img_id: str, class_id: int, df: pd.DataFrame = train):
@@ -203,11 +204,20 @@ def make_mask(row_id, df=train_pivot):
     Given a row index, return image_id and mask (256, 1600, 4)
     from the dataframe `df`
     '''
-    fname = df.iloc[row_id].name
-    labels = df.iloc[row_id][:4]
+    if isinstance(row_id, str):    cond = df.loc[row_id]
+    elif isinstance(row_id, int):  cond = df.iloc[row_id]
+    elif isinstance(row_id, Path): cond = df.loc[row_id.name]
+    elif isinstance(row_id, pd.Series):
+        cond = df.loc[row_id["ImageId"]]
+    else:
+        print(row_id, type(row_id))
+        raise KeyError("row_id must be int or str")
 
-    masks = np.zeros((256, 1600, 4), dtype=np.float32) # float32 is V.Imp
-    # 4:class 1～4 (ch:0～3)
+    fname = cond.name
+    labels = cond[1:-1] # only 1,2,3,4 ClassId
+
+    # float32 is V.Imp 4:class 1～4 (ch:0～3)
+    masks = np.zeros((256, 1600, 4), dtype=np.float32)
 
     for idx, label in enumerate(labels.values):
         if label is not np.nan:
