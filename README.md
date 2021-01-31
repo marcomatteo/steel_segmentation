@@ -53,17 +53,17 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Copy the `kaggle.json` file in the repository directory.
 
-```python
+```
 !mkdir ~/.kaggle
 ```
 
-```python
+```
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```python
+```
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
@@ -73,7 +73,7 @@ Now you're authenticated with the Kaggle API. Download and unzip the data with:
     100%|██████████████████████████████████████| 1.57G/1.57G [14:32<00:00, 1.93MB/s]
 
 
-```python
+```
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
@@ -88,7 +88,7 @@ pip install -e steel_segmentation
 
 To visualize better the dataset, the `show_defects` function helps you to visualize the defected images.
 
-```python
+```
 #missing
 show_defects(n=5, multi_defects=True)
 ```
