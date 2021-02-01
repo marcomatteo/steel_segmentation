@@ -27,6 +27,9 @@ entries:
     - output: web,pdf
       title: Models
       url: models.model.html
+    - output: web,pdf
+      title: Predict
+      url: model.predict.html
     output: web
     title: steel_segmentation
   output: web

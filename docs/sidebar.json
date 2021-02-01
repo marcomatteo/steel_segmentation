@@ -6,6 +6,7 @@
     "DataLoaders": "dataloaders.html",
     "Metrics": "model.metrics.html",
     "Unet Architecture": "models.unet.html",
-    "Models": "models.model.html"
+    "Models": "models.model.html",
+    "Predict": "model.predict.html"
   }
 }
