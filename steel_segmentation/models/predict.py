@@ -24,6 +24,8 @@ pred_path.mkdir(parents=True, exist_ok=True)
 
 # Cell
 class Predict:
+    pred_mask_path = pred_path / "prediction_masks"
+    pred_mask_path.mkdir(parents=True, exist_ok=True)
 
     def __init__(self,
                  source,
@@ -102,14 +104,9 @@ class Predict:
         """Save the final DataFrame into the `pred_path` folder."""
         df.to_csv(pred_path/file_name, index=False)
 
-    def get_predictions(self, size_fold:int, threshold:float, min_size:int):
-        self.size_fold = min([self.elems, size_fold])
-        self.threshold = threshold
-        self.min_size = min_size
-        self.folds = self.elems // self.size_fold
-        if (self.elems % self.size_fold) != 0:
-            self.folds += 1
-
+    def get_predictions(self):
+        """Iterate through `self.folds`, predict the mask and
+        get the RLEs in a DataFrame."""
         df_preds = []
 
         for fold in range(self.folds):
@@ -131,3 +128,34 @@ class Predict:
 
         df = pd.concat(df_preds, axis=0, ignore_index=True)
         return df.fillna("", inplace=True)
+
+    def save_masks(self):
+        """Iterate through the RLEs in `self.df` and save the masks."""
+        rows = []
+        for row in self.df.itertuples():
+            if row.EncodedPixels != '':
+                img_id, class_id = row.ImageId_ClassId.split("_")
+                img_id = img_id.split(".")[0]
+                img_label = img_id + "_pred.png"
+                img_path = self.pred_mask_path / img_label
+
+                mask = rle_to_mask(row.EncodedPixels, class_id, 256, 1600)
+                im = Image.fromarray(mask)
+                im.save(img_path)
+
+                rows.append((img_id + ".jpg", class_id, img_label))
+        self.df_masks = pd.DataFrame(rows, columns=['ImageId', 'ClassId', 'Mask_path'])
+        return self.df_masks
+
+    def __call__(self, size_fold:int, threshold:float, min_size:int):
+        """Call the object with prediction attributes
+        and return the `self.df` DataFrame with RLEs."""
+        self.size_fold = min([self.elems, size_fold])
+        self.threshold = threshold
+        self.min_size = min_size
+        self.folds = self.elems // self.size_fold
+        if (self.elems % self.size_fold) != 0:
+            self.folds += 1
+
+        self.df = self.get_predictions()
+        return self.df

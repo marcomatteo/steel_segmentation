@@ -32,25 +32,6 @@ nb_path: "nbs/07_model.predict.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -196,14 +177,59 @@ nb_path: "nbs/07_model.predict.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_tmp</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-
-<span class="c1"># test arguments</span>
-<span class="n">size_fold</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
-<span class="n">min_size</span> <span class="o">=</span> <span class="mi">3000</span>
+<span class="n">df_tmp</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ImageId</th>
+      <th>ClassId</th>
+      <th>EncodedPixels</th>
+      <th>ImageId_ClassId</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0002cc93b.jpg</td>
+      <td>1</td>
+      <td>29102 12 29346 24 29602 24 29858 24 30114 24 30370 24 30626 24 30882 24 31139 23 31395 23 31651 23 31907 23 32163 23 32419 23 32675 23 77918 27 78174 55 78429 60 78685 64 78941 68 79197 72 79452 77 79708 81 79964 85 80220 89 80475 94 80731 98 80987 102 81242 105 81498 105 81754 104 82010 104 82265 105 82521 31 82556 69 82779 27 82818 63 83038 22 83080 57 83297 17 83342 50 83555 13 83604 44 83814 8 83866 37 84073 3 84128 31 84390 25 84652 18 84918 8 85239 10 85476 29 85714 47 85960 57 86216 57 86471 58 86727 58 86983 58 87238 59 87494 59 87750 59 88005 60 88261 60 88517 60 88772 61 89028 53...</td>
+      <td>0002cc93b.jpg_1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
 </div>
 </div>
 
@@ -217,7 +243,11 @@ nb_path: "nbs/07_model.predict.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Predict</span><span class="p">(</span><span class="n">df_tmp</span><span class="p">,</span> <span class="n">segmentation_learner</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">size_fold</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+<span class="n">min_size</span> <span class="o">=</span> <span class="mi">3000</span>
+
+<span class="n">pred</span> <span class="o">=</span> <span class="n">Predict</span><span class="p">(</span><span class="n">df_tmp</span><span class="p">,</span> <span class="n">segmentation_learner</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -238,8 +268,10 @@ nb_path: "nbs/07_model.predict.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Predict.get_predictions" class="doc_header"><code>Predict.get_predictions</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/predict.py#L105" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Predict.get_predictions</code>(<strong><code>size_fold</code></strong>:<code>int</code>, <strong><code>threshold</code></strong>:<code>float</code>, <strong><code>min_size</code></strong>:<code>int</code>)</p>
+<h4 id="Predict.get_predictions" class="doc_header"><code>Predict.get_predictions</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/predict.py#L107" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Predict.get_predictions</code>()</p>
 </blockquote>
+<p>Iterate through <code>self.folds</code>, predict the mask and
+get the RLEs in a DataFrame.</p>
 
 </div>
 
@@ -258,7 +290,7 @@ nb_path: "nbs/07_model.predict.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_pred</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">get_predictions</span><span class="p">(</span><span class="n">size_fold</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">min_size</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_pred</span> <span class="o">=</span> <span class="n">pred</span><span class="p">(</span><span class="n">size_fold</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">min_size</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -435,7 +467,7 @@ nb_path: "nbs/07_model.predict.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_pred</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">get_predictions</span><span class="p">(</span><span class="n">size_fold</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">min_size</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_pred</span> <span class="o">=</span> <span class="n">pred</span><span class="p">(</span><span class="n">size_fold</span><span class="p">,</span> <span class="n">threshold</span><span class="p">,</span> <span class="n">min_size</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -554,6 +586,114 @@ nb_path: "nbs/07_model.predict.ipynb"
       <th>4</th>
       <td>ecb50399d.jpg_1</td>
       <td></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="Predict.save_masks" class="doc_header"><code>Predict.save_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/predict.py#L132" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Predict.save_masks</code>()</p>
+</blockquote>
+<p>Iterate through the RLEs in <code>self.df</code> and save the masks.</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_masks</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">save_masks</span><span class="p">()</span>
+<span class="n">df_masks</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ImageId</th>
+      <th>ClassId</th>
+      <th>Mask_path</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b5352d213.jpg</td>
+      <td>3</td>
+      <td>b5352d213_pred.png</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ecb50399d.jpg</td>
+      <td>4</td>
+      <td>ecb50399d_pred.png</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39e365d3b.jpg</td>
+      <td>3</td>
+      <td>39e365d3b_pred.png</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>06e6582af.jpg</td>
+      <td>3</td>
+      <td>06e6582af_pred.png</td>
     </tr>
   </tbody>
 </table>
