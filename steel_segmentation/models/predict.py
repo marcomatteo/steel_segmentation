@@ -18,6 +18,9 @@ import cv2
 import pathlib
 import numpy as np
 import pandas as pd
+import warnings
+
+warnings.filterwarnings("ignore")
 
 pred_path = path.parent / "predictions"
 pred_path.mkdir(parents=True, exist_ok=True)
@@ -41,6 +44,8 @@ class Predict:
             self.img_paths = self.get_path_source_list()
         elif isinstance(self.source, pd.DataFrame):
             self.img_paths = self.get_df_source_list()
+        elif isinstance(self.source, list):
+            self.img_paths = self.source
         elif isinstance(self.source, str):
             self.single_prediction = True
             self.img_paths = L(self.source_path / self.source)
@@ -59,8 +64,8 @@ class Predict:
     def predict(self, selected_imgs):
         """Get the predictions on the `selected_imgs`."""
         if self.single_prediction:
-            pred_full_dec, pred_dec, out = self.learner.predict(selected_imgs)
-            return pred_full_dec
+            pred_full_dec, pred_dec, out = self.learner.predict(selected_imgs[0])
+            return out.unsqueeze(dim=0)
 
         test_dl = self.learner.dls.test_dl(test_items=selected_imgs)
         pred_probs,_,_ = self.learner.get_preds(dl=test_dl, with_decoded=True)
@@ -105,7 +110,7 @@ class Predict:
         df.to_csv(pred_path/file_name, index=False)
 
     def get_predictions(self):
-        """Iterate through `self.folds`, predict the mask and
+        """Iterate through `Predict.folds`, predict the mask and
         get the RLEs in a DataFrame."""
         df_preds = []
 
@@ -129,8 +134,13 @@ class Predict:
         df = pd.concat(df_preds, axis=0, ignore_index=True)
         return df.fillna("", inplace=True)
 
-    def save_masks(self):
-        """Iterate through the RLEs in `self.df` and save the masks."""
+    def save_masks(self, df_export_name=None, json=False):
+        """Iterate through the RLEs in `Predict.df` and save the masks.
+        Returns the `Predict.df_masks` DataFrame (if not `json`) with
+        `columns=['ImageId', 'ClassId', 'Mask_path']`.
+        If `df_export_name`, it saves the DataFrame and the JSON in `pred_path`.
+        If `json`, it returns the JSON file instead the DataFrame.
+        """
         rows = []
         for row in self.df.itertuples():
             if row.EncodedPixels != '':
@@ -144,12 +154,24 @@ class Predict:
                 im.save(img_path)
 
                 rows.append((img_id + ".jpg", class_id, img_label))
+
         self.df_masks = pd.DataFrame(rows, columns=['ImageId', 'ClassId', 'Mask_path'])
+
+        if df_export_name:
+            csv_name = pred_path/(df_export_name + ".csv")
+            json_name = pred_path/(df_export_name + ".json")
+            self.df_masks.to_csv(csv_name, index=False)
+            self.df_masks.to_json(json_name, orient="table", indent=4)
+
+        if json:
+            return self.df_masks.to_json(orient="table")
+
         return self.df_masks
 
     def __call__(self, size_fold:int, threshold:float, min_size:int):
-        """Call the object with prediction attributes
-        and return the `self.df` DataFrame with RLEs."""
+        """Call the object with prediction attributes,
+        it calls `Predict.get_predictions`
+        and returns the `Predict.df` DataFrame with RLEs."""
         self.size_fold = min([self.elems, size_fold])
         self.threshold = threshold
         self.min_size = min_size
@@ -159,3 +181,19 @@ class Predict:
 
         self.df = self.get_predictions()
         return self.df
+
+    def plot(self, n:int=5, rand=True):
+        if (self.df_masks is None)|(self.df is None):
+            return "Nothing to plot, first call the class to get the predictions"
+
+        if rand:
+            path_list = get_perm_imgs_path(self.img_paths.map(Path), self.df_masks)
+        else:
+            path_list = self.img_paths.map(Path)
+
+        df = self.df.copy()
+        splitted_cols = df["ImageId_ClassId"].str.split("_", expand=True)
+        df["ImageId"], df["ClassId"] = splitted_cols[0], splitted_cols[1].astype("int64")
+
+        for p in path_list[:n]:
+            plot_defected_image(p, df)

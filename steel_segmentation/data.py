@@ -27,8 +27,8 @@ def defeat_position(img_id: str, class_id: int, df: pd.DataFrame = train):
     cond = (df.ImageId == img_id) & (df.ClassId == class_id)
     train_s = df[cond]
 
-    encoded_pixels = [int(i)
-                      for i in train_s.EncodedPixels.values[0].split(" ")]
+    rle = train_s.EncodedPixels.values[0]
+    encoded_pixels = [int(i) for i in rle.split(" ")]
 
     pixcels = []
     pos_pixels = encoded_pixels[0:len(encoded_pixels):2]
@@ -93,12 +93,13 @@ def plot_defected_image(img_path: str, df: pd.DataFrame = train):
 
     classids = []
     for img in df.itertuples(index=False):
-        classids.append(img.ClassId)
-        classid = img.ClassId
+        if img.EncodedPixels != '':
+            classids.append(img.ClassId)
+            classid = img.ClassId
 
-        x, y = defeat_position(img_id, classid)
+            x, y = defeat_position(img_id, classid, df=df)
 
-        color(x, y, classid)
+            color(x, y, classid)
 
     plot(im, img_id, classids)
 
