@@ -2,6 +2,8 @@
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
+![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master)
+
 This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition (ended in November 2019).
 
 I used `pytorch` ([Pytorch website](https://pytorch.org/get-started/locally/)) and `fastai` ([FastAI docs](https://docs.fast.ai/#Installing)) as Deep Learning Framework to this project.
@@ -53,27 +55,21 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Copy the `kaggle.json` file in the repository directory.
 
-```
+```python
 !mkdir ~/.kaggle
 ```
 
-```
+```python
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-    Warning: Your Kaggle API key is readable by other users on this system! To fix this, you can run 'chmod 600 /home/marco/.kaggle/kaggle.json'
-    Downloading severstal-steel-defect-detection.zip to ../data
-    100%|█████████████████████████████████████▉| 1.57G/1.57G [14:32<00:00, 1.97MB/s]
-    100%|██████████████████████████████████████| 1.57G/1.57G [14:32<00:00, 1.93MB/s]
-
-
-```
+```python
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
@@ -83,32 +79,3 @@ Finally you can install the package with:
 git clone https://github.com/marcomatteo/steel_segmentation.git
 pip install -e steel_segmentation
 ```
-
-## How to use
-
-To visualize better the dataset, the `show_defects` function helps you to visualize the defected images.
-
-```
-#missing
-show_defects(n=5, multi_defects=True)
-```
-
-
-![png](docs/images/output_16_0.png)
-
-
-
-![png](docs/images/output_16_1.png)
-
-
-
-![png](docs/images/output_16_2.png)
-
-
-
-![png](docs/images/output_16_3.png)
-
-
-
-![png](docs/images/output_16_4.png)
-
