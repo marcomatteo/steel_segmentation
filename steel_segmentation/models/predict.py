@@ -14,11 +14,13 @@ from fastai.vision.all import *
 from fastai.metrics import *
 from fastai.data.all import *
 
+import os
 import cv2
 import pathlib
 import numpy as np
 import pandas as pd
 import warnings
+import zipfile
 
 warnings.filterwarnings("ignore")
 
@@ -106,7 +108,7 @@ class Predict:
         return pd.DataFrame(predictions, columns=['ImageId_ClassId', 'EncodedPixels'])
 
     def save_df(self, df, file_name):
-        """Save the final DataFrame into the `pred_path` folder."""
+        """Save the final DataFrame into the `pred_path` pfolder."""
         df.to_csv(pred_path/file_name, index=False)
 
     def get_predictions(self):
@@ -132,14 +134,13 @@ class Predict:
             return df_preds[0]
 
         df = pd.concat(df_preds, axis=0, ignore_index=True)
-        return df.fillna("", inplace=True)
+        return df.fillna("")
 
-    def save_masks(self, df_export_name=None, json=False):
-        """Iterate through the RLEs in `Predict.df` and save the masks.
+    def make_masks(self):
+        """
+        Iterate through the RLEs in `Predict.df` and save the masks.
         Returns the `Predict.df_masks` DataFrame (if not `json`) with
         `columns=['ImageId', 'ClassId', 'Mask_path']`.
-        If `df_export_name`, it saves the DataFrame and the JSON in `pred_path`.
-        If `json`, it returns the JSON file instead the DataFrame.
         """
         rows = []
         for row in self.df.itertuples():
@@ -155,18 +156,35 @@ class Predict:
 
                 rows.append((img_id + ".jpg", class_id, img_label))
 
-        self.df_masks = pd.DataFrame(rows, columns=['ImageId', 'ClassId', 'Mask_path'])
+        return pd.DataFrame(rows, columns=['ImageId', 'ClassId', 'Mask_path'])
 
-        if df_export_name:
-            csv_name = pred_path/(df_export_name + ".csv")
-            json_name = pred_path/(df_export_name + ".json")
-            self.df_masks.to_csv(csv_name, index=False)
-            self.df_masks.to_json(json_name, orient="table", indent=4)
+    def save_masks(self, df_export_fname=None, make_zip=True):
+        """
+        If `df_export_fname` save predicted masks in
+        `pred_path / df_export_fname` in CSV and the JSON.
+        Otherwise the file are named "predictions.csv" and "predictions.json".
+        Saving the zip of the masks if `make_zip`.
 
-        if json:
-            return self.df_masks.to_json(orient="table")
+        Run this method after __call__ the object.
+        """
+        if not hasattr(self, 'df'):
+            print("Predictions missing. Call the Prediction object first!")
+            raise KeyError("Missing self.df, first run self.__call__ to get predictions")
 
-        return self.df_masks
+        self.df_masks = self.make_masks()
+
+        if not df_export_fname:
+            df_export_fname = "predictions"
+
+        csv_name = pred_path/(df_export_fname + ".csv")
+        json_name = pred_path/(df_export_fname + ".json")
+        self.df_masks.to_csv(csv_name, index=False)
+        self.df_masks.to_json(json_name, orient="table", indent=4)
+
+        if make_zip:
+            zip_fname = df_export_fname + ".zip"
+            with zipfile.ZipFile(pred_path/zip_fname, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                self.zipdir(zipf)
 
     def __call__(self, size_fold:int, threshold:float, min_size:int):
         """Call the object with prediction attributes,
@@ -176,20 +194,24 @@ class Predict:
         self.threshold = threshold
         self.min_size = min_size
         self.folds = self.elems // self.size_fold
+
         if (self.elems % self.size_fold) != 0:
             self.folds += 1
 
         self.df = self.get_predictions()
         return self.df
 
-    def plot(self, n:int=5, rand=True):
+    def plot(self, n:int=5, rand=False):
+        """Plot `n` elements in `self.img_paths`.
+        If `rand` prints shuffle images."""
         if (self.df_masks is None)|(self.df is None):
             return "Nothing to plot, first call the class to get the predictions"
 
+        path_list = self.img_paths.map(Path)
+
         if rand:
-            path_list = get_perm_imgs_path(self.img_paths.map(Path), self.df_masks)
-        else:
-            path_list = self.img_paths.map(Path)
+            #path_list = get_perm_imgs_path(self.img_paths.map(Path), self.df_masks)
+            path_list = path_list.shuffle()
 
         df = self.df.copy()
         splitted_cols = df["ImageId_ClassId"].str.split("_", expand=True)
@@ -197,3 +219,19 @@ class Predict:
 
         for p in path_list[:n]:
             plot_defected_image(p, df)
+
+    def zipdir(self, ziph:zipfile.ZipFile, pfolder=None):
+        """Zip the current `self.pred_mask_path` directory,
+        otherwise zip the `path` dir if provided."""
+        if not pfolder:
+            pfolder = self.pred_mask_path
+
+        if not isinstance(pfolder, pathlib.Path):
+            pfolder = Path(pfolder)
+
+        for root,dirs,files in os.walk(pfolder):
+            root = Path(root)
+            for file in files:
+                fname = root / file
+                ziph.write(filename=fname,
+                           arcname =os.path.relpath(fname,fname.parent))

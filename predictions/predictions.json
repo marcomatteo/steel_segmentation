@@ -26,9 +26,9 @@
     "data":[
         {
             "index":0,
-            "ImageId":"72aaba8ad.jpg",
-            "ClassId":"3",
-            "Mask_path":"72aaba8ad_pred.png"
+            "ImageId":"f383950e8.jpg",
+            "ClassId":"4",
+            "Mask_path":"f383950e8_pred.png"
         }
     ]
 }
