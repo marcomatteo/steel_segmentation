@@ -5,6 +5,7 @@ __all__ = ['models_dir', 'seed_everything', 'class_metrics', 'seg_metrics', 'Tra
 # Cell
 from ..core import *
 from ..data import *
+from ..dataloaders import *
 from .metrics import *
 
 import warnings
@@ -75,7 +76,7 @@ class Trainer:
         cudnn.benchmark = True
 
         self.dataloaders = {
-            phase: get_kaggle_train_dls(
+            phase: get_train_dls(
                 data_folder=path,
                 phase=phase,
                 mean=(0.485, 0.456, 0.406),
