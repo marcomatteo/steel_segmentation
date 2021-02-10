@@ -66,6 +66,7 @@ index = {"curr_dir_name": "01_core.ipynb",
          "seg_metrics": "06_models.model.ipynb",
          "Trainer": "06_models.model.ipynb",
          "pred_path": "07_model.predict.ipynb",
+         "sub_path": "07_model.predict.ipynb",
          "Predict": "07_model.predict.ipynb"}
 
 modules = ["core.py",
