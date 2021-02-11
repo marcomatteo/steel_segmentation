@@ -1,11 +1,13 @@
 {
   "steel_segmentation": {
     "Overview": "/",
-    "Core": "core.html",
-    "Data": "data.html",
-    "DataLoaders": "dataloaders.html",
-    "Metrics": "model.metrics.html",
-    "Models": "models.model.html",
-    "Predict": "model.predict.html"
+    "Core": "/core.html",
+    "Data": "/data.html",
+    "Models": {
+        "DataLoaders": "/models.dataloaders.html",
+        "Metrics": "/models.metrics.html",
+        "Model": "/models.model.html",
+        "Predict": "/models.predict.html"
+    }
   }
 }

@@ -11,22 +11,25 @@ entries:
       url: /
     - output: web,pdf
       title: Core
-      url: core.html
+      url: /core.html
     - output: web,pdf
       title: Data
-      url: data.html
-    - output: web,pdf
-      title: DataLoaders
-      url: dataloaders.html
-    - output: web,pdf
-      title: Metrics
-      url: model.metrics.html
-    - output: web,pdf
+      url: /data.html
+    - output: web
+      subfolders:
+      - output: web,pdf
+        title: DataLoaders
+        url: /models.dataloaders.html
+      - output: web,pdf
+        title: Metrics
+        url: /models.metrics.html
+      - output: web,pdf
+        title: Model
+        url: /models.model.html
+      - output: web,pdf
+        title: Predict
+        url: /models.predict.html
       title: Models
-      url: models.model.html
-    - output: web,pdf
-      title: Predict
-      url: model.predict.html
     output: web
     title: steel_segmentation
   output: web

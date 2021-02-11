@@ -5,7 +5,7 @@ __all__ = ['models_dir', 'seed_everything', 'class_metrics', 'seg_metrics', 'Tra
 # Cell
 from ..core import *
 from ..data import *
-from ..dataloaders import *
+from .dataloaders import *
 from .metrics import *
 
 import warnings
