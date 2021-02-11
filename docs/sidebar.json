@@ -3,11 +3,13 @@
     "Overview": "/",
     "Core": "/core.html",
     "Data": "/data.html",
-    "Models": {
-        "DataLoaders": "/models.dataloaders.html",
-        "Metrics": "/models.metrics.html",
-        "Model": "/models.model.html",
-        "Predict": "/models.predict.html"
+    "": {
+        "Models": {
+            "DataLoaders": "/models.dataloaders.html",
+            "Metrics": "/models.metrics.html",
+            "Model": "/models.model.html",
+            "Predict": "/models.predict.html"
+        }
     }
   }
 }

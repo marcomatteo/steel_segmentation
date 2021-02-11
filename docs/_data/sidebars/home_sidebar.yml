@@ -15,21 +15,22 @@ entries:
     - output: web,pdf
       title: Data
       url: /data.html
-    - output: web
       subfolders:
-      - output: web,pdf
-        title: DataLoaders
-        url: /models.dataloaders.html
-      - output: web,pdf
-        title: Metrics
-        url: /models.metrics.html
-      - output: web,pdf
-        title: Model
-        url: /models.model.html
-      - output: web,pdf
-        title: Predict
-        url: /models.predict.html
-      title: Models
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: DataLoaders
+          url: /models.dataloaders.html
+        - output: web,pdf
+          title: Metrics
+          url: /models.metrics.html
+        - output: web,pdf
+          title: Model
+          url: /models.model.html
+        - output: web,pdf
+          title: Predict
+          url: /models.predict.html
+        title: Models
     output: web
     title: steel_segmentation
   output: web
