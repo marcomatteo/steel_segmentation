@@ -55,21 +55,21 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Copy the `kaggle.json` file in the repository directory.
 
-```python
+```
 !mkdir ~/.kaggle
 ```
 
-```python
+```
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```python
+```
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```python
+```
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
