@@ -53,8 +53,8 @@ class TestDataset(Dataset):
         fname = self.fnames[idx]
         fpath = self.root / fname
         image = cv2.imread(str(fpath))
-        images = self.transform(image=image)["image"]
-        return fname, images
+        image_tensor = self.transform(image=image)["image"]
+        return fname, image_tensor
 
     def __len__(self):
         return self.num_samples
@@ -69,20 +69,20 @@ def get_test_dls(
     """Returns dataloader for testing."""
     if not mean and not std:
         mean, std = imagenet_stats
+
     df = pd.read_csv(sample_submission_path)
-    testset = DataLoader(
+
+    return DataLoader(
         TestDataset(test_path, df, mean, std),
         batch_size=batch_size,
         shuffle=False,
         num_workers=num_workers,
         pin_memory=True
     )
-    return testset
 
 # Cell
 class Predict:
     pred_mask_path = pred_path / "prediction_masks"
-    pred_mask_path.mkdir(parents=True, exist_ok=True)
 
     def get_df_source_list(self):
         """Load `source` if it's a DataFrame instance."""
@@ -233,6 +233,8 @@ class Predict:
         Returns the `Predict.df_masks` DataFrame (if not `json`) with
         `columns=['ImageId', 'ClassId', 'Mask_path']`.
         """
+        self.pred_mask_path.mkdir(parents=True, exist_ok=True)
+
         rows = []
         for row in self.df.itertuples():
             if row.EncodedPixels != '':

@@ -26,27 +26,9 @@
     "data":[
         {
             "index":0,
-            "ImageId":"b5352d213.jpg",
+            "ImageId":"f383950e8.jpg",
             "ClassId":"3",
-            "Mask_path":"b5352d213_pred.png"
-        },
-        {
-            "index":1,
-            "ImageId":"ecb50399d.jpg",
-            "ClassId":"4",
-            "Mask_path":"ecb50399d_pred.png"
-        },
-        {
-            "index":2,
-            "ImageId":"39e365d3b.jpg",
-            "ClassId":"3",
-            "Mask_path":"39e365d3b_pred.png"
-        },
-        {
-            "index":3,
-            "ImageId":"06e6582af.jpg",
-            "ClassId":"3",
-            "Mask_path":"06e6582af_pred.png"
+            "Mask_path":"f383950e8_pred.png"
         }
     ]
 }

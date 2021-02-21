@@ -17,65 +17,46 @@ git clone https://github.com/marcomatteo/steel_segmentation.git
 pip install -e steel_segmentation
 ```
 
-## Developing
+The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `nbs` folder. 
+Check the [here](https://nbdev.fast.ai/) the `nbdev` documentation.
 
-To set up the developer enviroment to build the package or try different Deep Learning models using this repository, follow these commands:
-
-```
-conda create -n env_nbdev
-conda activate env_nbdev
-conda install -c fastai -c pytorch fastai
-conda install -c conda-forge jupyter_contrib_nbextensions
-git clone https://github.com/fastai/nbdev
-pip install -e nbdev
-git clone https://github.com/marcomatteo/steel_segmentation.git
-cd steel_segmentation
-pip install -e .
-nbdev_install_git_hooks
-jupyter notebook
-```
-
-If there's some issues with `nbdev`, try to uninstall with `pip uninstall nbdev` and install again with `pip install nbdev`.
-Now you can edit the Jupyter Notebook files.
-
-To edit the `.py` modules in `steel_segmentation` you need to modify the Jupyter Notebooks inside the `nbs` folder (in the notebooks, only cells starting with #exp will be exported to the modules) and create the relative documentation, run:
-
+With these commands you can create the library and the relative documentation:
 ```
 nbdev_build_lib
 nbdev_build_docs
 ```
 
-Hint: this repository is build on `nbdev`. For more infos check the [nbdev repository](https://nbdev.fast.ai/).
+I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.
 
-NB: I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.
-
-## Requirements
+## Data requirements
 
 You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is the first time with the API, follow this [link](https://github.com/Kaggle/kaggle-api) and download the credentials.
 
-Copy the `kaggle.json` file in the repository directory.
+Move the `kaggle.json` file in the repository directory.
 
-```
+```python
 !mkdir ~/.kaggle
 ```
 
-```
+```python
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```
+```python
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
-Finally you can install the package with:
+## Results
 
-```
-git clone https://github.com/marcomatteo/steel_segmentation.git
-pip install -e steel_segmentation
-```
+|Models|Public score|Private score|Percentile Private LB|
+|------|------------|-------------|----------|
+|UNET Pytorch|0.87530|0.85364|85°|
+|UNET FastAI|0.88648|0.88830|23°|
+|FPN Pytorch|0.89054|0.88911|19°|
+|Ensemble (UNET, FPN) Pytorch|0.89184|0.89262|16°|
