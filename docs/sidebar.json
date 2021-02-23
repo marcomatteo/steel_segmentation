@@ -7,7 +7,7 @@
         "Models": {
             "DataLoaders": "/models.dataloaders.html",
             "Metrics": "/models.metrics.html",
-            "Model": "/models.model.html",
+            "Trainer": "/models.trainer.html",
             "Predict": "/models.predict.html"
         }
     }

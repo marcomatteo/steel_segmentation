@@ -26,7 +26,7 @@ from albumentations.pytorch import ToTensor
 import albumentations as alb
 
 # Cell
-def get_classification_dls(bs, with_tfms: bool = True, size=None):
+def get_classification_dls(bs, with_tfms: bool = True, size=None, seed=42):
     """
     Dataloaders from train DataFrame
     """
@@ -43,7 +43,7 @@ def get_classification_dls(bs, with_tfms: bool = True, size=None):
         blocks=(ImageBlock, MultiCategoryBlock()),
         get_x=ColReader(0, pref=train_path),
         get_y=ColReader(1, label_delim=' '),
-        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        splitter=RandomSplitter(valid_pct=0.2, seed=seed),
         batch_tfms=b_tfms)
 
     return dblock.dataloaders(train_multi, bs=bs)
@@ -52,7 +52,7 @@ def get_classification_dls(bs, with_tfms: bool = True, size=None):
 classes = [0, 1, 2, 3, 4]
 
 # Cell
-def get_segmentation_dls(bs, size, with_btfms=True):
+def get_segmentation_dls(bs, size, with_btfms=True, seed=42):
     """Dataloaders from `train_path` folder"""
 
     b_tfms = [Normalize.from_stats(*imagenet_stats)]
@@ -71,13 +71,13 @@ def get_segmentation_dls(bs, size, with_btfms=True):
         blocks=(ImageBlock, MaskBlock(codes=classes)),
         get_items=get_image_files,
         get_y=get_labels_from_img,
-        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        splitter=RandomSplitter(valid_pct=0.2, seed=seed),
         batch_tfms=b_tfms)
 
     return dblock.dataloaders(train_path, bs=bs)
 
 # Cell
-def get_segmentation_dls_from_df(train_df, bs, size, with_btfms=True):
+def get_segmentation_dls_from_df(train_df, bs, size, with_btfms=True, seed=42):
     """Dataloaders from `train` DataFrame"""
     def get_x(df):
         img_name = df["ImageId"]
@@ -100,7 +100,7 @@ def get_segmentation_dls_from_df(train_df, bs, size, with_btfms=True):
         blocks=(ImageBlock, MaskBlock(codes=classes)),
         get_x=get_x,
         get_y=get_y,
-        splitter=RandomSplitter(valid_pct=0.2, seed=42),
+        splitter=RandomSplitter(valid_pct=0.2, seed=seed),
         batch_tfms=b_tfms)
 
     return dblock.dataloaders(train_df, bs=bs)

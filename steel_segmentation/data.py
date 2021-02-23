@@ -182,14 +182,20 @@ def multi_rle_to_mask(img_path: str, df: pd.DataFrame = train_all) -> np.ndarray
 
 # Cell
 def img_with_mask(img_path: str):
+    """
+    Open an image from `img_path`.
+    Returns the `np.array` for:
+    - the original image (256, 1600, 3)
+    - the mask (256, 1600)
+    """
     return np.array(Image.open(img_path)), multi_rle_to_mask(img_path)
 
 # Cell
 def mask2rle(img):
     '''
-    From #https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode
+    From https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode
 
-    Attributes: `img`: numpy array, 1 -> mask, 0 -> background.
+    Attributes: `img`: numpy array with 1 -> mask, 0 -> background.
 
     Returns: run length as string formated
     '''
@@ -202,7 +208,8 @@ def mask2rle(img):
 # Cell
 def make_mask(row_id, df=train_pivot):
     '''
-    Given a row index, return image_id and mask (256, 1600, 4)
+    Given a row index ()
+    returns the image_id and mask (256, 1600, 4)
     from the dataframe `df`
     '''
     if isinstance(row_id, str):    cond = df.loc[row_id]

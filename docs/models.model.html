@@ -1,13 +1,13 @@
 ---
 
-title: Model
+title: Trainer
 
 
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Deep Learning modules with Fastai/Pytorch."
-description: "Deep Learning modules with Fastai/Pytorch."
+summary: "Train classes for Deep Learning models with Fastai/Pytorch."
+description: "Train classes for Deep Learning models with Fastai/Pytorch."
 nb_path: "nbs/06_models.model.ipynb"
 ---
 <!--
@@ -36,14 +36,6 @@ nb_path: "nbs/06_models.model.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>First we create a classification model to get an encoder that know how to classify defects pixels.
-Then, we build a UNet from the trained encoder and train a segmentation model.</p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -104,37 +96,6 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 </div>
     {% endraw %}
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="seed_everything" class="doc_header"><code>seed_everything</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L39" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>seed_everything</code>(<strong><code>seed</code></strong>=<em><code>69</code></em>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Classification">Classification<a class="anchor-link" href="#Classification"> </a></h2>
@@ -160,7 +121,7 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These lines of code allow me to create a classification <code>Learner</code>.</p>
+<p>An example to train fast.ai models with a classification <code>Learner</code>.</p>
 
 </div>
 </div>
@@ -193,6 +154,14 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>First we create a classification model to get an encoder that know how to classify defects pixels.
+Then, we build a UNet from the trained encoder and train a segmentation model.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -212,7 +181,7 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>These lines of code allow me to create a segmentation <code>Learner</code>.</p>
+<p>An example to train fast.ai models with a segmentation <code>Learner</code>.</p>
 
 </div>
 </div>
@@ -242,7 +211,7 @@ Then, we build a UNet from the trained encoder and train a segmentation model.</
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>To load a custom head in a Unet model:</p>
+<p>To load custom weights in the Unet Encoder:</p>
 
 </div>
 </div>
@@ -280,6 +249,37 @@ In this notebook I will go through each part of the model from that kernel.</p>
 </div>
 </div>
 </div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="seed_everything" class="doc_header"><code>seed_everything</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L45" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>seed_everything</code>(<strong><code>seed</code></strong>=<em><code>69</code></em>)</p>
+</blockquote>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -321,13 +321,6 @@ In this notebook I will go through each part of the model from that kernel.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
 <div class="output_wrapper">
 <div class="output">
 
@@ -335,7 +328,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L54" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
+<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L54" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
 </blockquote>
 <p>This class takes care of training and validation of our model</p>
 
@@ -353,6 +346,13 @@ In this notebook I will go through each part of the model from that kernel.</p>
     
 <div class="cell border-box-sizing code_cell rendered">
 
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
 <div class="output_wrapper">
 <div class="output">
 
@@ -360,7 +360,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.__init__" class="doc_header"><code>Trainer.__init__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L57" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.__init__</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
+<h4 id="Trainer.__init__" class="doc_header"><code>Trainer.__init__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L57" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.__init__</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
 </blockquote>
 <p>Initialize self.  See help(type(self)) for accurate signature.</p>
 
@@ -385,7 +385,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.forward" class="doc_header"><code>Trainer.forward</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.forward</code>(<strong><code>images</code></strong>, <strong><code>targets</code></strong>)</p>
+<h4 id="Trainer.forward" class="doc_header"><code>Trainer.forward</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.forward</code>(<strong><code>images</code></strong>, <strong><code>targets</code></strong>)</p>
 </blockquote>
 <p>Forward pass:
     load to GPU the imgs and masks,
@@ -415,7 +415,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.iterate" class="doc_header"><code>Trainer.iterate</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.iterate</code>(<strong><code>epoch</code></strong>, <strong><code>phase</code></strong>)</p>
+<h4 id="Trainer.iterate" class="doc_header"><code>Trainer.iterate</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.iterate</code>(<strong><code>epoch</code></strong>, <strong><code>phase</code></strong>)</p>
 </blockquote>
 <p>Iterate throught each batch in training or validation phase.</p>
 
@@ -440,7 +440,7 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.start" class="doc_header"><code>Trainer.start</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/model.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.start</code>()</p>
+<h4 id="Trainer.start" class="doc_header"><code>Trainer.start</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/models/trainer.py#L150" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.start</code>()</p>
 </blockquote>
 <p>Training loop for each epochs.</p>
 

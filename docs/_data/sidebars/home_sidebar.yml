@@ -25,8 +25,8 @@ entries:
           title: Metrics
           url: /models.metrics.html
         - output: web,pdf
-          title: Model
-          url: /models.model.html
+          title: Trainer
+          url: /models.trainer.html
         - output: web,pdf
           title: Predict
           url: /models.predict.html
