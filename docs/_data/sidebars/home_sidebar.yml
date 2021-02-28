@@ -10,27 +10,26 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Core
-      url: /core.html
+      title: Metadata
+      url: metadata.html
     - output: web,pdf
-      title: Data
-      url: /data.html
-      subfolders:
-      - output: web
-        subfolderitems:
-        - output: web,pdf
-          title: DataLoaders
-          url: /models.dataloaders.html
-        - output: web,pdf
-          title: Metrics
-          url: /models.metrics.html
-        - output: web,pdf
-          title: Trainer
-          url: /models.trainer.html
-        - output: web,pdf
-          title: Predict
-          url: /models.predict.html
-        title: Models
+      title: Mask visualization
+      url: masks.html
+    - output: web,pdf
+      title: Datasets
+      url: datasets.html
+    - output: web,pdf
+      title: Dataloaders
+      url: dataloaders.html
+    - output: web,pdf
+      title: Metrics
+      url: metrics.html
+    - output: web,pdf
+      title: Trainer
+      url: trainer.html
+    - output: web,pdf
+      title: Predict
+      url: predict.html
     output: web
     title: steel_segmentation
   output: web
