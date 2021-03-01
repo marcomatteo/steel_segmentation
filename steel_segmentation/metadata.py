@@ -2,7 +2,7 @@
 
 __all__ = ['curr_dir_name', 'path', 'print_competition_data', 'train_path', 'test_path', 'train_pfiles', 'test_pfiles',
            'get_train_df', 'hard_neg_patterns', 'train', 'train_all', 'get_train_pivot', 'train_pivot',
-           'get_classification_df', 'train_multi']
+           'get_classification_df', 'train_multi', 'test_df']
 
 # Cell
 import warnings
@@ -110,3 +110,6 @@ def get_classification_df(df: pd.DataFrame = None):
 
 # Cell
 train_multi = get_classification_df()
+
+# Cell
+test_df = pd.read_csv(path / 'sample_submission.csv')
