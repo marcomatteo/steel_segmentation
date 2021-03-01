@@ -78,7 +78,7 @@ def make_mask(item, flatten=False, df=None):
 
     from the dataframe `train_pivot` if not specified into `df`.
     '''
-    if not df: df = train_pivot
+    if df is None: df = train_pivot
     if isinstance(item, str):         cond = df.loc[item]
     elif isinstance(item, int):       cond = df.iloc[item]
     elif isinstance(item, Path):      cond = df.loc[item.name]

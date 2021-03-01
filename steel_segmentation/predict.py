@@ -207,7 +207,7 @@ class FastPredict:
                 img_label = img_id + "_pred.png"
                 img_path = self.pred_mask_path / img_label
 
-                mask = rle_to_mask(row.EncodedPixels, class_id, 256, 1600)
+                mask = rle2mask(row.EncodedPixels, 1, (256, 1600))
                 im = Image.fromarray(mask)
                 im.save(img_path)
 
@@ -240,24 +240,26 @@ class FastPredict:
         file_path = sub_path / (fname + '.csv')
         self.df.to_csv(file_path, index=False)
 
-    def plot(self, n:int=5, rand=False):
-        """Plot `n` elements in `self.img_paths`.
-        If `rand` prints shuffle images."""
-        if (not hasattr(self, 'df_masks'))|(not hasattr(self, 'df')):
-            return "Nothing to plot, first call make_masks"
+#    def plot(self, n:int=5, rand=False):
+#        """Plot `n` elements in `self.img_paths`.
+#        If `rand` prints shuffle images."""
+#        if (not hasattr(self, 'df_masks'))|(not hasattr(self, 'df')):
+#            return "Nothing to plot, first call make_masks"
 
-        path_list = self.img_paths.map(Path)
+#        path_list = self.img_paths.map(Path)
 
-        if rand:
+#        if rand:
             #path_list = get_perm_imgs_path(self.img_paths.map(Path), self.df_masks)
-            path_list = path_list.shuffle()
+#            path_list = path_list.shuffle()
 
-        df = self.df.copy()
-        splitted_cols = df["ImageId_ClassId"].str.split("_", expand=True)
-        df["ImageId"], df["ClassId"] = splitted_cols[0], splitted_cols[1].astype("int64")
+#        df = self.df.copy()
+#        splitted_cols = df["ImageId_ClassId"].str.split("_", expand=True)
+#        df["ImageId"], df["ClassId"] = splitted_cols[0], splitted_cols[1].astype("int64")
 
-        for p in path_list[:n]:
-            plot_defected_image(p, df)
+#        for p in path_list[:n]:
+#            imgid, mask = make_mask(p, flatten=True, df=df)
+#            img = cv2.imread(str(p))
+#            plot_mask_image(imgid, img, mask)
 
 # Cell
 class TestDataset(Dataset):
