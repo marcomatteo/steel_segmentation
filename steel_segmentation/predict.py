@@ -14,7 +14,6 @@ import fastai
 from fastai.vision.all import *
 from fastai.metrics import *
 from fastai.data.all import *
-from fastcore.all import patch_to
 
 import os
 import cv2
@@ -23,13 +22,12 @@ import numpy as np
 import pandas as pd
 import warnings
 import zipfile
+from tqdm import tqdm
 
-from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset, sampler
 import albumentations as alb
 
 import segmentation_models_pytorch as smp
-
 
 warnings.filterwarnings("ignore")
 
@@ -303,7 +301,7 @@ def get_test_dls(
     ):
     """Returns dataloader for testing."""
     if not mean and not std: mean, std = imagenet_stats
-    if not df: df = test_df
+    if df is None: df = test_df
     if not root: root = test_path
 
     return DataLoader(
@@ -316,7 +314,7 @@ def get_test_dls(
     )
 
 # Cell
-class Predict(FastPredict):
+class Predict:
     def __init__(self, test_dl, model, device="cuda"):
         """
         `test_dl`: test Dataloader already loaded with `get_test_dls`
@@ -327,14 +325,17 @@ class Predict(FastPredict):
         self.img_paths = L([self.source_path / p for p in self.source])
         self.elems = len(self.img_paths)
 
-        self.model = model
         self.device = torch.device(device)
+        self.model = model.to(self.device)
+
 
     def __call__(self, threshold:float, min_size:int):
-        """Call the object with prediction attributes,
+        """
+        Call the object with prediction attributes,
         it calls `Predict.get_predictions`
-        and returns the `Predict.df` DataFrame with RLEs."""
-        self.size_fold = min([self.elems, size_fold])
+        and returns the `Predict.df` DataFrame with RLEs.
+        """
+        self.threshold = threshold
         self.min_size = min_size
         self.df = self.get_predictions()
         return self.df
@@ -348,12 +349,31 @@ class Predict(FastPredict):
         df_preds = []
         for i, batch in enumerate(tqdm(self.test_dl)):
             fnames, images = batch
+
             batch_preds = torch.sigmoid(self.model(images.to(self.device)))
             batch_preds = batch_preds.detach().cpu().numpy()
+
             for fname, preds in zip(fnames, batch_preds):
                 for cls, pred in enumerate(preds):
-                    pred, num = post_process(pred, best_threshold, min_size)
+                    pred, num = self.post_process(pred)
                     rle = mask2rle(pred)
                     name = fname + f"_{cls+1}"
                     df_preds.append([name, rle])
+
         return pd.DataFrame(df_preds, columns=['ImageId_ClassId', 'EncodedPixels'])
+
+    def post_process(self, probability):
+        """
+        Post processing of each predicted mask, components with lesser number of pixels
+        than `min_size` are ignored.
+        """
+        mask = cv2.threshold(probability, self.threshold, 1, cv2.THRESH_BINARY)[1]
+        num_component, component = cv2.connectedComponents(mask.astype(np.uint8))
+        predictions = np.zeros((256, 1600), np.float32)
+        num = 0
+        for c in range(1, num_component):
+            p = (component == c)
+            if p.sum() > self.min_size:
+                predictions[p] = 1
+                num += 1
+        return predictions, num
