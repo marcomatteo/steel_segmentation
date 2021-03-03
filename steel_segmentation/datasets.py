@@ -57,7 +57,7 @@ class SteelDataset(Dataset):
         self.fnames = self.df.index.tolist()
 
     def __getitem__(self, idx):
-        image_id, mask = make_mask(idx, self.df)
+        image_id, mask = make_mask(idx, df=self.df)
         image_path = train_path / image_id
         img = cv2.imread(str(image_path))
         augmented = self.transforms(image=img, mask=mask)

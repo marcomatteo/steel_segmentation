@@ -92,7 +92,7 @@ def make_mask(item, flatten=False, df=None):
     labels = cond[1:-1]
 
     h, w = (256, 1600)
-    masks = np.zeros((h, w, 4), dtype=np.uint8) # 4:class 1～4 (ch:0～3)
+    masks = np.zeros((h, w, 4), dtype=np.float32) # 4:class 1～4 (ch:0～3)
 
     for itemx, label in enumerate(labels.values):
         if label is not np.nan:
@@ -131,7 +131,7 @@ palet = [
 def plot_mask_image(name: str, img: np.array, mask: np.array):
     """Plot a np.array image and mask with contours."""
     fig, ax = plt.subplots(figsize=(15, 5))
-
+    mask = mask.astype(np.float32)
     for ch in range(4):
         contours, _ = cv2.findContours(mask[:, :, ch], cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
         for i in range(len(contours)):
