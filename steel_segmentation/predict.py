@@ -377,3 +377,12 @@ class Predict:
                 predictions[p] = 1
                 num += 1
         return predictions, num
+
+    def save_submission(self, fname="test_submission"):
+        """Save submission file in CSV in `sub_path`.
+        It adds always .csv at the end of `fname`."""
+        if not hasattr(self, 'df'):
+            raise KeyError("Call the object first to get the predictions")
+
+        file_path = sub_path / (fname + '.csv')
+        self.df.to_csv(file_path, index=False)
