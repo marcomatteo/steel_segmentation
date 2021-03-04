@@ -131,7 +131,7 @@ palet = [
 def plot_mask_image(name: str, img: np.array, mask: np.array):
     """Plot a np.array image and mask with contours."""
     fig, ax = plt.subplots(figsize=(15, 5))
-    mask = mask.astype(np.float32)
+    mask = mask.astype(np.uint8)
     for ch in range(4):
         contours, _ = cv2.findContours(mask[:, :, ch], cv2.RETR_LIST, cv2.CHAIN_APPROX_NONE)
         for i in range(len(contours)):
@@ -188,7 +188,7 @@ def create_masks(df: pd.DataFrame):
         img_path = train_path / img_id
         img_label = labels_path/f"{img_path.stem}_P.png"
         if not img_label.is_file():
-            _, mask = make_mask(img_path)
+            _, mask = make_mask(img_path, flatten=True)
             im = Image.fromarray(mask)
             im.save(img_label)
         paths.append(img_label)

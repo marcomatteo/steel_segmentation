@@ -57,9 +57,9 @@ nb_path: "nbs/07_predict.ipynb"
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>../models/kaggle-FPN-ResNet34-finetuning.pth
-../models/ResNet18-Unet-kaggle.pth
+../models/kaggle-UNET-ResNet34-stage2.pth
 ../models/.ipynb_checkpoints
-../models/ResNet18-Classifier-kaggle.pth
+../models/kaggle-UNET-ResNet34.pth
 ../models/kaggle-FPN-ResNet34.pth
 ../models/ResNet34-Unet-256-stage5.pth
 ../models/ResNet34-Unet-256-stage3.pth
@@ -865,8 +865,8 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">xb</span><span class="p">,</span> <span class="n">yb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">test_dls</span><span class="p">))</span>
-<span class="n">xb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">namesb</span><span class="p">,</span> <span class="n">xb</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">test_dls</span><span class="p">))</span>
+<span class="n">namesb</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
@@ -984,8 +984,7 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">size_fold</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
 <span class="n">min_size</span> <span class="o">=</span> <span class="mi">3000</span>
 </pre></div>
 
@@ -1016,7 +1015,7 @@ It adds always .csv at the end of <code>fname</code>.</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>100%|██████████| 1377/1377 [02:24&lt;00:00,  9.56it/s]
+<pre>100%|██████████| 1377/1377 [02:31&lt;00:00,  9.10it/s]
 </pre>
 </div>
 </div>
@@ -1103,6 +1102,23 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mean</span><span class="p">,</span> <span class="n">std</span> <span class="o">=</span> <span class="n">imagenet_stats</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 

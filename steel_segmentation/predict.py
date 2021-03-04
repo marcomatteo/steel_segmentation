@@ -328,7 +328,6 @@ class Predict:
         self.device = torch.device(device)
         self.model = model.to(self.device)
 
-
     def __call__(self, threshold:float, min_size:int):
         """
         Call the object with prediction attributes,
@@ -350,8 +349,7 @@ class Predict:
         for i, batch in enumerate(tqdm(self.test_dl)):
             fnames, images = batch
 
-            batch_preds = torch.sigmoid(self.model(images.to(self.device)))
-            batch_preds = batch_preds.detach().cpu().numpy()
+            batch_preds = self.predict_batch(self.model, images)
 
             for fname, preds in zip(fnames, batch_preds):
                 for cls, pred in enumerate(preds):
@@ -361,6 +359,13 @@ class Predict:
                     df_preds.append([name, rle])
 
         return pd.DataFrame(df_preds, columns=['ImageId_ClassId', 'EncodedPixels'])
+
+    def predict_batch(self, model, images):
+        """Predict a single batch, returns the probabilities into numpy array"""
+
+        batch_preds = torch.sigmoid(model(images.to(self.device)))
+        batch_preds = batch_preds.detach().cpu().numpy()
+        return batch_preds
 
     def post_process(self, probability):
         """
