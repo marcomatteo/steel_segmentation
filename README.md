@@ -34,21 +34,21 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Move the `kaggle.json` file in the repository directory.
 
-```
+```python
 !mkdir ~/.kaggle
 ```
 
-```
+```python
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```
+```python
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
@@ -56,7 +56,8 @@ Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
 |Models|Public score|Private score|Percentile Private LB|
 |------|------------|-------------|----------|
-|UNET Pytorch|0.87530|0.85364|85°|
-|UNET FastAI|0.88648|0.88830|23°|
-|FPN Pytorch|0.89054|0.88911|19°|
-|Ensemble (UNET, FPN) Pytorch|0.89184|0.89262|16°|
+|Pytorch-UNET-ResNet18|0.87530|0.85364|85°|
+|Pytorch-UNET-ResNet34|0.88591|0.88572|46°|
+|FastAI-UNET-ResNet34|0.88648|0.88830|23°|
+|Pytorch-FPN-ResNet34|0.89054|0.88911|19°|
+|Ensemble-UNET-ResNet34-FPN-ResNet34|0.89184|0.89262|16°|
