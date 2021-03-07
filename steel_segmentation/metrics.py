@@ -25,7 +25,7 @@ class ModDiceMulti(Metric):
 
     def accumulate(self, learn):
         pred = learn.pred.argmax(dim=self.axis)
-        y = learn.yb
+        y = learn.yb[0]
 
         if pred.shape != y.shape:
             y = y.argmax(dim=self.axis)
@@ -58,10 +58,10 @@ class KaggleDice(Metric):
     def reset(self): self.inter, self.union = {}, {}
 
     def accumulate(self, learn):
-        n, c = learn.yb.shape[0], learn.pred.shape[self.axis]
+        n, c = learn.yb[0].shape[0], learn.pred.shape[self.axis]
 
         pred = learn.pred.argmax(dim=self.axis).view(n, -1)
-        targs = learn.yb.view(n, -1)
+        targs = learn.yb[0].view(n, -1)
 
         pred, targ = flatten_check(pred, targs)
         for i in range(0, c):

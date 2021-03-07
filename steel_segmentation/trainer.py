@@ -40,7 +40,7 @@ models_dir = path.parent / "models"
 class_metrics = [accuracy_multi, PrecisionMulti(), RecallMulti()]
 
 # Cell
-seg_metrics = [ModDiceMulti(), KaggleDice()]
+seg_metrics = [DiceMulti(), KaggleDice()]
 
 # Cell
 def seed_everything(seed=69):
