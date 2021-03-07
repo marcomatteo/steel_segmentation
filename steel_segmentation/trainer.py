@@ -78,7 +78,6 @@ class Trainer:
 
         self.dataloaders = {
             phase: get_train_dls(
-                data_folder=path,
                 phase=phase,
                 mean=(0.485, 0.456, 0.406),
                 std=(0.229, 0.224, 0.225),

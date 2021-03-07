@@ -24,7 +24,13 @@ class ModDiceMulti(Metric):
     def reset(self): self.inter, self.union = {}, {}
 
     def accumulate(self, learn):
-        pred, targ = flatten_check(learn.pred.argmax(dim=self.axis), learn.y)
+        pred = learn.pred.argmax(dim=self.axis)
+        y = learn.y
+
+        if pred.shape != y.shape:
+            y = y.argmax(dim=self.axis)
+
+        pred, targ = flatten_check(pred, y)
         for c in range(learn.pred.shape[self.axis]):
             p = torch.where(pred == c, 1, 0)
             t = torch.where(targ == c, 1, 0)
@@ -47,15 +53,16 @@ class ModDiceMulti(Metric):
         return np.nanmean(binary_dice_scores)
 
 # Cell
-def dice_kaggle(input: Tensor, targs: Tensor, iou: bool = False, eps: float = 1e-8):
-    """From [kaggle](https://www.kaggle.com/iafoss/severstal-fast-ai-256x256-crops)"""
-    n, c = targs.shape[0], input.shape[1]
-    input = input.argmax(dim=1).view(n, -1)
+def dice_kaggle(pred: Tensor, targs: Tensor, iou: bool = False, eps: float = 1e-8):
+    """The metric of the competition,
+    if there's no defect in `targs` and no defects in `pred`: dice=1."""
+    n, c = targs.shape[0], pred.shape[1]
+    pred = pred.argmax(dim=1).view(n, -1)
     targs = targs.view(n, -1)
 
     intersect, union = [], []
     for i in range(1, c):
-        inp, trgs = TensorBase(input), TensorBase(targs)
+        inp, trgs = TensorBase(pred), TensorBase(targs)
         intersect.append(((inp == i) & (trgs == i)).sum(-1).float())
         union.append(((inp == i).sum(-1) + (trgs == i).sum(-1)).float())
 

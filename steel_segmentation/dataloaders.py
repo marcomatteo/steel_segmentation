@@ -108,7 +108,6 @@ def get_segmentation_dls_from_df(train_df, bs, size, with_btfms=True, seed=42):
 # Cell
 def get_train_dls(
         phase,
-        data_folder=path,
         mean=None,
         std=None,
         batch_size=8,
@@ -116,14 +115,14 @@ def get_train_dls(
     ):
     '''Returns dataloader for the model training.'''
     df = train_pivot
-    if not mean and not std:
+    if (mean is None) or (std is None):
         mean, std = imagenet_stats
 
     train_df, val_df = train_test_split(
         df, test_size=0.2, stratify=df["n"], random_state=69)
 
     df = train_df if phase == "train" else val_df
-    image_dataset = SteelDataset(df, data_folder, mean, std, phase)
+    image_dataset = SteelDataset(df, mean, std, phase)
 
     dataloader = DataLoader(
         image_dataset,

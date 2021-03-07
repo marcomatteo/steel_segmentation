@@ -47,9 +47,8 @@ def get_transforms(phase, mean, std):
 # Cell
 class SteelDataset(Dataset):
 
-    def __init__(self, df, data_folder, mean, std, phase):
+    def __init__(self, df, mean, std, phase):
         self.df = df
-        self.root = data_folder
         self.mean = mean
         self.std = std
         self.phase = phase
