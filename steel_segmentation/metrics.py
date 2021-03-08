@@ -58,10 +58,13 @@ class KaggleDice(Metric):
     def reset(self): self.inter, self.union = {}, {}
 
     def accumulate(self, learn):
-        n, c = learn.yb[0].shape[0], learn.pred.shape[self.axis]
+        y = learn.yb[0]
+        preds = learn.pred
 
-        pred = learn.pred.argmax(dim=self.axis).view(n, -1)
-        targs = learn.yb[0].view(n, -1)
+        n, c = y.shape[0], preds.shape[self.axis]
+
+        pred = preds.argmax(dim=self.axis).view(n, -1)
+        targs = y.view(n, -1)
 
         pred, targ = flatten_check(pred, targs)
         for i in range(0, c):
