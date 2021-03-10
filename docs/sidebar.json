@@ -7,6 +7,7 @@
     "Dataloaders": "dataloaders.html",
     "Metrics": "metrics.html",
     "Trainer": "trainer.html",
-    "Predict": "predict.html"
+    "Predict": "predict.html",
+    "Loss functions": "loss.html"
   }
 }

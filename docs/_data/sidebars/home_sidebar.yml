@@ -30,6 +30,9 @@ entries:
     - output: web,pdf
       title: Predict
       url: predict.html
+    - output: web,pdf
+      title: Loss functions
+      url: loss.html
     output: web
     title: steel_segmentation
   output: web

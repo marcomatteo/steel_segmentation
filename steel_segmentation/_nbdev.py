@@ -55,7 +55,31 @@ index = {"curr_dir_name": "01_metadata.ipynb",
          "FastPredict": "07_predict.ipynb",
          "TestDataset": "07_predict.ipynb",
          "get_test_dls": "07_predict.ipynb",
-         "Predict": "07_predict.ipynb"}
+         "Predict": "07_predict.ipynb",
+         "lovasz_grad": "08_loss.ipynb",
+         "iou_binary": "08_loss.ipynb",
+         "iou": "08_loss.ipynb",
+         "lovasz_hinge": "08_loss.ipynb",
+         "lovasz_hinge_flat": "08_loss.ipynb",
+         "flatten_binary_scores": "08_loss.ipynb",
+         "StableBCELoss": "08_loss.ipynb",
+         "binary_xloss": "08_loss.ipynb",
+         "lovasz_softmax": "08_loss.ipynb",
+         "lovasz_softmax_flat": "08_loss.ipynb",
+         "flatten_probas": "08_loss.ipynb",
+         "xloss": "08_loss.ipynb",
+         "isnan": "08_loss.ipynb",
+         "mean": "08_loss.ipynb",
+         "bce_loss": "08_loss.ipynb",
+         "SoftDiceLoss": "08_loss.ipynb",
+         "DiceLoss": "08_loss.ipynb",
+         "BCEDiceLoss": "08_loss.ipynb",
+         "IoULoss": "08_loss.ipynb",
+         "BinaryFocalLoss": "08_loss.ipynb",
+         "FocalBCEDiceLoss": "08_loss.ipynb",
+         "LabelSmoother": "08_loss.ipynb",
+         "dice": "08_loss.ipynb",
+         "focal_loss_with_logits": "08_loss.ipynb"}
 
 modules = ["metadata.py",
            "masks.py",
@@ -63,7 +87,8 @@ modules = ["metadata.py",
            "dataloaders.py",
            "metrics.py",
            "trainer.py",
-           "predict.py"]
+           "predict.py",
+           "loss.py"]
 
 doc_url = "https://marcomatteo.github.io/steel_segmentation/"
 
