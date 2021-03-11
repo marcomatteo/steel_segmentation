@@ -6,8 +6,8 @@
     "Datasets": "datasets.html",
     "Dataloaders": "dataloaders.html",
     "Metrics": "metrics.html",
+    "Loss functions": "loss.html",
     "Trainer": "trainer.html",
-    "Predict": "predict.html",
-    "Loss functions": "loss.html"
+    "Predict": "predict.html"
   }
 }

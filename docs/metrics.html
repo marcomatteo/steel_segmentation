@@ -38,7 +38,7 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fastai-metrics">Fastai metrics<a class="anchor-link" href="#Fastai-metrics"> </a></h2>
+<h2 id="Metrics-for-fastai-API">Metrics for fastai API<a class="anchor-link" href="#Metrics-for-fastai-API"> </a></h2>
 </div>
 </div>
 </div>
@@ -223,6 +223,13 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Test of <code>DiceMulti</code> into a simulated training with <code>compute_val</code> and a test Learner with <code>TstLearner</code>.</p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -259,6 +266,19 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Different scenario with a multiclass batch:</p>
+<ul>
+<li>Class0 x 10</li>
+<li>Class1 x 4</li>
+<li>Class2 x 3</li>
+<li>Class4 x 3</li>
+</ul>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -525,6 +545,17 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The competition "Evaluation" metric is defined as:</p>
+<blockquote><p>This competition is evaluated on the mean Dice coefficient. The Dice coefficient can be used to compare the pixel-wise agreement between a predicted segmentation and its corresponding ground truth. The formula is given by:$$J(A,B) = {{2 * |A \cap B|}\over{|A| \cup |B|}}
+$$</p>
+<p>where X is the predicted set of pixels and Y is the ground truth. The Dice coefficient is defined to be 1 when both X and Y are empty. The leaderboard score is the mean of the Dice coefficients for each &lt;ImageId, ClassId&gt; pair in the test set.</p>
+</blockquote>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -653,9 +684,24 @@ nb_path: "dev_nbs/05_metrics.ipynb"
             <span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_inter</span>
             <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_union</span>
 
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iter n.</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="se">\n</span><span class="s2">intersect: </span><span class="si">{</span><span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">union: </span><span class="si">{</span><span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1">#print(f&quot;Iter n.{i}\nintersect: {intersect[i]}\nunion: {union[i]}&quot;, end=&quot;\n\n&quot;)</span>
+</pre></div>
 
-    <span class="c1">#intersect, union</span>
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">intersect</span>
 </pre></div>
 
     </div>
@@ -667,62 +713,56 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 
 <div class="output_area">
 
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Iter n.0
-intersect: tensor([1., 1., 1., 1., 1., 1.])
-union: tensor([2., 2., 2., 2., 2., 2.])
 
-Iter n.1
-intersect: tensor([0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0.])
 
-Iter n.2
-intersect: tensor([0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0.])
-
-Iter n.3
-intersect: tensor([0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0.])
-
-Iter n.0
-intersect: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0.])
-union: tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2., 1., 1., 1., 1., 1.])
-
-Iter n.1
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 0.])
-
-Iter n.2
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1.])
-
-Iter n.3
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-
-Iter n.0
-intersect: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
-        0., 0.])
-union: tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2., 1., 1., 1., 1., 1., 1., 1., 1.,
-        1., 1.])
-
-Iter n.1
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 0., 0., 0., 0.,
-        0., 0.])
-
-Iter n.2
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 0.,
-        0., 0.])
-
-Iter n.3
-intersect: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
-union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1.,
-        1., 1.])
-
-</pre>
+<div class="output_text output_subarea output_execute_result">
+<pre>{0: tensor([1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 0., 0., 0., 0., 0., 0., 0., 0.,
+         0., 0.]),
+ 1: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]),
+ 2: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]),
+ 3: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])}</pre>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">union</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>{0: tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2., 1., 1., 1., 1., 1., 1., 1., 1.,
+         1., 1.]),
+ 1: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 1., 0., 0., 0., 0.,
+         0., 0.]),
+ 2: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 1., 1., 0.,
+         0., 0.]),
+ 3: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1.,
+         1., 1.])}</pre>
+</div>
+
 </div>
 
 </div>
@@ -739,7 +779,7 @@ union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">intersect</span><span class="p">)):</span>
+<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">intersect</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
     <span class="n">cond</span> <span class="o">=</span> <span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
     <span class="n">val</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">intersect</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>
     <span class="n">val</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
@@ -761,9 +801,10 @@ union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">num</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
     <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binary_dice_scores</span><span class="p">[(</span><span class="n">i</span><span class="o">*</span><span class="mi">20</span><span class="p">):((</span><span class="n">i</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span><span class="o">+</span><span class="mi">20</span><span class="p">)])</span>
+    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=.</span><span class="mi">6</span><span class="p">,</span> <span class="n">pad</span><span class="o">=-</span><span class="mf">7.</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -778,7 +819,7 @@ union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0
 
 
 <div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAWoAAAD6CAYAAACIyQ0UAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90bGliIHZlcnNpb24zLjMuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/d3fzzAAAACXBIWXMAAAsTAAALEwEAmpwYAAAgUUlEQVR4nO3deXBc1b0n8O+vW/tqrdbSltoYL8iL7G7FBAIMAUKMARu7NZnnJIQUrvK8BKom9SozQyY8ylNQU3mZmkwqj0DwJK6E5AXyRo2xSeyYDItNEucFdSPvu7Fxt2QtXrRZW0tn/pCcErJaaqmXc/ve76dKZan73u5vXTVfru4991xRSoGIiIzLpjsAERFNjUVNRGRwLGoiIoNjURMRGRyLmojI4FjUREQGN21Ri8h2EWkTkSOJCERERJ8m042jFpF7APQAeFUptSySFy0uLlZOpzP6dEREFuHz+TqUUiWTPZcy3cpKqf0i4pzJGzqdTjQ2Ns5kFQDAh+evYGSEF+DQ7C2am4uC7DTdMYhmTEQuhHtu2qJOpK/97K/oGxrWHYOS2O3zC/Gb/3iH7hhEMRWzohaRLQC2AEBVVdWsXmP71z8DXtJOs/X2sVb8/M/ncb6jF87ibN1xiGImZkWtlNoGYBsA1NXVzapt71hQFKs4ZEG3lOTg1QPn8YY/gH94cLHuOEQxw+F5ZBpl+Rn43K3F8PqDPNdBphLJ8LzXABwAsFhEAiKyOf6xiGan3u1A8Fof/vLxZd1RiGImklEfmxIRhCgWvri0DLnpKfD6grhzQbHuOEQxwUMfZCoZqXY8vKIce460oHcgpDsOUUywqMl06t0OXB8cxp4jl3RHIYoJFjWZjru6AM6iLHh9Ad1RiGKCRU2mIyLwuBw4cO4yLl65rjsOUdRY1GRKG1yVAIAdHwU1JyGKHouaTMlRkIU7FxTB6w/waldKeixqMi2Py4ELl6+j8cJV3VGIosKiJtNas6wMWWl2NDTypCIlNxY1mVZ2egrWLi/H7w63oG+QszJS8mJRk6l5XA70DITw9jGOqabkxaImU7t9fiEcBZlo4JhqMogrV65gw4YNyM7ORnV1NX79619Pu46hbhxAFGs2m2Cjy4F/fvc0Wjr7UJ6fqTsSWdxTTz2FtLQ0tLa2oqmpCQ8//DBqa2unXId71GR6HlcllALe8HNMNenV29sLr9eL559/Hjk5Objrrruwbt06/PKXv5xyPRY1mV51UTZWOws5ppq0O3XqFOx2OxYtWvS3x2pra3H06NEp12NRkyV43JU4196LpovXdEchC+vp6UF+fv6nHsvPz0d3d/eU67GoyRLWLi9HRqqNJxVJq5ycHHR1dX3qsa6uLuTm5k65HouaLCE3IxVrlpbhrYPN6Oed7kmTRYsWIRQK4fTp03977ODBg1i6dOmU67GoyTLq3fPQ1R/C/zveqjsKWVR2djY2btyI5557Dr29vfjTn/6EnTt34vHHH59yPRY1WcYdC4pQnp/BeapJq5deegl9fX0oLS3Fpk2b8PLLL0+7R81x1GQZdptgw6pK/GTfWbR19aM0L0N3JLKgwsJCvPnmmzNah3vUZCketwMjCniziWOqKXmwqMlSFpTkYFXVHHh9QY6ppqTBoibLqXc7cLK1G0eCXdMvTGQALGqynEdWVCAtxQavnycVKTmwqMly8jNT8WDNXOxsCmIwNKI7DtG0WNRkSR63A1evD+HdE226oxBNi0VNlnT3rcUoyU3nJeWUFFjUZEkpdhs2rqrE+yfbcLlnQHccoimxqMmyPG4HQiMKO5uadUchmhKLmixr0dxcrHDk8/AHGR6LmizN43LgWEsXjjVzTDUZF4uaLG1dbQVS7cIx1WRoLGqytILsNNy/ZHRM9dAwx1STMbGoyfI8bgc6egax72S77ihEk4qoqEVkjYicFJEzIvJMvEMRJdK9i0tQlJ3Gwx9kWNMWtYjYAfwYwEMAagBsEpGaeAcjSpRUuw3rV1bineNtuNo7qDsO0U0iuXHAagBnlFLnAEBEXgewHsCxeAYjSqR6twPb//QxfrLvLO5aWKw7DiWpVLsNn72lKOavG0lRVwK4OO7nAIDbJy4kIlsAbAGAqqqqmIQjSpSaijwsr8zHK/vP4ZX953THoSRVnJOOxmcfiPnrRlLUMsljN824rpTaBmAbANTV1XFGdko6v3hyNc619+iOQUksxR6f8RmRFHUAwLxxPzsA8JpbMp3C7DQUZhfqjkF0E5nudkQikgLgFID7AQQBfAjgy0qpo1Os0w7gwiwzFQPomOW6icB80WG+6DBfdIycr1opVTLZE9PuUSulQiLyNIC9AOwAtk9V0mPrTPpmkRCRRqVU3WzXjzfmiw7zRYf5omP0fOFEcugDSqndAHbHOQsREU2CVyYSERmcEYt6m+4A02C+6DBfdJgvOkbPN6lpTyYSEZFeRtyjJiKicVjUREQGF8mkTNtFpE1EjiQiEBERfVokF7zcA6AHwKtKqWWRvGhxcbFyOp3RpyMisgifz9cRzQUv+0XEOZM3dDqdaGxsnMkqAID//YdTCI3wLhs0e/cuLsVnnLwMfDZ8F67i3ROtumMktay0FDz1+Vtnta6IhL2aO6ILXiJ8k6hnz9v+x4/RNzQcq0hkMcNK4a2DLdj3n++FyGRziVE4Sin8l4aDONfRCzu33awV56TPuqinErOijsXseYf/+xdjFYcs6A1/AP/wrwfx4fmrWD2fe9Uz0XTxGs629+KfPMvxHz7DaYqNhqM+yDTWLCtDdpodXh9vqTVTXn8AGak2rF1erjsKTYJFTaaRlZaCtcvL8bvDLegb5CG0SPUPDWNXUzPWLC1Dbkaq7jg0iUiG570G4ACAxSISEJHN8Y9FNDsetwM9AyHsPXpJd5Sk8c7xNnT1h+BxO3RHoTAiGfWxKRFBiGJhtbMQjoJMNPgCeGxVpe44SaHBdxFleRm4cwHvFWlUPPRBpmKzCTwuB/50tgPN1/p0xzG8tq5+7D/dgY2uSthtHO1hVCxqMh2PywGlgB0fBXVHMbw3m4IYHlE87GFwLGoynaqiLKyeXwivLwDODhmeUgpeXxCrquZgQUmO7jg0BRY1mVK9y4FzHb346OI13VEM60iwCydbu+FxcW/a6FjUZEprV5QjM9WOBo6pDsvrDyAtxYZHV1TojkLTYFGTKeWkp2DNsjK8dbAZ/ZyW4CaDoRHsbAriCzVzkZ/FsdNGx6Im0/K4HOjuD+EPxzjR0ETvnmjD1etDqOdhj6TAoibTumNBESryM+D18/DHRF5/ACW56bh7IcdOJwMWNZmW3SbY4KrE/lPtaOvq1x3HMC73DOC9E23YsKoSKXZWQDLgb4lMzeNyYIRjqj9lZ1MzQiOKoz2SCIuaTO2Wkhy4qubA6+eY6hsafAEsr8zH4rJc3VEs6cUXX0RdXR3S09Px9a9/PaJ1WNRkevXueTjV2oPDwU7dUbQ71tyFYy1dqOeViNpUVFTg2WefxZNPPhnxOixqMr2HV5QjLcXGeaoxehIx1S5YV8ux07ps3LgRjz32GIqKiiJeh0VNppefmYoHa+Zi58FmDISsO6Z6aHh07PR9S0pRkJ2mOw7NAIuaLKHe7cC160N470Sb7ija7D/Vjo6eQdS75+mOQjPEoiZLuHthCUpz09Hgs+7ojwZfAEXZabh3cYnuKDRDLGqyhBtjqt8/2YaOngHdcRLuau8g3jnehvUrK5HKsdNJh78xsox6lwOhEYWdTc26oyTcW4eaMTg8Ao+bd73RLRQKob+/H8PDwxgeHkZ/fz9CodCU67CoyTIWzs1FrSPfkjPqeX0B3Faeh6UV+bqjWN4LL7yAzMxMfO9738OvfvUrZGZm4oUXXphyHRY1WYrH7cDxli4ca+7SHSVhTrd242CgEx4X96aNYOvWrVBKfepr69atU67DoiZLeXRFBVLtYqmJmhr8AdhtgvUrWdTJikVNllKQnYYHbpuLNz8KYmh4RHecuAsNj2CHP4jPLy5BSW667jg0SyxqshyPy4HLvYPYd7Jdd5S4++OZDrR1D3ACpiTHoibL+XeLS1Cck2aJk4pefxBzslJx322luqNQFFjUZDmpdhvWr6zEOydacbV3UHecuOnsG8Leo5ewrrYC6Sl23XEoCixqsiSPy4GhYYVdB807pvp3h1owGBrhYQ8TYFGTJdVU5KGmPM/Uoz8afBexsDQHKxwcO53sWNRkWR63A4cCnTjV2q07Ssyda++B/5Nr8LgdEBHdcShKLGqyrPUrK5BiE1POU+31B2ATYMMqjp02AxY1WVZxTjruXVyKHR8FETLRmOrhEYU3/EHcvbAEc/MydMehGGBRk6XVux1o6x7AB2c6dEeJmQNnL6Ols5+32zIRFjVZ2n1LSlGQlWqqwx9efwC5GSn4Qs1c3VEoRljUZGlpKTasq63A28da0Xl9SHecqHX3D2HPkRY8sqICGakcO20WLGqyvHr3PAyGRvDbw8k/pnrP4UvoHxrhYQ+TiaioRWSNiJwUkTMi8ky8QxEl0rLKPCyam2OKwx8N/gDmF2fDVTVHdxSKoWmLWkTsAH4M4CEANQA2iUhNvIMRJYqIoN7tgP+Tazjb3qM7zqx9cvk6/vrxFdRz7LTppESwzGoAZ5RS5wBARF4HsB7AsXgGI0qkx1ZW4nt7TuAf3zyCpRV5uuPMyolL3RCOnTalSIq6EsDFcT8HANw+cSER2QJgCwBUVVXFJBxRopTmZaDe7cBvD7Wg6eI13XFm7bGVlaiYk6k7BsVYJEU92d9Q6qYHlNoGYBsA1NXV3fQ8kdF9v74W36+v1R2D6CaRFHUAwLxxPzsATHl63OfzdYjIhVlmKgZg5KsPmC86zBcd5ouOkfNVh3tClJp651dEUgCcAnA/gCCADwF8WSl1NJYJx71fo1KqLh6vHQvMFx3miw7zRcfo+cKZdo9aKRUSkacB7AVgB7A9XiVNREQ3i+TQB5RSuwHsjnMWIiKahBGvTNymO8A0mC86zBcd5ouO0fNNatpj1EREpJcR96iJiGgcFjURkcGxqImIDC6SSZm2i0ibiBxJRCAiIvq0SC54uQdAD4BXlVLLInnR4uJi5XQ6o09HRGQRPp+vQylVMtlzkVzwsl9EnDN5Q6fTicbGxpmsAgD49z/5MwZC5rnJKFGi3bekFN96YJHuGFo0+AJ49cB5rRnmZKXh1SdXz2rdqabdiOiClwjfJOrZ8wqz0zDIoiaalYtX+/Dj987giTucKMhO0x0noUZGFH7w9kmICBbNzdGWIy8zNS6vG7OijsXsea88nnSX4BMZxtHmTjz8oz/irUPN+NodTt1xEurAucto7uzHjzatwrraCt1xYo6jPohMYmlFPpaU5ZrilmIz5fWN3nn9QZPeeZ1FTWQi9W4HDgY6cbq1W3eUhOkZCGHPkUumvvN6JMPzXgNwAMBiEQmIyOb4xyKi2Vi/shJ2m6DBb5296t2HW9A3NIx6t3lvQTZtUSulNimlypVSqUoph1LqZ4kIRkQzV5Kbjs8vLsEOfxChYWucmG/w3bjzeoHuKHHDQx9EJuNxOdDWPYA/njHqjUxi58ad1z2uSlPfeZ1FTWQy991WijlZqWiwwElFrz8weud1l0N3lLhiUROZTHqKHetqK/D2sVZ09g3pjhM3IyMKb3wUwJ0LilBp8juvs6iJTMjjcmAwNILfHWrRHSVuPjx/BRev9MFj8r1pgEVNZEorHPlYWJqDBt9F3VHipsEXQHaaHWuWlemOEncsaiITEhF43A74P7mGc+09uuPE3PXBEHYfbsHa5eXISovZBdaGxaImMqkNqyphk9ETbmbz+yOX0Ds4jHq3+Q97ACxqItOam5eBuxeW4A1/EMMj5ro3qtcfwLzCTHzGWag7SkKwqIlMrN7tQEtnPw6cvaw7SswEr/Xhz2cvw+NywGYz79jp8VjURCb2hZq5yM1IMdXhjx3+AJRC0o72GBgYwObNm1FdXY3c3FysWrUKe/bsmXIdFjWRiWWk2vFobQX2HGlBd3/yj6lWSsHrD+L2+YWYV5ilO86shEIhzJs3D/v27UNnZyeef/55fOlLXwKAsJOIs6iJTM7jcqB/aAR7Dl/SHSVq/k+u4uOOXniS+CRidnY2tm7dCqfTCZvNhkceeQTz588HgLD/52FRE5mcq2oObinONsWMeg2+IDJT7Vi7vFx3lJhpbW3FqVOnAKA/3DIsaiKTuzGm+q8fX8Enl6/rjjNr/UPD+O3BZjy0rAw56eYYOz00NISvfOUreOKJJwAWNZG1bVhVCUnyMdVvH2tF90AoqQ97jDcyMoLHH38caWlpePHFF6dclkVNZAEVczLxuQXFeOOjAEaSdEy11xdARX4G7rilSHeUqCmlsHnzZrS2tsLr9SI1deqb4rKoiSzC467ExSt9+Ov5K7qjzFhrVz8+ON2OjSYZO/2Nb3wDx48fx1tvvYXMzOln/jPHgR4imtYXl5YhJ/0ovL4APptke6U7PgpiRMEUhz0uXLiAV155Benp6Sgr+9SEUmEvs+QeNZFFZKWlYO3yMuw+3ILrgyHdcSKmlEKDLwB3dQHmF2frjhO16upqKKXQ39+Pnp6ev30BCPunDouayELq3fPQOziM3x9JnjHVhwKdONPWY5kJmCbDoiaykM84C1BVmJVUt+lq8AWQnmLDwyvMM3Z6pljURBYiIvC4HDhw7jKC1/p0x5nWQGgYuw4244tLy5CXMfXICDNjURNZzEZXJZQandzI6N493obOviFTnESMBouayGLmFWbh9vmF8PqDUMrYY6obfAHMzUvHXbcW646iFYuayILq3Q583NEL/ydXdUcJq717AO+faseGVQ7YTTB2OhosaiILemh5OTJT7YY+qbizafTONPXuSt1RtGNRE1lQTnoKHlpeht8ebEH/0LDuODe5MXa6dt4c3FqaqzuOdixqIouqdznQPRDC3qPGG1N9tLkLJy51o97FvWmARU1kWZ+9pQiVczLh9Qd1R7mJ1x9Amt2GR2srdEcxBBY1kUXZbIKNrkr88XQ7LnWGnQo54QZDI9jZ1IwHakoxJyvs3akshUVNZGEelwMjanTSI6N4/2QbrvQOWvqS8YlY1EQW5izORl11Abz+gGHGVHv9ARTnpOOehSW6oxgGi5rI4jxuB8609eBgoFN3FFzpHcS7J9rw2MoKpNhZTzdwSxBZ3MMrypGeYoPXAGOqdzUFMTSsLH/J+EQRFbWIrBGRkyJyRkSeiXcoIkqcvIxUfHFpGXYdbMZASO+Y6gZ/AEsr8nBbeZ7WHEYzbVGLiB3AjwE8BKAGwCYRqYl3MCJKnHq3A519Q3jneJu2DCcvdeNIsIsnEScRya24VgM4o5Q6BwAi8jqA9QCOxTMYESXO524tRlleBr674zB+9M5pLRmuXR9Cik2wjmOnbxJJUVcCuDju5wCA2ycuJCJbAGwBgKqqqpiEI6LEsNsEzz1ag51N+obpVRcBq+cXoSgnXVsGo4qkqCebtuqmcTxKqW0AtgFAXV2dMcb5EFHE1i4vx9rl1r2LipFFUtQBAPPG/ewA0DzVCj6fr0NELswyUzGAjlmumwjMFx3miw7zRcfI+arDPSHTDXIXkRQApwDcDyAI4EMAX1ZKHY1lwnHv16iUqovHa8cC80WH+aLDfNExer5wpt2jVkqFRORpAHsB2AFsj1dJExHRzSI59AGl1G4Au+OchYiIJmHEKxO36Q4wDeaLDvNFh/miY/R8k5r2GDUREellxD1qIiIah0VNRGRwkcz1sV1E2kTkSCICERHRp0WyR/1zAGvinIOIiMKIZBz1fhFxzuRFi4uLldM5o1UAAMMjPLFJZGU2m0w6Z4UV+Hy+DqXUpLe1iWgc9Uw5nU40NjbOeL3b/vH36BvSOx8uEemzwpGPnU99DiLWq+uppt2IWVHHYva8/7Z2CULcqyaypOMtXfjXxgAOBzuxwjFHdxxDiVlRx2L2vMfvcMYqDhElmc6+IbzZ1AyvL8CinoDD84jIEPIzR28JttMAtwQzmkiG570G4ACAxSISEJHN8Y9FRFbkcVXi2vUhvHdC3y3BjCiSUR+bEhGEiOjuhSWYm5eOBl8Aa5bxJgY38NAHERmG3SZ4bFUl3jvZjvbuAd1xDINFTUSGUu9yYHhEab1/o9GwqInIUBbOzUWtIx9eP4v6BhY1ERmOx+3A8ZYuHG3u1B3FEFjURGQ4j66oQJrdBq+Pe9UAi5qIDKggOw3331aKnU1BDA2P6I6jHYuaiAyp3u3A5d5BvH+yXXcU7VjURGRI9ywqQXFOGry+gO4o2rGoiciQUu02rF9ZiXdOtOJq76DuOFqxqInIsOrdDgwNK+w62Kw7ilYsaiIyrNvK81BTnocGkx3++OpXv4ry8nLk5eVh0aJF+OlPfzrl8ixqIjK0ercDh4OdOHmpW3eUmPnOd76D8+fPo6urC7t27cKzzz4LAFnhlmdRE5GhrV9ZgRSbwOs3z1710qVLkZ6eDgAQkRt3tEkPtzyLmogMrSgnHZ9fUoodHwURMtGY6m9+85vIysrCkiVLUF5eDgBhL8NkUROR4XlcDrR3D+CD0x26o8TMSy+9hO7ubnzwwQfYuHEjAIS9MxaLmogM774lpSjISkWDiQ5/AIDdbsddd92FQCAAAJPegRxgURNREkhLGR1T/Ydjrei8PqQ7TsyFQiGAx6iJKNl5XA4Mhkbw1qHkHlPd1taG119/HT09PRgeHsbevXvx2muvAUDYYS0saiJKCssq87B4bm7Sj/4QEbz88stwOBwoKCjAt7/9bfzwhz8EgGvh1pn2nolEREYgIvC4K/E/dp/A2fYeLCjJ0R1pVkpKSrBv376bHt+yZUvYdbhHTURJ47GVlbDbxHITNbGoiShplOZl4J6FxXjDH8TwSNjRbKbDoiaipOJxO3Cpqx9/PmueMdXTYVETUVJ54La5yMtIMd1ETVNhURNRUslItePR2grsPXoJ3f3mG1M9GRY1ESWdercD/UMj2H24RXeUhGBRE1HSWTlvDm4pybbM4Q8WNRElHRGBx+XAh+ev4nxHr+44cceiJqKktNFVCRHgjSS/UjESLGoiSkrl+Zm469ZieP1BjJh8TDWLmoiSVr3bgeC1Pvzl48u6o8QVi5qIktaDNWXISU+B1xfUHSWuWNRElLQy0+x4ZEU59hxpQe9ASHecuGFRE1FS87gduD44jD1HLumOEjcRFbWIrBGRkyJyRkSeiXcoIqJI1VUXoLooy9Qz6k1b1CJiB/BjAA8BqAGwSURq4h2MiCgSN8ZUHzh3GRevXNcdJy4iuXHAagBnlFLnAEBEXgewHsCxeAYjIorUhlWV+MEfTuG1v36Cr9/p1JZDRFCSG/bWh7MWSVFXArg47ucAgNtjnoSIaJbmFWbhjluK8NL7Z/HS+2e15SjOSUfjsw/E/HUjKWqZ5LGbRpeLyBYAWwCgqqoqylhERDPz/foV2H+6XWuGjBR7XF43kqIOAJg37mcHgJtuA6yU2gZgGwDU1dWZ+zIhIjKceYVZ+Mrt1bpjxIUoNXWnikgKgFMA7gcQBPAhgC8rpY5OsU47gAuzzFQMwMi3bmC+6DBfdJgvOkbOV62UKpnsiWn3qJVSIRF5GsBeAHYA26cq6bF1Jn2zSIhIo1KqbrbrxxvzRYf5osN80TF6vnAiOfQBpdRuALvjnIWIiCbBKxOJiAzOiEW9TXeAaTBfdJgvOswXHaPnm9S0JxOJiEgvI+5RExHROFqKerpJnmTUj8aePyQirgTnmyci74nIcRE5KiL/aZJl7hWRThFpGvt6LsEZz4vI4bH3bpzkeW3bUEQWj9suTSLSJSLfmrBMQrefiGwXkTYROTLusUIR+YOInB77tyDMunGflCxMvv8pIifGfn87RGROmHWn/CzEMd9WEQmO+x2uDbOuru33m3HZzotIU5h14779oqaUSugXRof4nQVwC4A0AAcB1ExYZi2APRi9KvKzAP4twRnLAbjGvs/F6DjyiRnvBfDbRG+/ce9/HkDxFM9r3YYTft+XMDpGVNv2A3APABeAI+Me+z6AZ8a+fwbAP4XJP+XnNY75HgSQMvb9P02WL5LPQhzzbQXw7Qh+/1q234Tn/xeA53Rtv2i/dOxR/22SJ6XUIIAbkzyNtx7Aq2rUXwDMEZHyRAVUSrUopfxj33cDOI7ROU+SidZtOM79AM4qpWZ7AVRMKKX2A7gy4eH1AH4x9v0vADw2yaqRfF7jkk8p9bZS6sZs+H/B6FXBWoTZfpHQtv1uEBEB8CUAr8X6fRNFR1FPNsnTxBKMZJmEEBEngFUA/m2Sp+8QkYMiskdEliY2GRSAt0XENzbPykRG2YZ/h/D/gejcfgAwVynVAoz+zxlA6STLGGU7PonRv5AmM91nIZ6eHjs0sz3MoSMjbL+7AbQqpU6HeV7n9ouIjqKOZJKniCaCijcRyQHgBfAtpVTXhKf9GP1zvhbAPwN4M8HxPqeUcmF0nvCnROSeCc9r34YikgZgHYD/O8nTurdfpIywHb8LIATgX8IsMt1nIV5eBrAAwEoALRg9vDCR9u0HYBOm3pvWtf0ipqOoI5nkKaKJoOJJRFIxWtL/opR6Y+LzSqkupVTP2Pe7AaSKSHGi8imlmsf+bQOwA6N/Yo6nfRti9IPvV0q1TnxC9/Yb03rjcNDYv22TLKN1O4rIEwAeAfAVNXZAdaIIPgtxoZRqVUoNK6VGAPyfMO+re/ulANgI4DfhltG1/WZCR1F/CGChiMwf2+P6OwC7JiyzC8DXxkYufBZA540/URNh7JjWzwAcV0r9IMwyZWPLQURWY3RbJuSe9SKSLSK5N77H6EmnIxMW07oNx4Tdk9G5/cbZBeCJse+fALBzkmUi+bzGhYisAfBfAaxTSk1665IIPwvxyjf+nMeGMO+rbfuNeQDACaXUpPfp0rn9ZkTHGUyMjkg4hdGzwd8de+zvAfz92PeC0dt/nQVwGEBdgvPdhdE/zw4BaBr7Wjsh49MAjmL0LPZfANyZwHy3jL3vwbEMRtyGWRgt3vxxj2nbfhj9H0YLgCGM7uVtBlAE4B0Ap8f+LRxbtgLA7qk+rwnKdwajx3dvfAZ/MjFfuM9CgvL9cuyzdQij5VtupO039vjPb3zmxi2b8O0X7RevTCQiMjhemUhEZHAsaiIig2NRExEZHIuaiMjgWNRERAbHoiYiMjgWNRGRwbGoiYgM7v8D8ALlQYy2zcUAAAAASUVORK5CYII=
 "
 >
 </div>
@@ -826,10 +867,10 @@ union: tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>pred</code></strong>:<code>Tensor</code>, <strong><code>targs</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
+<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>preds</code></strong>:<code>Tensor</code>, <strong><code>targs</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
 </blockquote>
 <p>The metric of the competition,
-if there's no defect in <code>targs</code> and no defects in <code>pred</code>: dice=1.</p>
+if there's no defect in <code>targs</code> and no defects in <code>preds</code>: dice=1.</p>
 
 </div>
 
@@ -864,7 +905,7 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>TensorBase(0.8333)</pre>
+<pre>TensorBase(0.7500)</pre>
 </div>
 
 </div>
@@ -892,9 +933,16 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pure-Pytorch-metrics">Pure Pytorch metrics<a class="anchor-link" href="#Pure-Pytorch-metrics"> </a></h2>
+<h2 id="Intersection-Over-Union">Intersection Over Union<a class="anchor-link" href="#Intersection-Over-Union"> </a></h2>
 </div>
 </div>
 </div>
@@ -916,7 +964,113 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="iou" class="doc_header"><code>iou</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>activation</code></strong>:<code>str</code>=<em><code>'Sigmoid'</code></em>)</p>
+</blockquote>
+<p><a href="https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py">https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py</a>
+Args:
+    outputs (torch.Tensor): A list of predicted elements
+    targets (torch.Tensor):  A list of elements that are to be predicted
+    eps (float): epsilon to avoid zero division
+    threshold (float): threshold for outputs binarization
+    activation (str): An torch.nn activation applied to the outputs.
+        Must be one of ["none", "Sigmoid", "Softmax2d"]
+Returns:
+    float: IoU (Jaccard) score</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="iou_binary_metric" class="doc_header"><code>iou_binary_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L161" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_binary_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>True</code></em>)</p>
+</blockquote>
+<p>IoU for foreground class
+binary: 1 foreground, 0 background</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="iou_metric" class="doc_header"><code>iou_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L181" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>C</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>False</code></em>)</p>
+</blockquote>
+<p>Array of IoU for each (non ignored) class</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L203" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>computes IoU for one ground truth mask and predicted mask</p>
 
@@ -1041,7 +1195,7 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L132" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>computes mean iou for a batch of ground truth masks and predicted masks</p>
 
@@ -1088,6 +1242,12 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dice">Dice<a class="anchor-link" href="#Dice"> </a></h2>
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1106,7 +1266,53 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L143" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
+<h4 id="dice" class="doc_header"><code>dice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L231" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
+</blockquote>
+<p>Computes the binary dice metric
+Args:
+    outputs (list):  A list of predicted elements
+    targets (list): A list of elements that are to be predicted
+    eps (float): epsilon
+    threshold (float): threshold for outputs binarization
+Returns:
+    double:  Dice score</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Here there'are some functions used by the pure pytorch solution from a kaggle kernel.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L259" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
 </blockquote>
 <p>Calculates dice of positive and negative images seperately
 <code>probability</code> and <code>truth</code> must be <code>torch.Tensors</code>.</p>
@@ -1172,7 +1378,7 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L175" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
+<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
 </blockquote>
 <p>X is sigmoid output of the model</p>
 
@@ -1204,7 +1410,7 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L182" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
+<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L298" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
 </blockquote>
 <p>A meter to keep track of iou and dice scores throughout an epoch</p>
 
@@ -1229,13 +1435,13 @@ if there's no defect in <code>targs</code> and no defects in <code>pred</code>: 
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L204" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
+<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
 </blockquote>
 <p>Calc the mean of dices metrics (dice, dice_neg, dice_pos)
 and IoU mean.</p>
 <p>Returns:
     <code>dices</code> as list of means <code>[dice, dice_neg, dice_pos]</code>,
-    <a href="/steel_segmentation/loss.html#iou"><code>iou</code></a> as mean of IoUs</p>
+    <a href="/steel_segmentation/metrics.html#iou"><code>iou</code></a> as mean of IoUs</p>
 
 </div>
 
@@ -1265,7 +1471,7 @@ and IoU mean.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L223" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
+<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L339" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
 </blockquote>
 <p>logging the metrics at the end of an epoch</p>
 
