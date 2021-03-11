@@ -124,7 +124,7 @@ def dice_kaggle(
         int_over_union = ((intersect + eps) / (union - intersect + eps)).mean()
 
 # Cell
-fastai_dice_metrics = [DiceMulti(), dice_kaggle]
+fastai_dice_metrics = [ModDiceMulti()]
 
 # Cell
 def iou(
