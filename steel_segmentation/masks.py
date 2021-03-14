@@ -144,12 +144,23 @@ def plot_mask_image(name: str, img: np.array, mask: np.array):
     plt.show()
 
 # Cell
-def plot_defected_image(img_path: Path):
+def plot_defected_image(img_path: Path, class_id=None):
     """Plot a `img_path` Path image from the training folder with contours."""
     img_name = img_path.name
     img = cv2.imread(str(img_path))
     _, mask = make_mask(img_path)
-    plot_mask_image(img_name, img, mask)
+    class_ids = np.arange(1, 5)
+    cond = np.argmax(mask, axis=0).argmax(axis=0) > 0
+    classid = class_ids[cond]
+    if class_id is None:
+        title = f"Original: Image {img_name} with defect type: {list(classid)}"
+        plot_mask_image(title, img, mask)
+    else:
+        title = f"Original: Image {img_name} with defect type {class_id}"
+        idx = class_id-1
+        filter_mask = np.zeros((256, 1600, 4), dtype=np.float32)
+        filter_mask[:, :, idx] = mask[:, :, idx]
+        plot_mask_image(title, img, filter_mask)
 
 # Cell
 def show_defects(class_id=None, n=20, only_defects=True, multi_defects=False):
