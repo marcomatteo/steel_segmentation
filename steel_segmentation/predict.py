@@ -8,6 +8,7 @@ from .masks import *
 from .datasets import *
 from .dataloaders import *
 from .metrics import *
+from .loss import *
 from .trainer import *
 
 import fastai
@@ -263,7 +264,7 @@ class FastPredict:
 class TestDataset(Dataset):
     """Dataset for test prediction"""
 
-    def __init__(self, root, df, mean, std):
+    def __init__(self, root:pathlib.Path, df:pd.DataFrame, mean=None, std=None):
         """
         A TestDataset loads the images from the `root` folder
         and the `ImageId`s from `df` with normalization params.
@@ -271,6 +272,10 @@ class TestDataset(Dataset):
         self.root = root
         self.fnames = df['ImageId'].unique().tolist()
         self.num_samples = len(self.fnames)
+
+        if (mean is None) or (std is None):
+            mean, std = imagenet_stats
+
         self.transform = alb.Compose(
             [
                 alb.Normalize(mean=mean, std=std, p=1),
@@ -290,38 +295,29 @@ class TestDataset(Dataset):
 
 # Cell
 def get_test_dls(
-        root = None,
-        df = None,
-        best_threshold=0.5,
-        num_workers=2,
-        batch_size=4,
-        min_size=3500,
-        mean=None, std=None,
+        root:pathlib.Path=None, df:pd.DataFrame=None, mean=None, std=None,
+        num_workers=2, batch_size=4, shuffle=False, pin_memory=True,
         *args, **kwargs
     ):
-    """Returns dataloader for testing."""
-    if not mean and not std: mean, std = imagenet_stats
+    """Returns a Pytorch Dataloader for inference."""
     if df is None: df = test_df
-    if not root: root = test_path
+    if root is None: root = test_path
 
     return DataLoader(
         TestDataset(root, df, mean, std),
         batch_size=batch_size,
-        shuffle=False,
+        shuffle=shuffle,
         num_workers=num_workers,
-        pin_memory=True,
+        pin_memory=pin_memory,
         *args, **kwargs
     )
 
 # Cell
 class Predict:
-    def __init__(self, test_dl, model, device="cuda"):
-        """
-        `test_dl`: test Dataloader already loaded with `get_test_dls`
-        """
-        self.test_dl = test_dl
-        self.source = self.test_dl.dataset.fnames
-        self.source_path = self.test_dl.dataset.root
+    def __init__(self, dl, model, device="cuda"):
+        self.dl = dl
+        self.source = self.dl.dataset.fnames
+        self.source_path = self.dl.dataset.root
         self.img_paths = L([self.source_path / p for p in self.source])
         self.elems = len(self.img_paths)
 
@@ -341,15 +337,15 @@ class Predict:
 
     def get_predictions(self):
         """
-        Iterate through `test_dl`, predict the mask and
+        Iterate through `dl`, predict the mask and
         save the RLEs in a DataFrame.
         Returns the DataFrame.
         """
         df_preds = []
-        for i, batch in enumerate(tqdm(self.test_dl)):
+        for i, batch in enumerate(tqdm(self.dl)):
             fnames, images = batch
 
-            batch_preds = self.predict_batch(self.model, images)
+            batch_preds = self.predict_batch(images)
 
             for fname, preds in zip(fnames, batch_preds):
                 for cls, pred in enumerate(preds):
@@ -360,12 +356,11 @@ class Predict:
 
         return pd.DataFrame(df_preds, columns=['ImageId_ClassId', 'EncodedPixels'])
 
-    def predict_batch(self, model, images):
+    def predict_batch(self, images):
         """Predict a single batch, returns the probabilities into numpy array"""
 
-        batch_preds = torch.sigmoid(model(images.to(self.device)))
-        batch_preds = batch_preds.detach().cpu().numpy()
-        return batch_preds
+        batch_preds = torch.sigmoid(self.model(images.to(self.device)))
+        return batch_preds.detach().cpu().numpy()
 
     def post_process(self, probability):
         """

@@ -8,6 +8,7 @@ from .masks import *
 from .datasets import *
 from .dataloaders import *
 from .metrics import *
+from .loss import *
 
 import warnings
 from fastcore.foundation import *

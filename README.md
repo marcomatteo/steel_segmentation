@@ -17,7 +17,7 @@ git clone https://github.com/marcomatteo/steel_segmentation.git
 pip install -e steel_segmentation
 ```
 
-The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `nbs` folder. 
+The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `dev_nbs` folder. 
 Check the [here](https://nbdev.fast.ai/) the `nbdev` documentation.
 
 With these commands you can create the library and the relative documentation:
@@ -34,23 +34,31 @@ You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is
 
 Move the `kaggle.json` file in the repository directory.
 
-```
+```python
 !mkdir ~/.kaggle
 ```
 
-```
+```python
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 ```
 
-```
+```python
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
+
+## Notebooks
+
+All of the experiments are based on Jupyter Notebooks, divided into different folder directories:
+
+- in the `training_nbs` folder there are all the notebooks used to training different Deep Learning models.
+
+- in the `inference_nbs` folder there are all the notebooks to inference and evaluate with the test set the models.
 
 ## Results
 
