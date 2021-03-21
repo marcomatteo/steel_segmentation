@@ -12,6 +12,7 @@ from fastai.vision.all import *
 from PIL import Image
 from collections import defaultdict
 from matplotlib import pyplot as plt
+import torch
 
 import pandas as pd
 import numpy as np

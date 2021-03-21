@@ -40,7 +40,7 @@ entries:
       title: Visualize results
       url: visualize.html
     output: web
-    title: steel_segmentation lib
+    title: Library steel_segmentation
   - folderitems:
     - output: web,pdf
       title: Classification FastAI

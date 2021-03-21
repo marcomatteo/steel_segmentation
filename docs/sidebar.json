@@ -2,7 +2,7 @@
     "Getting started": {
         "Overview": "/"
     },
-    "steel_segmentation lib": {
+    "Library steel_segmentation": {
         "Dataset metadata": "metadata.html",
         "Mask visualization": "masks.html",
         "Datasets": "datasets.html",

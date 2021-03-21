@@ -31,31 +31,19 @@ nb_path: "dev_nbs/14_torch.seg_unet_resnet34.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/14_torch.seg_unet_resnet34.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>This notebook uses a UNet model with pretrained resnet18 encoder, with simple augmentations using albumentations library, uses BCE loss, metrics like Dice and IoU. The segmentation model is from <a href="https://github.com/qubvel/segmentation_models.pytorch">segmentation_models.pytorch</a> which comes with a lot pre-implemented segmentation architectures.</p>
 <p>The kaggle kernel from which I've borrowed this code is: <a href="https://www.kaggle.com/rishabhiitbhu/unet-pytorch-inference-kernel">https://www.kaggle.com/rishabhiitbhu/unet-pytorch-inference-kernel</a>.</p>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
-<span class="o">%</span><span class="k">autoreload</span> 2
-<span class="o">%</span><span class="k">matplotlib</span> inline
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
