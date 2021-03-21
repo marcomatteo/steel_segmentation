@@ -17,7 +17,7 @@
         "": {
             "Classification": {
                 "ResNets with fastai": "fastai.classifier.html"
-              }
+            }
         },
         "empty1": {
             "Segmentation": {

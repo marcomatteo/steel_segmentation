@@ -1,4 +1,4 @@
-# Kaggle Severstal: steel defect detection
+# Kaggle Severstal: Steel Defect Detection
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
