@@ -40,7 +40,7 @@ To download the [Kaggle](https://www.kaggle.com/) competition data you will need
 
 Now run these cells:
 
-```python
+```
 !mkdir ~/.kaggle
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 !chmod 600 ~/.kaggle/kaggle.json
@@ -48,7 +48,7 @@ Now run these cells:
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```python
+```
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```

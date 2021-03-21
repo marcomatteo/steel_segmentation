@@ -9,6 +9,9 @@ entries:
     - output: web,pdf
       title: Overview
       url: /
+    output: web
+    title: Getting started
+  - folderitems:
     - output: web,pdf
       title: Dataset metadata
       url: metadata.html
@@ -37,6 +40,37 @@ entries:
       title: Visualize results
       url: visualize.html
     output: web
-    title: steel_segmentation
+    title: steel_segmentation lib
+  - folderitems:
+      subfolders:
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: ResNets with fastai
+          url: fastai.classifier.html
+        title: Classification
+      - output: web
+        subfolderitems:
+        - output: web,pdf
+          title: ResNet34-UNET Pytorch
+          url: torch.seg_unet_resnet34.html
+        - output: web,pdf
+          title: ResNet34-FPN Pytorch
+          url: torch.seg_fpn_resnet34.html
+        - output: web,pdf
+          title: ResNet34-UNET FastAI
+          url: fastai.seg_unet_resnet34.html
+        - output: web,pdf
+          title: Se-ResNeXt34-UNET FastAI
+          url: fastai.seg_unet_xresnext34.html
+        title: Segmentation
+    output: web
+    title: Training notebooks
+  - folderitems:
+    - output: web,pdf
+      title: Ensemble UNET-FPN
+      url: ensemble_unet_fpn_resnet34.html
+    output: web
+    title: Inference notebooks
   output: web
   title: Sidebar

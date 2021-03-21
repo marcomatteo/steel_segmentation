@@ -1,14 +1,34 @@
 {
-  "steel_segmentation": {
-    "Overview": "/",
-    "Dataset metadata": "metadata.html",
-    "Mask visualization": "masks.html",
-    "Datasets": "datasets.html",
-    "Dataloaders": "dataloaders.html",
-    "Metrics": "metrics.html",
-    "Loss functions": "loss.html",
-    "Trainer": "trainer.html",
-    "Predict": "predict.html",
-    "Visualize results": "visualize.html"
-  }
+    "Getting started": {
+        "Overview": "/"
+    },
+    "steel_segmentation lib": {
+        "Dataset metadata": "metadata.html",
+        "Mask visualization": "masks.html",
+        "Datasets": "datasets.html",
+        "Dataloaders": "dataloaders.html",
+        "Metrics": "metrics.html",
+        "Loss functions": "loss.html",
+        "Trainer": "trainer.html",
+        "Predict": "predict.html",
+        "Visualize results": "visualize.html"
+    },
+    "Training notebooks": {
+        "": {
+            "Classification": {
+                "ResNets with fastai": "fastai.classifier.html"
+              }
+        },
+        "empty1": {
+            "Segmentation": {
+                "ResNet34-UNET Pytorch": "torch.seg_unet_resnet34.html",
+                "ResNet34-FPN Pytorch": "torch.seg_fpn_resnet34.html",
+                "ResNet34-UNET FastAI": "fastai.seg_unet_resnet34.html",
+                "Se-ResNeXt34-UNET FastAI": "fastai.seg_unet_xresnext34.html"
+            }
+        }
+    },
+    "Inference notebooks": {
+        "Ensemble UNET-FPN": "ensemble_unet_fpn_resnet34.html"
+    }
 }
