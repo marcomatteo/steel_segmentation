@@ -1,10 +1,8 @@
-# Kaggle Severstal: Steel Defect Detection
+# Kaggle Severstal Steel Defect Detection
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
-![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master)
-
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/index.ipynb)
+![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/index.ipynb)
 
 This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition hosted by Kaggle.
 Kaggle is a platform that provides various datasets from the real world machine learning problems and engages a large community of people.
@@ -40,7 +38,7 @@ To download the [Kaggle](https://www.kaggle.com/) competition data you will need
 
 Now run these cells:
 
-```
+```python
 !mkdir ~/.kaggle
 !cp ../kaggle.json ~/.kaggle/kaggle.json
 !chmod 600 ~/.kaggle/kaggle.json
@@ -48,7 +46,7 @@ Now run these cells:
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
