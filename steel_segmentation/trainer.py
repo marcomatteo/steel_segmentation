@@ -10,13 +10,9 @@ from .dataloaders import *
 from .metrics import *
 from .loss import *
 
-import warnings
 from fastcore.foundation import *
-
-with warnings.catch_warnings():
-    warnings.simplefilter('ignore')
-    from fastai.vision.all import *
-    import fastai
+from fastai.vision.all import *
+import fastai
 
 import os
 import pdb

@@ -10,7 +10,7 @@ entries:
       title: Overview
       url: /
     - output: web,pdf
-      title: Metadata
+      title: Dataset metadata
       url: metadata.html
     - output: web,pdf
       title: Mask visualization

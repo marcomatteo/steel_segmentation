@@ -9,11 +9,8 @@ from .masks import *
 from .datasets import *
 from .dataloaders import *
 
-import warnings
-with warnings.catch_warnings():
-    warnings.simplefilter('ignore')
-    from fastai.vision.all import *
-    import fastai
+import fastai
+from fastai.vision.all import *
 from fastcore.foundation import *
 
 # Cell

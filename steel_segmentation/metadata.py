@@ -6,9 +6,9 @@ __all__ = ['curr_dir_name', 'path', 'print_competition_data', 'train_path', 'tes
 
 # Cell
 import warnings
-with warnings.catch_warnings():
-    warnings.simplefilter("ignore")
-    from fastai.vision.all import *
+warnings.filterwarnings("ignore")
+
+from fastai.vision.all import *
 import pandas as pd
 import os
 

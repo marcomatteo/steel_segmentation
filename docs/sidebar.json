@@ -1,7 +1,7 @@
 {
   "steel_segmentation": {
     "Overview": "/",
-    "Metadata": "metadata.html",
+    "Dataset metadata": "metadata.html",
     "Mask visualization": "masks.html",
     "Datasets": "datasets.html",
     "Dataloaders": "dataloaders.html",

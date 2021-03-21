@@ -1,10 +1,14 @@
-# Steel defect detection use case
+# Kaggle Severstal: steel defect detection
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
 ![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master)
 
-This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition (ended in November 2019).
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/index.ipynb)
+
+This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition hosted by Kaggle.
+Kaggle is a platform that provides various datasets from the real world machine learning problems and engages a large community of people.
+Severstal is a Russian company operating in the steel and mining industry. It creates a vast industrial data lake and in the 2019 looked to machine learning to improve automation, increase efficiency, and maintain high quality in their production.
 
 I used `pytorch` ([Pytorch website](https://pytorch.org/get-started/locally/)) and `fastai` ([FastAI docs](https://docs.fast.ai/#Installing)) as Deep Learning Framework to this project.
 
@@ -18,43 +22,42 @@ pip install -e steel_segmentation
 ```
 
 The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `dev_nbs` folder. 
-Check the [here](https://nbdev.fast.ai/) the `nbdev` documentation.
+Check [here](https://nbdev.fast.ai/) the `nbdev` documentation.
 
-With these commands you can create the library and the relative documentation:
+To create the library, the documentation and tests execute these commands:
 ```
 nbdev_build_lib
 nbdev_build_docs
+nbdev_test_nbs
+nbdev_clean_nbs
 ```
 
-I tried to work in MacOS and Linux enviroment, not sure this is working also in Windows.
+This enviroment works on MacOS and Linux, use Linux WSL for Windows.
 
-## Data requirements
+## Download the dataset
 
-You will need the [Kaggle](https://www.kaggle.com/) competition data. If this is the first time with the API, follow this [link](https://github.com/Kaggle/kaggle-api) and download the credentials.
+To download the [Kaggle](https://www.kaggle.com/) competition data you will need an account (if this is the first time with the API follow this [link](https://github.com/Kaggle/kaggle-api)) to generate the credentials, download and copy the `kaggle.json` into the repository directory.
 
-Move the `kaggle.json` file in the repository directory.
+Now run these cells:
 
-```
+```python
 !mkdir ~/.kaggle
-```
-
-```
 !cp ../kaggle.json ~/.kaggle/kaggle.json
+!chmod 600 ~/.kaggle/kaggle.json
 ```
 
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
-```
+```python
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
-```
-
-```
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
 ## Notebooks
 
 All of the experiments are based on Jupyter Notebooks, divided into different folder directories:
+
+- in the `dev_nbs` folder there are all the notebooks used to build the `steel_segmentation` library.
 
 - in the `training_nbs` folder there are all the notebooks used to training different Deep Learning models.
 

@@ -29,6 +29,13 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/05_metrics.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -96,7 +103,7 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L20" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>) :: <code>Metric</code></p>
+<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L17" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>) :: <code>Metric</code></p>
 </blockquote>
 <p>Averaged Dice metric (Macro F1) for multiclass target in segmentation</p>
 
@@ -531,7 +538,7 @@ nb_path: "dev_nbs/05_metrics.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="KaggleDice" class="doc_header"><code>class</code> <code>KaggleDice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L56" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KaggleDice</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>eps</code></strong>=<em><code>1e-09</code></em>) :: <code>Metric</code></p>
+<h2 id="KaggleDice" class="doc_header"><code>class</code> <code>KaggleDice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L53" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KaggleDice</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>eps</code></strong>=<em><code>1e-09</code></em>) :: <code>Metric</code></p>
 </blockquote>
 <p>Blueprint for defining a metric</p>
 
@@ -806,7 +813,7 @@ $$</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L93" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>preds</code></strong>:<code>Tensor</code>, <strong><code>targs</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
+<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L90" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>preds</code></strong>:<code>Tensor</code>, <strong><code>targs</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
 </blockquote>
 <p>The metric of the competition,
 if there's no defect in <code>targs</code> and no defects in <code>preds</code>: dice=1.</p>
@@ -887,7 +894,7 @@ if there's no defect in <code>targs</code> and no defects in <code>preds</code>:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou" class="doc_header"><code>iou</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>activation</code></strong>:<code>str</code>=<em><code>'Sigmoid'</code></em>)</p>
+<h4 id="iou" class="doc_header"><code>iou</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L127" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>activation</code></strong>:<code>str</code>=<em><code>'Sigmoid'</code></em>)</p>
 </blockquote>
 <p><a href="https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py">https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py</a>
 Args:
@@ -928,7 +935,7 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou_binary_metric" class="doc_header"><code>iou_binary_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L161" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_binary_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="iou_binary_metric" class="doc_header"><code>iou_binary_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L158" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_binary_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>IoU for foreground class
 binary: 1 foreground, 0 background</p>
@@ -961,7 +968,7 @@ binary: 1 foreground, 0 background</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou_metric" class="doc_header"><code>iou_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L181" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>C</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="iou_metric" class="doc_header"><code>iou_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L178" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>C</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Array of IoU for each (non ignored) class</p>
 
@@ -993,7 +1000,7 @@ binary: 1 foreground, 0 background</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L203" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L200" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>computes IoU for one ground truth mask and predicted mask</p>
 
@@ -1079,7 +1086,7 @@ binary: 1 foreground, 0 background</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L220" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L217" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>computes mean iou for a batch of ground truth masks and predicted masks</p>
 
@@ -1134,7 +1141,7 @@ binary: 1 foreground, 0 background</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dice" class="doc_header"><code>dice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L231" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
+<h4 id="dice" class="doc_header"><code>dice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L228" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Computes the binary dice metric
 Args:
@@ -1180,7 +1187,7 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L259" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
+<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L256" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
 </blockquote>
 <p>Calculates dice of positive and negative images seperately
 <code>probability</code> and <code>truth</code> must be <code>torch.Tensors</code>.</p>
@@ -1230,7 +1237,7 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L291" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
+<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L288" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
 </blockquote>
 <p>X is sigmoid output of the model</p>
 
@@ -1262,7 +1269,7 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L298" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
+<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L295" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
 </blockquote>
 <p>A meter to keep track of iou and dice scores throughout an epoch</p>
 
@@ -1287,7 +1294,7 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L320" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
+<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L317" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
 </blockquote>
 <p>Calc the mean of dices metrics (dice, dice_neg, dice_pos)
 and IoU mean.</p>
@@ -1323,7 +1330,7 @@ and IoU mean.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L339" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
+<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L336" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
 </blockquote>
 <p>logging the metrics at the end of an epoch</p>
 

@@ -30,8 +30,6 @@ import albumentations as alb
 
 import segmentation_models_pytorch as smp
 
-warnings.filterwarnings("ignore")
-
 pred_path = path / "predictions"
 sub_path = path / "submissions"
 pred_path.mkdir(parents=True, exist_ok=True)

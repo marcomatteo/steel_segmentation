@@ -29,6 +29,13 @@ nb_path: "dev_nbs/08_predict.ipynb"
 </div>
     {% endraw %}
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/08_predict.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+</div>
+</div>
+</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -135,7 +142,7 @@ nb_path: "dev_nbs/08_predict.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="FastPredict" class="doc_header"><code>class</code> <code>FastPredict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L41" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FastPredict</code>(<strong><code>source</code></strong>, <strong><code>learner</code></strong>, <strong><code>source_path</code></strong>:<code>Path</code>=<em><code>None</code></em>)</p>
+<h2 id="FastPredict" class="doc_header"><code>class</code> <code>FastPredict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L39" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FastPredict</code>(<strong><code>source</code></strong>, <strong><code>learner</code></strong>, <strong><code>source_path</code></strong>:<code>Path</code>=<em><code>None</code></em>)</p>
 </blockquote>
 
 </div>
@@ -211,7 +218,7 @@ nb_path: "dev_nbs/08_predict.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FastPredict.__call__" class="doc_header"><code>FastPredict.__call__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L81" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.__call__</code>(<strong><code>size_fold</code></strong>:<code>int</code>, <strong><code>threshold</code></strong>:<code>float</code>, <strong><code>min_size</code></strong>:<code>int</code>)</p>
+<h4 id="FastPredict.__call__" class="doc_header"><code>FastPredict.__call__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L79" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.__call__</code>(<strong><code>size_fold</code></strong>:<code>int</code>, <strong><code>threshold</code></strong>:<code>float</code>, <strong><code>min_size</code></strong>:<code>int</code>)</p>
 </blockquote>
 <p>Call the object with prediction attributes,
 it calls <a href="/steel_segmentation/predict.html#Predict.get_predictions"><code>Predict.get_predictions</code></a>
@@ -474,7 +481,7 @@ From 0 to 1 of 1
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FastPredict.make_masks" class="doc_header"><code>FastPredict.make_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L193" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.make_masks</code>()</p>
+<h4 id="FastPredict.make_masks" class="doc_header"><code>FastPredict.make_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.make_masks</code>()</p>
 </blockquote>
 <p>Iterate through the RLEs in <a href="/steel_segmentation/predict.html#Predict.df"><code>Predict.df</code></a> and save the masks.
 Returns the <a href="/steel_segmentation/predict.html#Predict.df_masks"><code>Predict.df_masks</code></a> DataFrame (if not <code>json</code>) with
@@ -571,7 +578,7 @@ Returns the <a href="/steel_segmentation/predict.html#Predict.df_masks"><code>Pr
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FastPredict.save_masks" class="doc_header"><code>FastPredict.save_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L165" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.save_masks</code>(<strong><code>df_export_fname</code></strong>=<em><code>None</code></em>, <strong><code>make_zip</code></strong>=<em><code>True</code></em>)</p>
+<h4 id="FastPredict.save_masks" class="doc_header"><code>FastPredict.save_masks</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L163" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.save_masks</code>(<strong><code>df_export_fname</code></strong>=<em><code>None</code></em>, <strong><code>make_zip</code></strong>=<em><code>True</code></em>)</p>
 </blockquote>
 <p>If <code>df_export_fname</code> save predicted masks in
 <code>pred_path / df_export_fname</code> in CSV and the JSON.
@@ -650,7 +657,7 @@ Saving the zip of the masks if <code>make_zip</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="FastPredict.save_submission" class="doc_header"><code>FastPredict.save_submission</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L233" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.save_submission</code>(<strong><code>fname</code></strong>=<em><code>'test_submission'</code></em>)</p>
+<h4 id="FastPredict.save_submission" class="doc_header"><code>FastPredict.save_submission</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L231" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>FastPredict.save_submission</code>(<strong><code>fname</code></strong>=<em><code>'test_submission'</code></em>)</p>
 </blockquote>
 <p>Save submission file in CSV in <a href="/steel_segmentation/predict.html#sub_path"><code>sub_path</code></a>.
 It adds always .csv at the end of <code>fname</code>.</p>
@@ -724,7 +731,7 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="TestDataset" class="doc_header"><code>class</code> <code>TestDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L264" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TestDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
+<h2 id="TestDataset" class="doc_header"><code>class</code> <code>TestDataset</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L262" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>TestDataset</code>(<strong>*<code>args</code></strong>, <strong>**<code>kwds</code></strong>) :: <code>Dataset</code></p>
 </blockquote>
 <p>Dataset for test prediction</p>
 
@@ -922,7 +929,7 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_test_dls" class="doc_header"><code>get_test_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L297" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_test_dls</code>(<strong><code>root</code></strong>:<code>Path</code>=<em><code>None</code></em>, <strong><code>df</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>, <strong><code>num_workers</code></strong>=<em><code>2</code></em>, <strong><code>batch_size</code></strong>=<em><code>4</code></em>, <strong><code>shuffle</code></strong>=<em><code>False</code></em>, <strong><code>pin_memory</code></strong>=<em><code>True</code></em>, <strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
+<h4 id="get_test_dls" class="doc_header"><code>get_test_dls</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L295" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_test_dls</code>(<strong><code>root</code></strong>:<code>Path</code>=<em><code>None</code></em>, <strong><code>df</code></strong>:<code>DataFrame</code>=<em><code>None</code></em>, <strong><code>mean</code></strong>=<em><code>None</code></em>, <strong><code>std</code></strong>=<em><code>None</code></em>, <strong><code>num_workers</code></strong>=<em><code>2</code></em>, <strong><code>batch_size</code></strong>=<em><code>4</code></em>, <strong><code>shuffle</code></strong>=<em><code>False</code></em>, <strong><code>pin_memory</code></strong>=<em><code>True</code></em>, <strong>*<code>args</code></strong>, <strong>**<code>kwargs</code></strong>)</p>
 </blockquote>
 <p>Returns a Pytorch Dataloader for inference.</p>
 
@@ -1039,7 +1046,7 @@ It adds always .csv at the end of <code>fname</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Predict" class="doc_header"><code>class</code> <code>Predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L316" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Predict</code>(<strong><code>dl</code></strong>, <strong><code>model</code></strong>, <strong><code>device</code></strong>=<em><code>'cuda'</code></em>)</p>
+<h2 id="Predict" class="doc_header"><code>class</code> <code>Predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/predict.py#L314" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Predict</code>(<strong><code>dl</code></strong>, <strong><code>model</code></strong>, <strong><code>device</code></strong>=<em><code>'cuda'</code></em>)</p>
 </blockquote>
 
 </div>
