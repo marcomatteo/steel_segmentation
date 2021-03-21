@@ -42,13 +42,10 @@ entries:
     output: web
     title: steel_segmentation lib
   - folderitems:
+    - output: web,pdf
+      title: Classification FastAI
+      url: fastai.classifier.html
       subfolders:
-      - output: web
-        subfolderitems:
-        - output: web,pdf
-          title: ResNets with fastai
-          url: fastai.classifier.html
-        title: Classification
       - output: web
         subfolderitems:
         - output: web,pdf

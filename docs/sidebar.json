@@ -14,12 +14,8 @@
         "Visualize results": "visualize.html"
     },
     "Training notebooks": {
+        "Classification FastAI": "fastai.classifier.html",
         "": {
-            "Classification": {
-                "ResNets with fastai": "fastai.classifier.html"
-            }
-        },
-        "empty1": {
             "Segmentation": {
                 "ResNet34-UNET Pytorch": "torch.seg_unet_resnet34.html",
                 "ResNet34-FPN Pytorch": "torch.seg_fpn_resnet34.html",
