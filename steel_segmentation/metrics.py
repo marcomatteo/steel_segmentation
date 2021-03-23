@@ -193,7 +193,7 @@ def iou_metric(preds, labels, C, EMPTY=1., ignore=None, per_image=False):
                 else:
                     iou.append(float(intersection) / float(union))
         ious.append(iou)
-    ious = [mean(iou) for iou in zip(*ious)] # mean accross images if per_image
+    ious = [np.mean(iou) for iou in zip(*ious)] # mean accross images if per_image
     return 100 * np.array(ious)
 
 # Cell
@@ -211,6 +211,8 @@ def compute_ious(pred, label, classes, ignore_index=255, only_present=True):
         union = np.logical_or(pred_c, label_c).sum()
         if union != 0:
             ious.append(intersection / union)
+        else:
+            ious.append(1)
     return ious if ious else [1]
 
 # Cell
