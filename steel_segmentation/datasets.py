@@ -71,7 +71,7 @@ class MakeMask(Transform):
 
         for i in range(4):
             rle = o[i]
-            if not rle is '':
+            if rle is not '':
                 mask[:, :, i] = rle2mask(rle=rle, value=1, shape=(self.h,self.w))
 
         if self.flatten:
@@ -87,6 +87,7 @@ class MakeMask(Transform):
 # Cell
 class ChannelMask(Transform):
     """Prepare Mask to 4-channel models"""
+    order=9
     def encodes(self, o:TensorMask):
         new_masks = []
         for mask in o:
