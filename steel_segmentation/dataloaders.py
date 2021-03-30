@@ -85,9 +85,9 @@ def get_train_aug(): return alb.Compose([
 def get_valid_aug(): return alb.Compose([alb.RandomCrop(256, 256)])
 
 # Cell
-def SteelMaskBlock(codes=None, mask4channels=True):
+def SteelMaskBlock(codes=None, flatten_mask=False):
     batch_tfms = [IntToFloatTensor, Normalize.from_stats(*imagenet_stats)]
-    if mask4channels: batch_tfms += [ChannelMask]
+    if not flatten_mask: batch_tfms += [ChannelMask]
     return TransformBlock(type_tfms=[MakeMask,PILMask.create],
                           item_tfms=AddMaskCodes(codes),
                           batch_tfms=batch_tfms)
@@ -101,7 +101,7 @@ def get_segmnt_dls(source:pd.DataFrame=None, bs:int=16, size:tuple=None,
     Create a DataLoaders obj for segmentation models.
 
     Attributes:
-    -----------
+
         source: pd.DataFrame, the source file with labels, only `train_pivot` or its slices atm.
 
         bs: int, batch size for training and validation phases.
@@ -128,7 +128,7 @@ def get_segmnt_dls(source:pd.DataFrame=None, bs:int=16, size:tuple=None,
     # Datablock
     block = DataBlock(
         blocks = (ImageBlock,SteelMaskBlock(codes=[1,2,3,4],
-                                            mask4channels=flatten_mask)),
+                                            flatten_mask=flatten_mask)),
         get_x = ReadImagePathFromIndex,
         get_y = ReadRLEs(cols=[1,2,3,4]),
         splitter = splitter,

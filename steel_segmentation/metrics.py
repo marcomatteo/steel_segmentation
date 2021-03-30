@@ -13,6 +13,13 @@ import fastai
 from fastai.vision.all import *
 from fastcore.foundation import *
 
+import torch
+import torch.functional as F
+
+import segmentation_models_pytorch as smp
+
+seed_everything()
+
 # Cell
 class ModDiceMulti(Metric):
     "Averaged Dice metric (Macro F1) for multiclass target in segmentation"
@@ -58,15 +65,21 @@ class KaggleDice(Metric):
         y = learn.yb[0]
         preds = learn.pred
 
+        if preds.shape == y.shape:
+            y = y.argmax(dim=self.axis)
+
         n, c = y.shape[0], preds.shape[self.axis]
 
-        pred = preds.argmax(dim=self.axis).view(n, -1)
+        preds = preds.argmax(dim=self.axis).view(n, -1)
         targs = y.view(n, -1)
 
-        pred, targ = flatten_check(pred, targs)
+#         pred, targ = flatten_check(preds, targs)
         for i in range(0, c):
-            p = torch.where(pred == i, 1, 0)
+            p = torch.where(preds == i, 1, 0)
             t = torch.where(targs == i, 1, 0)
+
+            p, t = TensorBase(p), TensorBase(t)
+
             c_inter = (p*t).sum(-1).float()#.item()
             c_union = (p+t).sum(-1).float()#.item()
             if i in self.inter:
@@ -75,6 +88,8 @@ class KaggleDice(Metric):
             else:
                 self.inter[i] = c_inter
                 self.union[i] = c_union
+
+#             print(f"Iter n.{i}\nintersect: {self.inter[i]}\nunion: {self.union[i]}", end="\n\n")
 
     @property
     def value(self):
