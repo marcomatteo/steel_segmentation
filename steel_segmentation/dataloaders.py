@@ -89,7 +89,7 @@ def SteelMaskBlock(codes=None, flatten_mask=False):
     batch_tfms = [IntToFloatTensor, Normalize.from_stats(*imagenet_stats)]
     if not flatten_mask: batch_tfms += [ChannelMask]
     return TransformBlock(type_tfms=[MakeMask,PILMask.create],
-                          item_tfms=AddMaskCodes(codes),
+                          item_tfms=[AddMaskCodes(codes), ToTensor],
                           batch_tfms=batch_tfms)
 
 # Cell

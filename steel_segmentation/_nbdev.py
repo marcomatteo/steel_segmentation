@@ -87,14 +87,7 @@ index = {"curr_dir_name": "01_metadata.ipynb",
          "FastPredict": "08_predict.ipynb",
          "TestDataset": "08_predict.ipynb",
          "get_test_dls": "08_predict.ipynb",
-         "Predict": "08_predict.ipynb",
-         "submission_preproccessing": "09_visualize.ipynb",
-         "read_submission": "09_visualize.ipynb",
-         "read_sub_file_from_list": "09_visualize.ipynb",
-         "select_classid": "09_visualize.ipynb",
-         "update_imgids": "09_visualize.ipynb",
-         "subs": "09_visualize.ipynb",
-         "select_valid_classid": "09_visualize.ipynb"}
+         "Predict": "08_predict.ipynb"}
 
 modules = ["metadata.py",
            "masks.py",
@@ -103,8 +96,7 @@ modules = ["metadata.py",
            "metrics.py",
            "loss.py",
            "trainer.py",
-           "predict.py",
-           "visualize.py"]
+           "predict.py"]
 
 doc_url = "https://marcomatteo.github.io/steel_segmentation/"
 

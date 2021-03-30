@@ -39,6 +39,27 @@ nb_path: "nbs/09_visualize.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">ipywidgets</span> <span class="k">as</span> <span class="nn">widgets</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interact_manual</span><span class="p">,</span> <span class="n">interactive</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="kn">from</span> <span class="nn">steel_segmentation.all</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">fastcore.all</span> <span class="kn">import</span> <span class="n">L</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -52,6 +73,27 @@ nb_path: "nbs/09_visualize.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">submission_preproccessing</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Process a submission DataFrame and </span>
+<span class="sd">    splits the ImageId_ClassId column into ImageId and ClassId.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s2">&quot;ImageId_ClassId&quot;</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing ImageId_ClassId column&quot;</span><span class="p">)</span>
+        
+    <span class="n">splitted_cols</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ImageId_ClassId&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ImageId&quot;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;ClassId&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">splitted_cols</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">splitted_cols</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -59,56 +101,20 @@ nb_path: "nbs/09_visualize.ipynb"
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-<div class="output_wrapper">
-<div class="output">
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">read_submission</span><span class="p">(</span><span class="n">file_name</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ensemble_submission.csv&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Open a submission csv file in the `sub_path` directory and</span>
+<span class="sd">    return the DataFrame preprocessed with `submission_preproccessing`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">sub_path</span> <span class="o">/</span> <span class="n">file_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">submission_preproccessing</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
 
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="submission_preproccessing" class="doc_header"><code>submission_preproccessing</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L21" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>submission_preproccessing</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
-</blockquote>
-<p>Process a submission DataFrame and
-splits the ImageId_ClassId column into ImageId and ClassId.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="read_submission" class="doc_header"><code>read_submission</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L35" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>read_submission</code>(<strong><code>file_name</code></strong>:<code>str</code>=<em><code>'ensemble_submission.csv'</code></em>)</p>
-</blockquote>
-<p>Open a submission csv file in the <a href="/steel_segmentation/predict.html#sub_path"><code>sub_path</code></a> directory and
-return the DataFrame preprocessed with <a href="/steel_segmentation/visualize.html#submission_preproccessing"><code>submission_preproccessing</code></a>.</p>
-
-</div>
-
-</div>
-
+    </div>
 </div>
 </div>
 
@@ -255,76 +261,29 @@ return the DataFrame preprocessed with <a href="/steel_segmentation/visualize.ht
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-</div>
-    {% endraw %}
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">subs</span> <span class="o">=</span><span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sub_path</span><span class="p">))</span> <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)]</span>
 
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
+<span class="k">def</span> <span class="nf">read_sub_file_from_list</span><span class="p">(</span><span class="n">sub</span> <span class="o">=</span> <span class="n">subs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">read_submission</span><span class="p">(</span><span class="n">sub</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">submission_preproccessing</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 
-<div class="output_wrapper">
-<div class="output">
+<span class="k">def</span> <span class="nf">select_classid</span><span class="p">(</span><span class="n">ClassId</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">submission</span><span class="o">.</span><span class="n">result</span>
+    <span class="n">cond_NaN</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">EncodedPixels</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="n">cond_ClassId</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ClassId&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ClassId</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond_NaN</span> <span class="o">&amp;</span> <span class="n">cond_ClassId</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">shuffle</span><span class="p">:</span> <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
 
-<div class="output_area">
+<span class="k">def</span> <span class="nf">update_imgids</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">class_selection</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span><span class="o">.</span><span class="n">ImageId</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+</pre></div>
 
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="read_sub_file_from_list" class="doc_header"><code>read_sub_file_from_list</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L46" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>read_sub_file_from_list</code>(<strong><code>sub</code></strong>=<em><code>['resnet34_fastai_sub.csv', 'ensemble_submission.csv', 'test_submission.csv', 'resnet34s5_fastai_sub.csv', 'ensemble_validation.csv', 'submission.csv', 'FPN_submission.csv', 'ensemble_submission_thresholds.csv', 'pytorch-resnet34-unet.csv']</code></em>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="select_classid" class="doc_header"><code>select_classid</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L50" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>select_classid</code>(<strong><code>ClassId</code></strong>=<em><code>[1, 2, 3, 4]</code></em>, <strong><code>n</code></strong>=<em><code>5</code></em>, <strong><code>shuffle</code></strong>=<em><code>True</code></em>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="update_imgids" class="doc_header"><code>update_imgids</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L58" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>update_imgids</code>(<strong>*<code>args</code></strong>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
+    </div>
 </div>
 </div>
 
@@ -477,28 +436,21 @@ return the DataFrame preprocessed with <a href="/steel_segmentation/visualize.ht
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
 
-</div>
-    {% endraw %}
-
-    {% raw %}
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">select_valid_classid</span><span class="p">(</span><span class="n">ClassId</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">read_sub_file_from_list</span><span class="p">(</span><span class="s2">&quot;ensemble_validation.csv&quot;</span><span class="p">)</span>
     
-<div class="cell border-box-sizing code_cell rendered">
+    <span class="n">cond_NaN</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">EncodedPixels</span><span class="o">.</span><span class="n">notna</span><span class="p">()</span>
+    <span class="n">cond_ClassId</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ClassId&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">ClassId</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cond_NaN</span> <span class="o">&amp;</span> <span class="n">cond_ClassId</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">shuffle</span><span class="p">:</span> <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>    
+</pre></div>
 
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="select_valid_classid" class="doc_header"><code>select_valid_classid</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/visualize.py#L62" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>select_valid_classid</code>(<strong><code>ClassId</code></strong>=<em><code>[1, 2, 3, 4]</code></em>, <strong><code>n</code></strong>=<em><code>5</code></em>, <strong><code>shuffle</code></strong>=<em><code>False</code></em>)</p>
-</blockquote>
-
-</div>
-
-</div>
-
+    </div>
 </div>
 </div>
 

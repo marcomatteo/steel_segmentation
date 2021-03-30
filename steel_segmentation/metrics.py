@@ -14,11 +14,9 @@ from fastai.vision.all import *
 from fastcore.foundation import *
 
 import torch
-import torch.functional as F
+import torch.nn.functional as F
 
 import segmentation_models_pytorch as smp
-
-seed_everything()
 
 # Cell
 class ModDiceMulti(Metric):
@@ -201,6 +199,7 @@ def iou_metric(preds, labels, C, EMPTY=1., ignore=None, per_image=False):
         iou = []
         for i in range(C):
             if i != ignore: # The ignored label is sometimes among predicted classes (ENet - CityScapes)
+                label, pred = TensorBase(label), TensorBase(pred)
                 intersection = ((label == i) & (pred == i)).sum()
                 union = ((label == i) | ((pred == i) & (label != ignore))).sum()
                 if not union:
@@ -228,7 +227,7 @@ def compute_ious(pred, label, classes, ignore_index=255, only_present=True):
             ious.append(intersection / union)
         else:
             ious.append(1)
-    return ious if ious else [1]
+    return ious if ious else [0]
 
 # Cell
 def compute_iou_batch(outputs, labels, classes=None):

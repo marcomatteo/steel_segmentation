@@ -36,8 +36,8 @@ def seed_everything(seed=69):
     random.seed(seed)
     os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
-    torch.cuda.manual_seed(seed)
-    torch.backends.cudnn.deterministic = True
+#     torch.cuda.manual_seed(seed)
+#     torch.backends.cudnn.deterministic = True
 
 # Cell
 def get_split_datasets(source:pd.DataFrame, x_tfms:Pipeline, y_tfms:Pipeline,
@@ -161,7 +161,7 @@ def get_transforms(phase, mean, std):
     if phase == "train":
         list_transforms.extend(
             [
-                HorizontalFlip(p=0.5),  # only horizontal flip for now
+                alb.HorizontalFlip(p=0.5),  # only horizontal flip for now
             ]
         )
     list_transforms.extend(

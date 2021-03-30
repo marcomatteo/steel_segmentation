@@ -15,6 +15,12 @@ from .datasets import *
 from .dataloaders import *
 from .metrics import *
 
+import numpy as np
+import torch
+import torch.nn.functional as F
+
+import segmentation_models_pytorch as smp
+
 # Cell
 """
 Lovasz-Softmax and Jaccard hinge loss in PyTorch
@@ -23,9 +29,6 @@ Maxim Berman 2018 ESAT-PSI KU Leuven (MIT License)
 
 #nbdev_comment from __future__ import print_function, division
 
-import numpy as np
-import torch
-import torch.nn.functional as F
 from torch.autograd import Variable
 
 try:
