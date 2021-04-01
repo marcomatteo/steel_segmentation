@@ -233,6 +233,7 @@ def compute_ious(pred, label, classes, ignore_index=255, only_present=True):
 def compute_iou_batch(outputs, labels, classes=None):
     """computes mean iou for a batch of ground truth masks and predicted masks"""
     ious = []
+    outputs, labels = outputs.cpu(), labels.cpu()
     preds = np.copy(outputs) # copy is imp
     labels = np.array(labels) # tensor to np
     for pred, label in zip(preds, labels):

@@ -6,8 +6,8 @@ title: Loss functions
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Various loss functions in PyTorch"
-description: "Various loss functions in PyTorch"
+
+
 nb_path: "nbs/06_loss.ipynb"
 ---
 <!--
@@ -29,13 +29,6 @@ nb_path: "nbs/06_loss.ipynb"
 </div>
     {% endraw %}
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/06_loss.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
-
-</div>
-</div>
-</div>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -57,7 +50,7 @@ nb_path: "nbs/06_loss.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -148,7 +141,7 @@ nb_path: "nbs/06_loss.ipynb"
                  <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> 
                  <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 <span class="n">logits</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">preds</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">digits</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+<span class="n">preds</span> <span class="o">=</span> <span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
 <span class="n">preds</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
@@ -177,395 +170,10 @@ nb_path: "nbs/06_loss.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lovasz-Loss">Lovasz Loss<a class="anchor-link" href="#Lovasz-Loss"> </a></h2>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Lovasz-Softmax and Jaccard hinge loss in PyTorch - Maxim Berman 2018 ESAT-PSI KU Leuven (MIT License) from this <a href="https://github.com/bermanmaxim/LovaszSoftmax">repository</a>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Helper-functions">Helper functions<a class="anchor-link" href="#Helper-functions"> </a></h3>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="lovasz_grad" class="doc_header"><code>lovasz_grad</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L40" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lovasz_grad</code>(<strong><code>gt_sorted</code></strong>)</p>
-</blockquote>
-<p>Computes gradient of the Lovasz extension w.r.t sorted errors
-See Alg. 1 in paper</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="flatten_binary_scores" class="doc_header"><code>flatten_binary_scores</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L55" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>flatten_binary_scores</code>(<strong><code>scores</code></strong>, <strong><code>labels</code></strong>, <strong><code>ignore</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Flattens predictions in the batch (binary case)
-Remove labels equal to 'ignore'</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="flatten_probas" class="doc_header"><code>flatten_probas</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L70" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>flatten_probas</code>(<strong><code>probas</code></strong>, <strong><code>labels</code></strong>, <strong><code>ignore</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Flattens predictions in the batch</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="isnan" class="doc_header"><code>isnan</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L89" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>isnan</code>(<strong><code>x</code></strong>)</p>
-</blockquote>
-<p>Check if x != x, return False if NaN.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="mean" class="doc_header"><code>mean</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L94" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mean</code>(<strong><code>l</code></strong>, <strong><code>ignore_nan</code></strong>=<em><code>False</code></em>, <strong><code>empty</code></strong>=<em><code>0</code></em>)</p>
-</blockquote>
-<p>nanmean compatible with generators.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Binary-losses">Binary losses<a class="anchor-link" href="#Binary-losses"> </a></h3>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="lovasz_hinge" class="doc_header"><code>lovasz_hinge</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L115" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lovasz_hinge</code>(<strong><code>logits</code></strong>, <strong><code>labels</code></strong>, <strong><code>per_image</code></strong>=<em><code>True</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Binary Lovasz hinge loss:
-  logits: [B, H, W] Variable, logits at each pixel (between -\infty and +\infty)
-  labels: [B, H, W] Tensor, binary ground truth masks (0 or 1)
-  per_image: compute the loss per image instead of per batch
-  ignore: void class id</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="lovasz_hinge_flat" class="doc_header"><code>lovasz_hinge_flat</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L131" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lovasz_hinge_flat</code>(<strong><code>logits</code></strong>, <strong><code>labels</code></strong>)</p>
-</blockquote>
-<p>Binary Lovasz hinge loss
-  logits: [P] Variable, logits at each prediction (between -\infty and +\infty)
-  labels: [P] Tensor, binary ground truth labels (0 or 1)
-  ignore: label to ignore</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Multiclass-losses">Multiclass losses<a class="anchor-link" href="#Multiclass-losses"> </a></h3>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="lovasz_softmax" class="doc_header"><code>lovasz_softmax</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lovasz_softmax</code>(<strong><code>probas</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>'present'</code></em>, <strong><code>per_image</code></strong>=<em><code>False</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Multi-class Lovasz-Softmax loss
-  probas: [B, C, H, W] Variable, class probabilities at each prediction (between 0 and 1).
-          Interpreted as binary (sigmoid) output with outputs of size [B, H, W].
-  labels: [B, H, W] Tensor, ground truth labels (between 0 and C - 1)
-  classes: 'all' for all, 'present' for classes present in labels, or a list of classes to average.
-  per_image: compute the loss per image instead of per batch
-  ignore: void class labels</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="lovasz_softmax_flat" class="doc_header"><code>lovasz_softmax_flat</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L169" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>lovasz_softmax_flat</code>(<strong><code>probas</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>'present'</code></em>)</p>
-</blockquote>
-<p>Multi-class Lovasz-Softmax loss
-  probas: [P, C] Variable, class probabilities at each prediction (between 0 and 1)
-  labels: [P] Tensor, ground truth labels (between 0 and C - 1)
-  classes: 'all' for all, 'present' for classes present in labels, or a list of classes to average.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="BCE-and-SoftDice-loss">BCE and SoftDice loss<a class="anchor-link" href="#BCE-and-SoftDice-loss"> </a></h2>
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this section there are some loss functions used by @khornlund in his <a href="https://github.com/khornlund/severstal-steel-defect-detection">repository</a> for the Severstal competition.</p>
@@ -599,7 +207,7 @@ Remove labels equal to 'ignore'</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">())</span><span class="o">.</span><span class="n">cuda</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">targs</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">logits</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()),</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">targs</span><span class="o">.</span><span class="n">float</span><span class="p">())</span>
 </pre></div>
 
     </div>
@@ -631,7 +239,7 @@ Remove labels equal to 'ignore'</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.7626, device=&#39;cuda:0&#39;, grad_fn=&lt;BinaryCrossEntropyWithLogitsBackward&gt;)</pre>
+<pre>tensor(0.7113, grad_fn=&lt;BinaryCrossEntropyWithLogitsBackward&gt;)</pre>
 </div>
 
 </div>
@@ -660,7 +268,7 @@ Remove labels equal to 'ignore'</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SoftDiceLoss" class="doc_header"><code>class</code> <code>SoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L210" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftDiceLoss</code>() :: <code>Module</code></p>
+<h2 id="SoftDiceLoss" class="doc_header"><code>class</code> <code>SoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L26" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftDiceLoss</code>() :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -720,7 +328,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.9421, device=&#39;cuda:0&#39;, grad_fn=&lt;RsubBackward1&gt;)</pre>
+<pre>tensor(0.9851, grad_fn=&lt;RsubBackward1&gt;)</pre>
 </div>
 
 </div>
@@ -749,7 +357,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="DiceLoss" class="doc_header"><code>class</code> <code>DiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L226" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>DiceLoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>) :: <code>Module</code></p>
+<h2 id="WeightedSoftDiceLoss" class="doc_header"><code>class</code> <code>WeightedSoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSoftDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -793,7 +401,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">DiceLoss</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">WeightedSoftDiceLoss</span><span class="p">()</span>
 <span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
 </pre></div>
 
@@ -809,7 +417,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.9377, device=&#39;cuda:0&#39;, grad_fn=&lt;RsubBackward1&gt;)</pre>
+<pre>tensor(0.9138, grad_fn=&lt;MeanBackward0&gt;)</pre>
 </div>
 
 </div>
@@ -838,7 +446,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="BCEDiceLoss" class="doc_header"><code>class</code> <code>BCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L241" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BCEDiceLoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>bce_weight</code></strong>:<code>float</code>=<em><code>0.5</code></em>, <strong><code>dice_weight</code></strong>:<code>float</code>=<em><code>0.5</code></em>) :: <code>Module</code></p>
+<h2 id="SoftBCEDiceLoss" class="doc_header"><code>class</code> <code>SoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L85" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftBCEDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -882,7 +490,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">BCEDiceLoss</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">SoftBCEDiceLoss</span><span class="p">()</span>
 <span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
 </pre></div>
 
@@ -898,9 +506,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>{&#39;loss&#39;: tensor(0.8502, device=&#39;cuda:0&#39;, grad_fn=&lt;AddBackward0&gt;),
- &#39;bce&#39;: tensor(0.7626, device=&#39;cuda:0&#39;, grad_fn=&lt;BinaryCrossEntropyWithLogitsBackward&gt;),
- &#39;dice&#39;: tensor(0.9377, device=&#39;cuda:0&#39;, grad_fn=&lt;RsubBackward1&gt;)}</pre>
+<pre>tensor(0.7713, grad_fn=&lt;AddBackward0&gt;)</pre>
 </div>
 
 </div>
@@ -929,7 +535,96 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IoULoss" class="doc_header"><code>class</code> <code>IoULoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L282" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IoULoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>) :: <code>Module</code></p>
+<h2 id="MultiClassesSoftBCEDiceLoss" class="doc_header"><code>class</code> <code>MultiClassesSoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L104" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MultiClassesSoftBCEDiceLoss</code>(<strong><code>classes_num</code></strong>=<em><code>4</code></em>, <strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
+</blockquote>
+<p>Base class for all neural network modules.</p>
+<p>Your models should also subclass this class.</p>
+<p>Modules can also contain other Modules, allowing to nest them in
+a tree structure. You can assign the submodules as regular attributes::</p>
+
+<pre><code>import torch.nn as nn
+import torch.nn.functional as F
+
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+        self.conv1 = nn.Conv2d(1, 20, 5)
+        self.conv2 = nn.Conv2d(20, 20, 5)
+
+    def forward(self, x):
+        x = F.relu(self.conv1(x))
+        return F.relu(self.conv2(x))
+
+</code></pre>
+<p>Submodules assigned in this way will be registered, and will have their
+parameters converted too when you call :meth:<code>to</code>, etc.</p>
+<p>:ivar training: Boolean represents whether this module is in training or
+                evaluation mode.
+:vartype training: bool</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">MultiClassesSoftBCEDiceLoss</span><span class="p">()</span>
+<span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>tensor(0.7709, grad_fn=&lt;DivBackward0&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="IoULoss" class="doc_header"><code>class</code> <code>IoULoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L131" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IoULoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Intersection over union (Jaccard) loss
 Args:
@@ -971,273 +666,7 @@ Args:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.9678, device=&#39;cuda:0&#39;, grad_fn=&lt;RsubBackward1&gt;)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="BinaryFocalLoss" class="doc_header"><code>class</code> <code>BinaryFocalLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L305" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>BinaryFocalLoss</code>(<strong><code>alpha</code></strong>=<em><code>0.5</code></em>, <strong><code>gamma</code></strong>=<em><code>2</code></em>, <strong><code>ignore_index</code></strong>=<em><code>None</code></em>, <strong><code>reduction</code></strong>=<em><code>'mean'</code></em>, <strong><code>reduced</code></strong>=<em><code>False</code></em>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>) :: <code>_Loss</code></p>
-</blockquote>
-<p>Base class for all neural network modules.</p>
-<p>Your models should also subclass this class.</p>
-<p>Modules can also contain other Modules, allowing to nest them in
-a tree structure. You can assign the submodules as regular attributes::</p>
-
-<pre><code>import torch.nn as nn
-import torch.nn.functional as F
-
-class Model(nn.Module):
-    def __init__(self):
-        super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(1, 20, 5)
-        self.conv2 = nn.Conv2d(20, 20, 5)
-
-    def forward(self, x):
-        x = F.relu(self.conv1(x))
-        return F.relu(self.conv2(x))
-
-</code></pre>
-<p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code>to</code>, etc.</p>
-<p>:ivar training: Boolean represents whether this module is in training or
-                evaluation mode.
-:vartype training: bool</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">BinaryFocalLoss</span><span class="p">()</span>
-<span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.1502, device=&#39;cuda:0&#39;, grad_fn=&lt;MeanBackward0&gt;)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="FocalBCEDiceLoss" class="doc_header"><code>class</code> <code>FocalBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L355" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>FocalBCEDiceLoss</code>(<strong><code>alpha</code></strong>=<em><code>0.5</code></em>, <strong><code>gamma</code></strong>=<em><code>2</code></em>, <strong><code>ignore_index</code></strong>=<em><code>None</code></em>, <strong><code>reduction</code></strong>=<em><code>'mean'</code></em>, <strong><code>reduced</code></strong>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>bce_weight</code></strong>:<code>float</code>=<em><code>0.5</code></em>, <strong><code>dice_weight</code></strong>:<code>float</code>=<em><code>0.5</code></em>) :: <a href="/steel_segmentation/loss.html#BCEDiceLoss"><code>BCEDiceLoss</code></a></p>
-</blockquote>
-<p>Base class for all neural network modules.</p>
-<p>Your models should also subclass this class.</p>
-<p>Modules can also contain other Modules, allowing to nest them in
-a tree structure. You can assign the submodules as regular attributes::</p>
-
-<pre><code>import torch.nn as nn
-import torch.nn.functional as F
-
-class Model(nn.Module):
-    def __init__(self):
-        super(Model, self).__init__()
-        self.conv1 = nn.Conv2d(1, 20, 5)
-        self.conv2 = nn.Conv2d(20, 20, 5)
-
-    def forward(self, x):
-        x = F.relu(self.conv1(x))
-        return F.relu(self.conv2(x))
-
-</code></pre>
-<p>Submodules assigned in this way will be registered, and will have their
-parameters converted too when you call :meth:<code>to</code>, etc.</p>
-<p>:ivar training: Boolean represents whether this module is in training or
-                evaluation mode.
-:vartype training: bool</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">FocalBCEDiceLoss</span><span class="p">()</span>
-<span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{&#39;loss&#39;: tensor(0.5440, device=&#39;cuda:0&#39;, grad_fn=&lt;AddBackward0&gt;),
- &#39;bce&#39;: tensor(0.1502, device=&#39;cuda:0&#39;, grad_fn=&lt;MeanBackward0&gt;),
- &#39;dice&#39;: tensor(0.9377, device=&#39;cuda:0&#39;, grad_fn=&lt;RsubBackward1&gt;)}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Utilities">Utilities<a class="anchor-link" href="#Utilities"> </a></h3>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="LabelSmoother" class="doc_header"><code>class</code> <code>LabelSmoother</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L373" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>LabelSmoother</code>(<strong><code>eps</code></strong>=<em><code>1e-08</code></em>)</p>
-</blockquote>
-<p>Maps binary labels (0, 1) to (eps, 1 - eps)</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="focal_loss_with_logits" class="doc_header"><code>focal_loss_with_logits</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L386" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>focal_loss_with_logits</code>(<strong><code>input</code></strong>:<code>Tensor</code>, <strong><code>target</code></strong>:<code>Tensor</code>, <strong><code>gamma</code></strong>=<em><code>2.0</code></em>, <strong><code>alpha</code></strong>:<code>float</code>=<em><code>0.25</code></em>, <strong><code>reduction</code></strong>=<em><code>'mean'</code></em>, <strong><code>normalized</code></strong>=<em><code>False</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
-</blockquote>
-<p><a href="https://github.com/BloodAxe/pytorch-toolbelt/blob/develop/pytorch_toolbelt/losses/functional.py">https://github.com/BloodAxe/pytorch-toolbelt/blob/develop/pytorch_toolbelt/losses/functional.py</a>
-Compute binary focal loss between target and output logits.
-See :class:<code>~pytorch_toolbelt.losses.FocalLoss</code> for details.
-Args:
-    input: Tensor of arbitrary shape
-    target: Tensor of the same shape as input
-    reduction (string, optional): Specifies the reduction to apply to the output:
-        'none' | 'mean' | 'sum' | 'batchwise_mean'. 'none': no reduction will be applied,
-        'mean': the sum of the output will be divided by the number of
-        elements in the output, 'sum': the output will be summed. Note: :attr:<code>size_average</code>
-        and :attr:<code>reduce</code> are in the process of being deprecated, and in the meantime,
-        specifying either of those two args will override :attr:<code>reduction</code>.
-        'batchwise_mean' computes mean loss per sample in batch. Default: 'mean'
-    normalized (bool): Compute normalized focal loss (<a href="https://arxiv.org/pdf/1909.07829.pdf">https://arxiv.org/pdf/1909.07829.pdf</a>).
-    threshold (float, optional): Compute reduced focal loss (<a href="https://arxiv.org/abs/1903.01347">https://arxiv.org/abs/1903.01347</a>).
-References::
-    <a href="https://github.com/open-mmlab/mmdetection/blob/master/mmdet/core/loss/losses.py">https://github.com/open-mmlab/mmdetection/blob/master/mmdet/core/loss/losses.py</a></p>
-
+<pre>tensor(0.9924, grad_fn=&lt;RsubBackward1&gt;)</pre>
 </div>
 
 </div>
