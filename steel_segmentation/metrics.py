@@ -275,6 +275,8 @@ def metric(probability, truth, threshold=0.5, reduction='none'):
     Calculates dice of positive and negative images seperately
     `probability` and `truth` must be `torch.Tensors`.
     """
+    if isinstance(truth, tuple):
+        truth = truth[0]
     batch_size = len(truth)
     with torch.no_grad():
         probability = probability.view(batch_size, -1)
@@ -299,7 +301,7 @@ def metric(probability, truth, threshold=0.5, reduction='none'):
         num_neg = len(neg_index)
         num_pos = len(pos_index)
 
-    return dice, dice_neg, dice_pos, num_neg, num_pos
+    return dice #, dice_neg, dice_pos, num_neg, num_pos
 
 # Cell
 def predict(X, threshold):

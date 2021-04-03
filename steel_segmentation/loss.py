@@ -10,6 +10,7 @@ from .dataloaders import *
 from .metrics import *
 
 from fastai.torch_core import TensorBase
+from fastai.losses import *
 
 import numpy as np
 import torch
@@ -92,7 +93,7 @@ class SoftBCEDiceLoss(nn.Module):
         self.softdiceloss = WeightedSoftDiceLoss(size_average=self.size_average, weight=weight)
 
     def forward(self, input, target):
-        input, target = TensorBase(input), TensorBase(target)
+        input, target = TensorBase(input).float(), TensorBase(target).float()
         soft_bce_loss = self.bce_loss(input, target)
         soft_dice_loss = self.softdiceloss(input, target)
         loss = 0.7 * soft_bce_loss + 0.3 * soft_dice_loss

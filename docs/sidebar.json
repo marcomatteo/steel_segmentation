@@ -12,19 +12,5 @@
         "Trainer": "trainer.html",
         "Predict": "predict.html",
         "Visualize results": "visualize.html"
-    },
-    "Training notebooks": {
-        "Classification FastAI": "fastai.classifier.html",
-        "": {
-            "Segmentation": {
-                "ResNet34-UNET Pytorch": "torch.seg_unet_resnet34.html",
-                "ResNet34-FPN Pytorch": "torch.seg_fpn_resnet34.html",
-                "ResNet34-UNET FastAI": "fastai.seg_unet_resnet34.html",
-                "Se-ResNeXt34-UNET FastAI": "fastai.seg_unet_xresnext34.html"
-            }
-        }
-    },
-    "Inference notebooks": {
-        "Ensemble UNET-FPN": "ensemble_unet_fpn_resnet34.html"
     }
 }

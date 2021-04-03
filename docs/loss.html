@@ -85,7 +85,7 @@ nb_path: "nbs/06_loss.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(torch.Size([4, 3, 256, 256]), torch.Size([4, 4, 256, 256]))</pre>
+<pre>((4, 3, 256, 256), (4, 4, 256, 256))</pre>
 </div>
 
 </div>
@@ -157,7 +157,7 @@ nb_path: "nbs/06_loss.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>torch.Size([4, 4, 256, 256])</pre>
+<pre>(4, 4, 256, 256)</pre>
 </div>
 
 </div>
@@ -239,7 +239,7 @@ nb_path: "nbs/06_loss.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.7113, grad_fn=&lt;BinaryCrossEntropyWithLogitsBackward&gt;)</pre>
+<pre>tensor(0.6872, grad_fn=&lt;BinaryCrossEntropyWithLogitsBackward&gt;)</pre>
 </div>
 
 </div>
@@ -268,7 +268,7 @@ nb_path: "nbs/06_loss.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SoftDiceLoss" class="doc_header"><code>class</code> <code>SoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L26" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftDiceLoss</code>() :: <code>Module</code></p>
+<h2 id="SoftDiceLoss" class="doc_header"><code>class</code> <code>SoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L27" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftDiceLoss</code>() :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -328,7 +328,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.9851, grad_fn=&lt;RsubBackward1&gt;)</pre>
+<pre>tensor(0.9508, grad_fn=&lt;RsubBackward1&gt;)</pre>
 </div>
 
 </div>
@@ -357,7 +357,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="WeightedSoftDiceLoss" class="doc_header"><code>class</code> <code>WeightedSoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSoftDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
+<h2 id="WeightedSoftDiceLoss" class="doc_header"><code>class</code> <code>WeightedSoftDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L44" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>WeightedSoftDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -417,7 +417,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.9138, grad_fn=&lt;MeanBackward0&gt;)</pre>
+<pre>tensor(0.9108, grad_fn=&lt;MeanBackward0&gt;)</pre>
 </div>
 
 </div>
@@ -446,7 +446,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="SoftBCEDiceLoss" class="doc_header"><code>class</code> <code>SoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L85" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftBCEDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
+<h2 id="SoftBCEDiceLoss" class="doc_header"><code>class</code> <code>SoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L86" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>SoftBCEDiceLoss</code>(<strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -506,7 +506,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.7713, grad_fn=&lt;AddBackward0&gt;)</pre>
+<pre>TensorBase(0.7508, grad_fn=&lt;AliasBackward&gt;)</pre>
 </div>
 
 </div>
@@ -535,7 +535,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="MultiClassesSoftBCEDiceLoss" class="doc_header"><code>class</code> <code>MultiClassesSoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L104" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MultiClassesSoftBCEDiceLoss</code>(<strong><code>classes_num</code></strong>=<em><code>4</code></em>, <strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
+<h2 id="MultiClassesSoftBCEDiceLoss" class="doc_header"><code>class</code> <code>MultiClassesSoftBCEDiceLoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L105" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>MultiClassesSoftBCEDiceLoss</code>(<strong><code>classes_num</code></strong>=<em><code>4</code></em>, <strong><code>size_average</code></strong>=<em><code>True</code></em>, <strong><code>weight</code></strong>=<em><code>[0.2, 0.8]</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Base class for all neural network modules.</p>
 <p>Your models should also subclass this class.</p>
@@ -580,7 +580,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">loss</span> <span class="o">=</span> <span class="n">MultiClassesSoftBCEDiceLoss</span><span class="p">()</span>
-<span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">t_targs</span><span class="p">)</span>
+<span class="n">loss</span><span class="p">(</span><span class="n">t_logits</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -595,7 +595,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>tensor(0.7709, grad_fn=&lt;DivBackward0&gt;)</pre>
+<pre>TensorBase(0.7436, grad_fn=&lt;AliasBackward&gt;)</pre>
 </div>
 
 </div>
@@ -624,7 +624,7 @@ parameters converted too when you call :meth:<code>to</code>, etc.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="IoULoss" class="doc_header"><code>class</code> <code>IoULoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L131" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IoULoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>) :: <code>Module</code></p>
+<h2 id="IoULoss" class="doc_header"><code>class</code> <code>IoULoss</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/loss.py#L132" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>IoULoss</code>(<strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>) :: <code>Module</code></p>
 </blockquote>
 <p>Intersection over union (Jaccard) loss
 Args:

@@ -6,8 +6,8 @@ title: Trainer
 keywords: fastai
 sidebar: home_sidebar
 
-summary: "Train classes for Deep Learning models with Fastai/Pytorch."
-description: "Train classes for Deep Learning models with Fastai/Pytorch."
+
+
 nb_path: "nbs/07_trainer.ipynb"
 ---
 <!--
@@ -55,212 +55,13 @@ nb_path: "nbs/07_trainer.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In the Paperspace Gradient machine I stored these models:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">print_competition_data</span><span class="p">(</span><span class="n">models_dir</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>../models/fastai-UNET-ResNet34-256-stage5.pth
-../models/.ipynb_checkpoints
-../models/kaggle-UNET-ResNet34.pth
-../models/fastai-UNET-ResNet34-256-stage3.pth
-../models/kaggle-FPN-ResNet34.pth
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fast.ai-Classification">Fast.ai Classification<a class="anchor-link" href="#Fast.ai-Classification"> </a></h2>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">class_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">accuracy_multi</span><span class="p">,</span> <span class="n">PrecisionMulti</span><span class="p">(),</span> <span class="n">RecallMulti</span><span class="p">()]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>An example to train fast.ai models with a classification <code>Learner</code>.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bs</span> <span class="o">=</span> <span class="mi">4</span>
-
-<span class="n">dls</span> <span class="o">=</span> <span class="n">get_classification_dls</span><span class="p">(</span><span class="n">bs</span><span class="p">)</span>
-<span class="n">arch</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">resnet18</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">class_learner</span> <span class="o">=</span> <span class="n">cnn_learner</span><span class="p">(</span>
-    <span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">arch</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">class_metrics</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fast.ai-Segmentation">Fast.ai Segmentation<a class="anchor-link" href="#Fast.ai-Segmentation"> </a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>First we create a classification model to get an encoder that know how to classify defects pixels.
-Then, we build a UNet from the trained encoder and train a segmentation model.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">seg_metrics</span> <span class="o">=</span> <span class="p">[</span><span class="n">DiceMulti</span><span class="p">(),</span> <span class="n">KaggleDice</span><span class="p">()]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>An example to train fast.ai models with a segmentation <code>Learner</code>.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">bs</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">szs</span> <span class="o">=</span> <span class="p">(</span><span class="mi">128</span><span class="p">,</span> <span class="mi">800</span><span class="p">)</span>
-
-<span class="c1">#dls = get_segmentation_dls_from_df(train_multi, bs, szs)</span>
-<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmentation_dls</span><span class="p">(</span><span class="n">bs</span><span class="p">,</span> <span class="n">szs</span><span class="p">)</span>
-<span class="n">segmentation_learner</span> <span class="o">=</span> <span class="n">unet_learner</span><span class="p">(</span>
-    <span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">resnet18</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">seg_metrics</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#segmentation_learner.summary()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To load custom weights in the Unet Encoder:</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">encoder_path</span> <span class="o">=</span> <span class="n">models_dir</span> <span class="o">/</span> <span class="s2">&quot;ResNet18-2_class.pt&quot;</span>
-<span class="n">segmentation_learner</span><span class="o">.</span><span class="n">model</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span>
-    <span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">encoder_path</span><span class="p">),</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Pytorch-Trainer">Pytorch Trainer<a class="anchor-link" href="#Pytorch-Trainer"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The code in this project is not only FastAi. I based an alternative solution based on this <a href="https://www.kaggle.com/rishabhiitbhu/unet-starter-kernel-pytorch-lb-0-88">kernel</a>. 
-In this notebook I will go through each part of the model from that kernel.</p>
+<p>To start with Pytorch models I borrowed the code from <a href="https://www.kaggle.com/rishabhiitbhu/unet-starter-kernel-pytorch-lb-0-88">this kernel</a> that works with <code>segmentation_models_pytorch</code>.</p>
 
 </div>
 </div>
@@ -303,114 +104,9 @@ In this notebook I will go through each part of the model from that kernel.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L43" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
+<h2 id="Trainer" class="doc_header"><code>class</code> <code>Trainer</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L37" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Trainer</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
 </blockquote>
 <p>This class takes care of training and validation of our model</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.__init__" class="doc_header"><code>Trainer.__init__</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L46" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.__init__</code>(<strong><code>model</code></strong>, <strong><code>save_path</code></strong>, <strong><code>num_epochs</code></strong>=<em><code>20</code></em>, <strong><code>lr</code></strong>=<em><code>0.0005</code></em>, <strong><code>bs</code></strong>=<em><code>16</code></em>, <strong><code>num_workers</code></strong>=<em><code>6</code></em>)</p>
-</blockquote>
-<p>Initialize self.  See help(type(self)) for accurate signature.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.forward" class="doc_header"><code>Trainer.forward</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L82" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.forward</code>(<strong><code>images</code></strong>, <strong><code>targets</code></strong>)</p>
-</blockquote>
-<p>Forward pass:
-    load to GPU the imgs and masks,
-    calculate predictions,
-    calculate loss</p>
-<p>Returns:
-    loss and predictions</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.iterate" class="doc_header"><code>Trainer.iterate</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L98" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.iterate</code>(<strong><code>epoch</code></strong>, <strong><code>phase</code></strong>)</p>
-</blockquote>
-<p>Iterate throught each batch in training or validation phase.</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="Trainer.start" class="doc_header"><code>Trainer.start</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L138" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Trainer.start</code>()</p>
-</blockquote>
-<p>Training loop for each epochs.</p>
 
 </div>
 
@@ -433,6 +129,927 @@ In this notebook I will go through each part of the model from that kernel.</p>
 </pre></div>
 
     </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pytorch-to-fastai">Pytorch to fastai<a class="anchor-link" href="#Pytorch-to-fastai"> </a></h2>
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">arch</span> <span class="o">=</span> <span class="n">smp</span><span class="o">.</span><span class="n">Unet</span><span class="p">(</span><span class="s1">&#39;resnet18&#39;</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> 
+                <span class="n">encoder_weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span>
+                <span class="n">decoder_attention_type</span><span class="o">=</span><span class="s1">&#39;scse&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmnt_dls</span><span class="p">(</span><span class="n">train_pivot</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">1000</span><span class="p">],</span> <span class="n">bs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">flatten_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="p">,</span> <span class="n">targ</span> <span class="o">=</span> <span class="n">dls</span><span class="o">.</span><span class="n">one_batch</span><span class="p">()</span>
+<span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">targ</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>((8, 3, 256, 256), (8, 4, 256, 256))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">targ</span><span class="o">.</span><span class="n">device</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(device(type=&#39;cuda&#39;, index=0), device(type=&#39;cpu&#39;))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The <code>fastai</code> training works with a custom Optimizer, to get that use a <code>opt_func</code> like:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">opt_func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="k">return</span> <span class="n">OptimWrapper</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="convert_params" class="doc_header"><code>convert_params</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L155" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_params</code>(<strong><code>o</code></strong>:<code>list</code>)</p>
+</blockquote>
+<p>Converts <code>o</code> into Pytorch-compatable param groups
+<code>o</code> should be a set of layer-groups that should be split in the optimizer</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">splitter</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="n">convert_params</span><span class="p">([[</span><span class="n">m</span><span class="o">.</span><span class="n">a</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">b</span><span class="p">]])</span>
+</pre></div>
+<p>Where <code>m</code> is a model defined as:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RegModel</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+  <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+</pre></div>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>If we need to train a pretrained model and do properly transfer learning, we need a <code>splitter</code> like:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">splitter</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="n">convert_params</span><span class="p">([[</span><span class="n">m</span><span class="o">.</span><span class="n">encoder</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">decoder</span><span class="p">]])</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">L</span><span class="p">(</span><span class="n">arch</span><span class="o">.</span><span class="n">encoder</span><span class="p">)</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">params</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.nn.parameter.Parameter</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>An example of <code>Learner</code>:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">opt_func</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="k">return</span> <span class="n">OptimWrapper</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+<span class="k">def</span> <span class="nf">splitter</span><span class="p">(</span><span class="n">m</span><span class="p">):</span> <span class="k">return</span> <span class="n">convert_params</span><span class="p">([[</span><span class="n">m</span><span class="o">.</span><span class="n">encoder</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">decoder</span><span class="p">],</span> <span class="p">[</span><span class="n">m</span><span class="o">.</span><span class="n">segmentation_head</span><span class="p">]])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span> <span class="o">=</span> <span class="n">Learner</span><span class="p">(</span><span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> 
+                <span class="n">model</span><span class="o">=</span><span class="n">arch</span><span class="p">,</span> 
+                <span class="n">loss_func</span><span class="o">=</span><span class="n">MultiClassesSoftBCEDiceLoss</span><span class="p">(),</span>
+                <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">ModDiceMulti</span><span class="p">],</span> 
+                <span class="n">splitter</span><span class="o">=</span><span class="n">splitter</span><span class="p">,</span> 
+                <span class="n">opt_func</span><span class="o">=</span><span class="n">opt_func</span><span class="p">,</span> 
+                <span class="n">model_dir</span><span class="o">=</span><span class="n">models_dir</span><span class="p">,</span> 
+                <span class="n">cbs</span><span class="o">=</span><span class="p">[</span><span class="n">CudaCallback</span><span class="p">(),</span> <span class="n">ShowGraphCallback</span><span class="p">()])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: left;">
+      <th>epoch</th>
+      <th>train_loss</th>
+      <th>valid_loss</th>
+      <th>mod_dice_multi</th>
+      <th>time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>0.127815</td>
+      <td>0.041380</td>
+      <td>0.009134</td>
+      <td>00:47</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Unet (Input shape: 8)
+============================================================================
+Layer (type)         Output Shape         Param #    Trainable 
+============================================================================
+                     8 x 64 x 128 x 128  
+Conv2d                                    9408       True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+MaxPool2d                                                      
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+____________________________________________________________________________
+                     8 x 128 x 32 x 32   
+Conv2d                                    73728      True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     True      
+BatchNorm2d                               256        True      
+Conv2d                                    8192       True      
+BatchNorm2d                               256        True      
+Conv2d                                    147456     True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     True      
+BatchNorm2d                               256        True      
+____________________________________________________________________________
+                     8 x 256 x 16 x 16   
+Conv2d                                    294912     True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     True      
+BatchNorm2d                               512        True      
+Conv2d                                    32768      True      
+BatchNorm2d                               512        True      
+Conv2d                                    589824     True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     True      
+BatchNorm2d                               512        True      
+____________________________________________________________________________
+                     8 x 512 x 8 x 8     
+Conv2d                                    1179648    True      
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    True      
+BatchNorm2d                               1024       True      
+Conv2d                                    131072     True      
+BatchNorm2d                               1024       True      
+Conv2d                                    2359296    True      
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    True      
+BatchNorm2d                               1024       True      
+Identity                                                       
+____________________________________________________________________________
+                     8 x 256 x 16 x 16   
+Conv2d                                    1769472    True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 48 x 1 x 1      
+Conv2d                                    36912      True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 768 x 1 x 1     
+Conv2d                                    37632      True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 16 x 16     
+Conv2d                                    769        True      
+Sigmoid                                                        
+Conv2d                                    589824     True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 16 x 1 x 1      
+Conv2d                                    4112       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 256 x 1 x 1     
+Conv2d                                    4352       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 16 x 16     
+Conv2d                                    257        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 128 x 32 x 32   
+Conv2d                                    442368     True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 24 x 1 x 1      
+Conv2d                                    9240       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 384 x 1 x 1     
+Conv2d                                    9600       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 32 x 32     
+Conv2d                                    385        True      
+Sigmoid                                                        
+Conv2d                                    147456     True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 8 x 1 x 1       
+Conv2d                                    1032       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 128 x 1 x 1     
+Conv2d                                    1152       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 32 x 32     
+Conv2d                                    129        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 64 x 64 x 64    
+Conv2d                                    110592     True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 12 x 1 x 1      
+Conv2d                                    2316       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 192 x 1 x 1     
+Conv2d                                    2496       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 64 x 64     
+Conv2d                                    193        True      
+Sigmoid                                                        
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 4 x 1 x 1       
+Conv2d                                    260        True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 64 x 1 x 1      
+Conv2d                                    320        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 64 x 64     
+Conv2d                                    65         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 32 x 128 x 128  
+Conv2d                                    36864      True      
+BatchNorm2d                               64         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 8 x 1 x 1       
+Conv2d                                    1032       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 128 x 1 x 1     
+Conv2d                                    1152       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 128 x 128   
+Conv2d                                    129        True      
+Sigmoid                                                        
+Conv2d                                    9216       True      
+BatchNorm2d                               64         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 2 x 1 x 1       
+Conv2d                                    66         True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 32 x 1 x 1      
+Conv2d                                    96         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 128 x 128   
+Conv2d                                    33         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 16 x 256 x 256  
+Conv2d                                    4608       True      
+BatchNorm2d                               32         True      
+ReLU                                                           
+Conv2d                                    2304       True      
+BatchNorm2d                               32         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 1 x 1 x 1       
+Conv2d                                    17         True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 16 x 1 x 1      
+Conv2d                                    32         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 256 x 256   
+Conv2d                                    17         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 4 x 256 x 256   
+Conv2d                                    580        True      
+Identity                                                       
+Identity                                                       
+____________________________________________________________________________
+
+Total params: 14,442,440
+Total trainable params: 14,442,440
+Total non-trainable params: 0
+
+Optimizer used: &lt;function opt_func at 0x7f94f0a50790&gt;
+Loss function: MultiClassesSoftBCEDiceLoss(
+  (soft_bce_dice_loss): SoftBCEDiceLoss(
+    (bce_loss): BCEWithLogitsLoss()
+    (softdiceloss): WeightedSoftDiceLoss()
+  )
+)
+
+Model unfrozen
+
+Callbacks:
+  - TrainEvalCallback
+  - CudaCallback
+  - Recorder
+  - ProgressCallback
+  - ShowGraphCallback</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">freeze_to</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">learn</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea ">
+
+</div>
+
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Unet (Input shape: 8)
+============================================================================
+Layer (type)         Output Shape         Param #    Trainable 
+============================================================================
+                     8 x 64 x 128 x 128  
+Conv2d                                    9408       False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+MaxPool2d                                                      
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+ReLU                                                           
+Conv2d                                    36864      False     
+BatchNorm2d                               128        True      
+____________________________________________________________________________
+                     8 x 128 x 32 x 32   
+Conv2d                                    73728      False     
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+Conv2d                                    8192       False     
+BatchNorm2d                               256        True      
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+ReLU                                                           
+Conv2d                                    147456     False     
+BatchNorm2d                               256        True      
+____________________________________________________________________________
+                     8 x 256 x 16 x 16   
+Conv2d                                    294912     False     
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+Conv2d                                    32768      False     
+BatchNorm2d                               512        True      
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+ReLU                                                           
+Conv2d                                    589824     False     
+BatchNorm2d                               512        True      
+____________________________________________________________________________
+                     8 x 512 x 8 x 8     
+Conv2d                                    1179648    False     
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+Conv2d                                    131072     False     
+BatchNorm2d                               1024       True      
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+ReLU                                                           
+Conv2d                                    2359296    False     
+BatchNorm2d                               1024       True      
+Identity                                                       
+____________________________________________________________________________
+                     8 x 256 x 16 x 16   
+Conv2d                                    1769472    True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 48 x 1 x 1      
+Conv2d                                    36912      True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 768 x 1 x 1     
+Conv2d                                    37632      True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 16 x 16     
+Conv2d                                    769        True      
+Sigmoid                                                        
+Conv2d                                    589824     True      
+BatchNorm2d                               512        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 16 x 1 x 1      
+Conv2d                                    4112       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 256 x 1 x 1     
+Conv2d                                    4352       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 16 x 16     
+Conv2d                                    257        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 128 x 32 x 32   
+Conv2d                                    442368     True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 24 x 1 x 1      
+Conv2d                                    9240       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 384 x 1 x 1     
+Conv2d                                    9600       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 32 x 32     
+Conv2d                                    385        True      
+Sigmoid                                                        
+Conv2d                                    147456     True      
+BatchNorm2d                               256        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 8 x 1 x 1       
+Conv2d                                    1032       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 128 x 1 x 1     
+Conv2d                                    1152       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 32 x 32     
+Conv2d                                    129        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 64 x 64 x 64    
+Conv2d                                    110592     True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 12 x 1 x 1      
+Conv2d                                    2316       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 192 x 1 x 1     
+Conv2d                                    2496       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 64 x 64     
+Conv2d                                    193        True      
+Sigmoid                                                        
+Conv2d                                    36864      True      
+BatchNorm2d                               128        True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 4 x 1 x 1       
+Conv2d                                    260        True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 64 x 1 x 1      
+Conv2d                                    320        True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 64 x 64     
+Conv2d                                    65         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 32 x 128 x 128  
+Conv2d                                    36864      True      
+BatchNorm2d                               64         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 8 x 1 x 1       
+Conv2d                                    1032       True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 128 x 1 x 1     
+Conv2d                                    1152       True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 128 x 128   
+Conv2d                                    129        True      
+Sigmoid                                                        
+Conv2d                                    9216       True      
+BatchNorm2d                               64         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 2 x 1 x 1       
+Conv2d                                    66         True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 32 x 1 x 1      
+Conv2d                                    96         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 128 x 128   
+Conv2d                                    33         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 16 x 256 x 256  
+Conv2d                                    4608       True      
+BatchNorm2d                               32         True      
+ReLU                                                           
+Conv2d                                    2304       True      
+BatchNorm2d                               32         True      
+ReLU                                                           
+AdaptiveAvgPool2d                                              
+____________________________________________________________________________
+                     8 x 1 x 1 x 1       
+Conv2d                                    17         True      
+ReLU                                                           
+____________________________________________________________________________
+                     8 x 16 x 1 x 1      
+Conv2d                                    32         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 1 x 256 x 256   
+Conv2d                                    17         True      
+Sigmoid                                                        
+____________________________________________________________________________
+                     8 x 4 x 256 x 256   
+Conv2d                                    580        True      
+Identity                                                       
+Identity                                                       
+____________________________________________________________________________
+
+Total params: 14,442,440
+Total trainable params: 3,275,528
+Total non-trainable params: 11,166,912
+
+Optimizer used: &lt;function opt_func at 0x7f94f0a50790&gt;
+Loss function: MultiClassesSoftBCEDiceLoss(
+  (soft_bce_dice_loss): SoftBCEDiceLoss(
+    (bce_loss): BCEWithLogitsLoss()
+    (softdiceloss): WeightedSoftDiceLoss()
+  )
+)
+
+Model frozen up to parameter group #1
+
+Callbacks:
+  - TrainEvalCallback
+  - CudaCallback
+  - Recorder
+  - ProgressCallback
+  - ShowGraphCallback</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
