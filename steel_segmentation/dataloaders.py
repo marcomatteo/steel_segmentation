@@ -94,37 +94,40 @@ def SteelMaskBlock(codes=None, flatten_mask=False):
 
 # Cell
 @delegates(to=DataLoaders)
-def get_segmnt_dls(source:pd.DataFrame=None, bs:int=16, size:tuple=None,
-                   train_aug:alb.Compose=None, valid_aug:alb.Compose=None,
+def get_segmnt_dls(source:pd.DataFrame=None, bs:int=16,
+                   itfms=None,
+                   #size:tuple=None,
+                   #train_aug:alb.Compose=None, valid_aug:alb.Compose=None,
                    splitter:tuple=None, flatten_mask:bool=False, **kwargs):
     """
     Create a DataLoaders obj for segmentation models.
 
     Attributes:
 
-        source: pd.DataFrame, the source file with labels, only `train_pivot` or its slices atm.
+    - source: pd.DataFrame, the source file with labels, only `train_pivot` or its slices atm.
 
-        bs: int, batch size for training and validation phases.
+    - bs: int, batch size for training and validation phases.
 
-        size: tuple of ints, crops the images with this size, only squared sizes atm.
+    - size: tuple of ints, crops the images with this size, only squared sizes atm.
 
-        train_aug, valid_aug: albumentations.core.composition.Compose,
-        List of augmentation to be applied over the training and validation batches
+    - train_aug, valid_aug: albumentations.core.composition.Compose,
+    List of augmentation to be applied over the training and validation batches
 
-        splitter: tuple of indexes, idxs for split into training and validation
+    - splitter: tuple of indexes, idxs for split into training and validation
 
-        flatten_mask: bool, if True returns a flatten mask of shape `size` for each image in the batch.
-        Set to True for fastai models (`unet_learner`).
+    - flatten_mask: bool, if True returns a flatten mask of shape `size` for each image in the batch.
+    Set to True for fastai models (`unet_learner`).
 
     """
     if source is None:    source=train_pivot
-    if size is None:      size=(256,256)
-    if train_aug is None: train_aug=get_train_aug()
-    if valid_aug is None: valid_aug=get_valid_aug()
+    #if size is None:      size=(256,256)
+    #if train_aug is None: train_aug=get_train_aug()
+    #if valid_aug is None: valid_aug=get_valid_aug()
     if splitter is None:  splitter=TrainTestSplitter(test_size=0.2)
 
     # Albumentations tfms
-    itfms = [AlbumentationsTransform(train_aug, valid_aug)]
+    if itfms is None: itfms = [AlbumentationsTransform(get_train_aug(), get_valid_aug())]
+
     # Datablock
     block = DataBlock(
         blocks = (ImageBlock,SteelMaskBlock(codes=[1,2,3,4],

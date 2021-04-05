@@ -170,7 +170,7 @@ def get_transforms(phase, mean, std):
             albpyt.ToTensor(),
         ]
     )
-    list_trfms = Compose(list_transforms)
+    list_trfms = alb.Compose(list_transforms)
     return list_trfms
 
 # Cell
