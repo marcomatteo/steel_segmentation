@@ -49,22 +49,21 @@ def get_classification_dls(bs, with_tfms: bool = True, size=None, seed=42):
 
 # Cell
 def get_train_aug(height, width): return alb.Compose([
-    alb.CropNonEmptyMaskIfExists(height, width, p=1.),
-    alb.Resize(height, width),
+    alb.OneOf([
+        alb.CropNonEmptyMaskIfExists(height, width, p=0.5),
+        alb.RandomCrop(height, width, p=0.5)
+    ], p=1.),
     alb.OneOf([
         alb.VerticalFlip(p=0.5),
-        alb.HorizontalFlip(p=0.5)], p=0.8),
-    alb.OneOf([
-        alb.ElasticTransform(p=0.5, alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03),
-        alb.GridDistortion(p=0.5),
-        alb.OpticalDistortion(distort_limit=1, shift_limit=0.5, p=1),
-    ], p=0.8)
+        alb.HorizontalFlip(p=0.5)], p=0.8)#,
+    #alb.OneOf([
+    #    alb.ElasticTransform(p=0.5, alpha=120, sigma=120 * 0.05, alpha_affine=120 * 0.03),
+    #    alb.GridDistortion(p=0.5),
+    #    alb.OpticalDistortion(distort_limit=1, shift_limit=0.5, p=1),
+    #], p=0.8)
 ])
 
-def get_valid_aug(height, width): return alb.Compose([
-    alb.RandomCrop(height, width),
-    alb.Resize(height, width)
-])
+def get_valid_aug(height, width): return alb.Compose([alb.RandomCrop(height, width)])
 
 # Cell
 class AlbumentationsTransform(ItemTransform, RandTransform):
