@@ -31,7 +31,7 @@ nb_path: "nbs/index.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master" alt="CI"> <a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/index.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+<p><img src="https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master" alt="CI"> <a href="https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/nbs/index.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
 
 </div>
 </div>
@@ -63,9 +63,9 @@ Check <a href="https://nbdev.fast.ai/">here</a> the <code>nbdev</code> documenta
 <p>To create the library, the documentation and tests execute these commands:</p>
 
 <pre><code>nbdev_build_lib
-nbdev_build_docs
+nbdev_clean_nbs
 nbdev_test_nbs
-nbdev_clean_nbs</code></pre>
+nbdev_build_docs</code></pre>
 <p>This enviroment works on MacOS and Linux, use Linux WSL for Windows.</p>
 
 </div>
@@ -137,15 +137,8 @@ nbdev_clean_nbs</code></pre>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>All of the experiments are based on Jupyter Notebooks, divided into different folder directories:</p>
-<ul>
-<li><p>in the <code>dev_nbs</code> folder there are all the notebooks used to build the <code>steel_segmentation</code> library.</p>
-</li>
-<li><p>in the <code>training_nbs</code> folder there are all the notebooks used to training different Deep Learning models.</p>
-</li>
-<li><p>in the <code>inference_nbs</code> folder there are all the notebooks to inference and evaluate with the test set the models.</p>
-</li>
-</ul>
+<p>All of the experiments are based on Jupyter Notebooks. 
+In the <code>nbs</code> folder there are all the notebooks used to build the <code>steel_segmentation</code> library, to train different Deep Learning models and evaluate them with the testset.</p>
 
 </div>
 </div>

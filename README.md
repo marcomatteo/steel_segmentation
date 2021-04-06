@@ -2,7 +2,7 @@
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
-![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/dev_nbs/index.ipynb)
+![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/nbs/index.ipynb)
 
 This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition hosted by Kaggle.
 Kaggle is a platform that provides various datasets from the real world machine learning problems and engages a large community of people.
@@ -25,9 +25,9 @@ Check [here](https://nbdev.fast.ai/) the `nbdev` documentation.
 To create the library, the documentation and tests execute these commands:
 ```
 nbdev_build_lib
-nbdev_build_docs
-nbdev_test_nbs
 nbdev_clean_nbs
+nbdev_test_nbs
+nbdev_build_docs
 ```
 
 This enviroment works on MacOS and Linux, use Linux WSL for Windows.
@@ -53,13 +53,8 @@ Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
 ## Notebooks
 
-All of the experiments are based on Jupyter Notebooks, divided into different folder directories:
-
-- in the `dev_nbs` folder there are all the notebooks used to build the `steel_segmentation` library.
-
-- in the `training_nbs` folder there are all the notebooks used to training different Deep Learning models.
-
-- in the `inference_nbs` folder there are all the notebooks to inference and evaluate with the test set the models.
+All of the experiments are based on Jupyter Notebooks. 
+In the `nbs` folder there are all the notebooks used to build the `steel_segmentation` library, to train different Deep Learning models and evaluate them with the testset.
 
 ## Results
 
