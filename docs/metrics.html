@@ -45,7 +45,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>In this section there are all the metric used to evaluate the performances of the deep learning models.</p>
+<p>In this section there are all the metric that can be used to evaluate the performances of the segmentation models trained.</p>
 
 </div>
 </div>
@@ -58,7 +58,7 @@ nb_path: "nbs/05_metrics.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">)</span>
-<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmnt_dls</span><span class="p">(</span><span class="n">bs</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmnt_dls</span><span class="p">(</span><span class="n">bs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span> <span class="mi">256</span><span class="p">))</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">targs</span> <span class="o">=</span> <span class="n">dls</span><span class="o">.</span><span class="n">train</span><span class="o">.</span><span class="n">one_batch</span><span class="p">()</span>
 <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">targs</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
@@ -159,15 +159,48 @@ nb_path: "nbs/05_metrics.ipynb"
 </div>
     {% endraw %}
 
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">logits</span><span class="o">.</span><span class="n">device</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">device</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(device(type=&#39;cpu&#39;), device(type=&#39;cpu&#39;))</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Metrics-for-fastai-API">Metrics for fastai API<a class="anchor-link" href="#Metrics-for-fastai-API"> </a></h2>
+<h2 id="Multiclass-Dice">Multiclass Dice<a class="anchor-link" href="#Multiclass-Dice"> </a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Some code from the fastai docs to test properly the metrics:</p>
+<p>This code comes from the fastai docs to test properly the metrics:</p>
 
 </div>
 </div>
@@ -184,13 +217,13 @@ nb_path: "nbs/05_metrics.ipynb"
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dls</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">pred</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">xb</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">yb</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span><span class="kc">None</span><span class="p">,</span><span class="kc">None</span>
         
 <span class="c1">#Go through a fake cycle with various batch sizes and computes the value of met</span>
-<span class="k">def</span> <span class="nf">compute_val</span><span class="p">(</span><span class="n">met</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">compute_val</span><span class="p">(</span><span class="n">met</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
     <span class="n">met</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
     <span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
     <span class="n">learn</span> <span class="o">=</span> <span class="n">TstLearner</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-        <span class="n">learn</span><span class="o">.</span><span class="n">pred</span> <span class="o">=</span> <span class="n">x1</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="n">learn</span><span class="o">.</span><span class="n">yb</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x2</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]],</span> <span class="p">)</span>
+        <span class="n">learn</span><span class="o">.</span><span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span>
+        <span class="n">learn</span><span class="o">.</span><span class="n">yb</span> <span class="o">=</span> <span class="p">(</span> <span class="n">y</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]],</span> <span class="p">)</span>
         <span class="n">met</span><span class="o">.</span><span class="n">accumulate</span><span class="p">(</span><span class="n">learn</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">met</span><span class="o">.</span><span class="n">value</span>
 </pre></div>
@@ -220,7 +253,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L22" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>) :: <code>Metric</code></p>
+<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L21" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>) :: <code>Metric</code></p>
 </blockquote>
 <p>Averaged Dice metric (Macro F1) for multiclass target in segmentation</p>
 
@@ -258,7 +291,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">targs</span><span class="p">,</span> <span class="n">preds</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">targs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -273,7 +306,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.23427008996722556</pre>
+<pre>0.2136215772421966</pre>
 </div>
 
 </div>
@@ -286,7 +319,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>For test purpose, we create a tensor, <code>x1</code>, as a prediction for the first channel.</p>
+<p>For test purpose, we create a tensor <code>x1</code>, as a prediction for the first channel.</p>
 
 </div>
 </div>
@@ -332,7 +365,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The target is a flatten mask, used by fastai segmentation models.</p>
+<p>When target is a flatten mask, used by fastai segmentation models:</p>
 
 </div>
 </div>
@@ -345,7 +378,7 @@ nb_path: "nbs/05_metrics.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Target: 20xClass0</span>
-<span class="n">x2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">x2</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">x2</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
     </div>
@@ -360,16 +393,48 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>(tensor([[[0.]],
- 
-         [[0.]],
- 
-         [[0.]],
- 
-         [[0.]],
- 
-         [[0.]]]),
- torch.Size([20, 1, 1]))</pre>
+<pre>torch.Size([20, 1, 1])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>When the target is a 4-channels mask, used by pytorch segmentation models:</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2chs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Target: 20xClass0</span>
+<span class="n">x2chs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([20, 4, 1, 1])</pre>
 </div>
 
 </div>
@@ -395,6 +460,7 @@ nb_path: "nbs/05_metrics.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -411,9 +477,31 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Target: 20xClass1</span>
-<span class="c1"># Dice metric = 0</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
 <span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x2_ch0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x2_ch1</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x2_ch2</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x2_ch3</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">x2chs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x2_ch0</span><span class="p">,</span> <span class="n">x2_ch1</span><span class="p">,</span> <span class="n">x2_ch2</span><span class="p">,</span> <span class="n">x2_ch3</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">),</span> <span class="mf">0.</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -482,220 +570,76 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">4</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>              <span class="c1"># Dice: 2*TP/(2*TP+FP+FN)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">batch_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+
+<span class="n">x2_chs</span> <span class="o">=</span> <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">batch_sizes</span><span class="p">)]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x2_ch</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x2_chs</span><span class="p">):</span>
+    <span class="n">x2_ch</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">x2chs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">x2_chs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">x2chs</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>torch.Size([20, 4, 1, 1])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">computed_dice</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">computed_dice_chs</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">computed_dice</span><span class="p">,</span><span class="n">computed_dice_chs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice1</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">+</span><span class="mi">4</span><span class="o">+</span><span class="mi">3</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span>              
 <span class="n">dice2</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">dice3</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">dice4</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="c1"># Value to be tested</span>
-<span class="n">computed_dice</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+
 <span class="c1"># Dice metric = 0.1666</span>
 <span class="n">test_eq</span><span class="p">(</span><span class="n">computed_dice</span><span class="p">,</span> <span class="p">(</span><span class="n">dice1</span><span class="o">+</span><span class="n">dice2</span><span class="o">+</span><span class="n">dice3</span><span class="o">+</span><span class="n">dice4</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="p">[</span><span class="n">dice1</span><span class="p">,</span> <span class="n">dice2</span><span class="p">,</span> <span class="n">dice3</span><span class="p">,</span> <span class="n">dice4</span><span class="p">]</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">computed_dice</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">computed_dice_chs</span><span class="p">,</span> <span class="p">(</span><span class="n">dice1</span><span class="o">+</span><span class="n">dice2</span><span class="o">+</span><span class="n">dice3</span><span class="o">+</span><span class="n">dice4</span><span class="p">)</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[0.6666666666666666, 0, 0, 0]]
-0.16666666666666666
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_obj</span><span class="o">.</span><span class="n">inter</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{0: 10.0, 1: 0.0, 2: 0.0, 3: 0.0}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_obj</span><span class="o">.</span><span class="n">union</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>{0: 30.0, 1: 4.0, 2: 3.0, 3: 3.0}</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">dice_obj</span><span class="o">.</span><span class="n">inter</span><span class="p">:</span>
-    <span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-        <span class="n">binary_dice_scores</span><span class="p">,</span> 
-        <span class="mf">2.</span><span class="o">*</span><span class="n">dice_obj</span><span class="o">.</span><span class="n">inter</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">/</span><span class="n">dice_obj</span><span class="o">.</span><span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> 
-        <span class="k">if</span> <span class="n">dice_obj</span><span class="o">.</span><span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">binary_dice_scores</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([0.66666667, 0.        , 0.        , 0.        ])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">binary_dice_scores</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.16666666666666666</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="KaggleDice" class="doc_header"><code>class</code> <code>KaggleDice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L58" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KaggleDice</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>eps</code></strong>=<em><code>1e-09</code></em>) :: <code>Metric</code></p>
-</blockquote>
-<p>Blueprint for defining a metric</p>
-
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -704,68 +648,11 @@ nb_path: "nbs/05_metrics.ipynb"
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The competition "Evaluation" metric is defined as:</p>
+<h2 id="Kaggle-Dice-metric">Kaggle Dice metric<a class="anchor-link" href="#Kaggle-Dice-metric"> </a></h2><p>The competition "Evaluation" metric is defined as:</p>
 <blockquote><p>This competition is evaluated on the mean Dice coefficient. The Dice coefficient can be used to compare the pixel-wise agreement between a predicted segmentation and its corresponding ground truth. The formula is given by:$$J(A,B) = \frac{2 * |A \cap B|}{|A| \cup |B|}
 $$</p>
 <p>where X is the predicted set of pixels and Y is the ground truth. The Dice coefficient is defined to be 1 when both X and Y are empty. The leaderboard score is the mean of the Dice coefficients for each &lt;ImageId, ClassId&gt; pair in the test set.</p>
 </blockquote>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_kaggle_obj</span> <span class="o">=</span> <span class="n">KaggleDice</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">computed_kaggle_dice</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">);</span> <span class="n">computed_kaggle_dice</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.7500000005</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Test for <a href="/steel_segmentation/metrics.html#KaggleDice"><code>KaggleDice</code></a>:</p>
 
 </div>
 </div>
@@ -804,11 +691,10 @@ $$</p>
         <span class="n">c_union</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="c1">#.item()</span>
         <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">intersect</span><span class="p">:</span>
             <span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c_inter</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c_union</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c_union</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_inter</span>
-            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_union</span>
-    <span class="c1">#     print(f&quot;Iter n.{i}\nintersect: {intersect[i]}\nunion: {union[i]}&quot;, end=&quot;\n\n&quot;)</span>
+            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>     <span class="o">=</span> <span class="n">c_union</span>
 
 <span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
 <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">intersect</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -861,11 +747,98 @@ $$</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h2 id="KaggleDice" class="doc_header"><code>class</code> <code>KaggleDice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L60" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KaggleDice</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>eps</code></strong>=<em><code>1e-09</code></em>) :: <code>Metric</code></p>
+</blockquote>
+<p>Multi-class Dice used in Severstal comp,
+is 1 when prediction and mask are empty</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_close</span><span class="p">(</span><span class="n">computed_kaggle_dice</span><span class="p">,</span> <span class="n">binary_dice_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_kaggle_obj</span> <span class="o">=</span> <span class="n">KaggleDice</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">targs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.2071837278086755</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">computed_kaggle_dice</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+<span class="n">computed_kaggle_dice_chs</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">)</span>
+
+<span class="n">test_close</span><span class="p">(</span><span class="n">computed_kaggle_dice</span><span class="p">,</span> <span class="n">binary_dice_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">computed_kaggle_dice</span><span class="p">,</span> <span class="n">computed_kaggle_dice_chs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -877,319 +850,11 @@ $$</p>
 
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Test <a href="/steel_segmentation/metrics.html#KaggleDice"><code>KaggleDice</code></a> with a real shape batch:</p>
+<p>Alternative metric for Kaggle:</p>
 
 </div>
 </div>
 </div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">chs</span> <span class="o">=</span> <span class="mi">4</span>
-
-<span class="n">x3a</span> <span class="o">=</span> <span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.65</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x3b</span> <span class="o">=</span> <span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.65</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x3c</span> <span class="o">=</span> <span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.65</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x3d</span> <span class="o">=</span> <span class="p">((</span><span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">chs</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span> <span class="o">&gt;</span> <span class="mf">0.65</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">())</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="n">x3</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x3a</span><span class="p">,</span><span class="n">x3b</span><span class="p">,</span><span class="n">x3c</span><span class="p">,</span><span class="n">x3d</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">);</span> <span class="n">x3</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>torch.Size([20, 4, 1, 1])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x4a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x4b</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x4c</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x4d</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x4e</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-
-<span class="n">x4</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x4a</span><span class="p">,</span><span class="n">x4b</span><span class="p">,</span><span class="n">x4c</span><span class="p">,</span><span class="n">x4d</span><span class="p">,</span> <span class="n">x4e</span><span class="p">),</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>   <span class="c1"># Target: 5xClass0, 5xClass1, 5xClass2, 5xClass4</span>
-<span class="n">x4</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>torch.Size([20, 4, 1])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">computed_kaggle_dice</span> <span class="o">=</span> <span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">x3</span><span class="p">,</span> <span class="n">x4</span><span class="p">);</span> <span class="n">computed_kaggle_dice</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.55964285892866</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vals</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">15</span><span class="p">,</span><span class="mi">20</span><span class="p">]</span>
-<span class="n">intersect</span><span class="p">,</span> <span class="n">union</span> <span class="o">=</span> <span class="p">{},</span> <span class="p">{}</span>
-
-<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">x3</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
-    <span class="n">targ</span> <span class="o">=</span> <span class="p">(</span> <span class="n">x4</span><span class="p">[</span><span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span><span class="n">vals</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">clone</span><span class="p">(),</span> <span class="p">)</span>
-    <span class="n">targ</span> <span class="o">=</span> <span class="n">targ</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-9</span>
-
-    <span class="k">if</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">targ</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
-        <span class="n">targ</span> <span class="o">=</span> <span class="n">targ</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">n</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">targ</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pred</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="n">pred</span> <span class="o">=</span> <span class="n">pred</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">targ</span> <span class="o">=</span> <span class="n">targ</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
-        <span class="n">p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">targ</span> <span class="o">==</span> <span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">p</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">TensorBase</span><span class="p">(</span><span class="n">p</span><span class="p">),</span> <span class="n">TensorBase</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-        <span class="n">c_inter</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="c1">#.item()</span>
-        <span class="n">c_union</span> <span class="o">=</span> <span class="p">(</span><span class="n">p</span><span class="o">+</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span><span class="c1">#.item()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">intersect</span><span class="p">:</span>
-            <span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c_inter</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">c_union</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">intersect</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_inter</span>
-            <span class="n">union</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">c_union</span>
-
-<span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
-<span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">intersect</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
-    <span class="n">cond</span> <span class="o">=</span> <span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span>
-    <span class="n">val</span> <span class="o">=</span> <span class="mf">2.</span><span class="o">*</span><span class="p">(</span><span class="n">intersect</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">union</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">eps</span><span class="p">)</span>
-    <span class="n">val</span><span class="p">[</span><span class="n">cond</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">binary_dice_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">binary_dice_scores</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
-
-<span class="n">num</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">binary_dice_scores</span><span class="p">[(</span><span class="n">i</span><span class="o">*</span><span class="mi">20</span><span class="p">):((</span><span class="n">i</span><span class="o">*</span><span class="mi">20</span><span class="p">)</span><span class="o">+</span><span class="mi">20</span><span class="p">)])</span>
-    <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=.</span><span class="mi">6</span><span class="p">,</span> <span class="n">pad</span><span class="o">=-</span><span class="mf">7.</span><span class="p">)</span>
-
-<span class="n">test_eq</span><span class="p">(</span><span class="n">computed_kaggle_dice</span><span class="p">,</span> <span class="n">binary_dice_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">binary_dice_scores</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0.55964285892866
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Real masks have a problem with the hardnegatives examples.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># with real batch, recompute cell above to test</span>
-<span class="n">x3</span><span class="p">,</span> <span class="n">x4</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">cpu</span><span class="p">(),</span> <span class="n">targs</span>
-<span class="n">x3</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">x4</span><span class="o">.</span><span class="n">shape</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>(torch.Size([20, 4, 256, 256]), torch.Size([20, 4, 256, 256]))</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -1208,10 +873,10 @@ $$</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L103" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>preds</code></strong>:<code>Tensor</code>, <strong><code>targs</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
+<h4 id="dice_kaggle" class="doc_header"><code>dice_kaggle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L108" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice_kaggle</code>(<strong><code>pred</code></strong>:<code>Tensor</code>, <strong><code>targ</code></strong>:<code>Tensor</code>, <strong><code>iou</code></strong>:<code>bool</code>=<em><code>False</code></em>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-08</code></em>)</p>
 </blockquote>
 <p>The metric of the competition,
-if there's no defect in <code>targs</code> and no defects in <code>preds</code>: dice=1.</p>
+if there's no defect in <code>targ</code> and no defects in <code>pred</code>: dice=1.</p>
 
 </div>
 
@@ -1230,27 +895,14 @@ if there's no defect in <code>targs</code> and no defects in <code>preds</code>:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_kag</span> <span class="o">=</span> <span class="n">dice_kaggle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
-<span class="n">dice_kag</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tst</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">dice_kaggle</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dim_argmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">tst</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">),</span> <span class="n">dice_kaggle</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">))</span>
+
+<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kaggle_obj</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">),</span> 
+           <span class="n">compute_val</span><span class="p">(</span>            <span class="n">tst</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">))</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TensorBase(0.7500)</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1264,326 +916,14 @@ if there's no defect in <code>targs</code> and no defects in <code>preds</code>:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">test_ne</span><span class="p">(</span><span class="n">computed_kaggle_dice</span><span class="p">,</span> <span class="n">dice_kag</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tst</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">dice_kaggle</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">tst</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">),</span> <span class="n">dice_kaggle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">))</span>
+
+<span class="n">tst</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">dice_kaggle</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dim_argmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">tst</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">),</span> <span class="n">dice_kaggle</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">))</span>
 </pre></div>
 
     </div>
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Intersection-Over-Union">Intersection Over Union<a class="anchor-link" href="#Intersection-Over-Union"> </a></h2>
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou" class="doc_header"><code>iou</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L140" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>, <strong><code>activation</code></strong>:<code>str</code>=<em><code>'Sigmoid'</code></em>)</p>
-</blockquote>
-<p><a href="https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py">https://github.com/catalyst-team/catalyst/blob/master/catalyst/dl/utils/criterion/iou.py</a>
-Args:
-    outputs (torch.Tensor): A list of predicted elements
-    targets (torch.Tensor):  A list of elements that are to be predicted
-    eps (float): epsilon to avoid zero division
-    threshold (float): threshold for outputs binarization
-    activation (str): An torch.nn activation applied to the outputs.
-        Must be one of ["none", "Sigmoid", "Softmax2d"]
-Returns:
-    float: IoU (Jaccard) score</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">iou</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">targs</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TensorMask(0.0147)</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">jacc_metric</span> <span class="o">=</span> <span class="n">JaccardCoeff</span><span class="p">()</span>
-<span class="n">compute_val</span><span class="p">(</span><span class="n">jacc_metric</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.2286577459675328</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou_binary_metric" class="doc_header"><code>iou_binary_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L171" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_binary_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>True</code></em>)</p>
-</blockquote>
-<p>IoU for foreground class
-binary: 1 foreground, 0 background</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="iou_metric" class="doc_header"><code>iou_metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>iou_metric</code>(<strong><code>preds</code></strong>, <strong><code>labels</code></strong>, <strong><code>C</code></strong>, <strong><code>EMPTY</code></strong>=<em><code>1.0</code></em>, <strong><code>ignore</code></strong>=<em><code>None</code></em>, <strong><code>per_image</code></strong>=<em><code>False</code></em>)</p>
-</blockquote>
-<p>Array of IoU for each (non ignored) class</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_ious" class="doc_header"><code>compute_ious</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L214" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_ious</code>(<strong><code>pred</code></strong>, <strong><code>label</code></strong>, <strong><code>classes</code></strong>, <strong><code>ignore_index</code></strong>=<em><code>255</code></em>, <strong><code>only_present</code></strong>=<em><code>True</code></em>)</p>
-</blockquote>
-<p>computes IoU for one ground truth mask and predicted mask</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">compute_ious</span><span class="p">(</span><span class="n">preds</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">targs</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="n">only_present</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.3442373434954994</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="compute_iou_batch" class="doc_header"><code>compute_iou_batch</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L233" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>compute_iou_batch</code>(<strong><code>outputs</code></strong>, <strong><code>labels</code></strong>, <strong><code>classes</code></strong>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>computes mean iou for a batch of ground truth masks and predicted masks</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_iou_batch</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>0.4798260968741874</pre>
-</div>
-
-</div>
-
 </div>
 </div>
 
@@ -1599,6 +939,112 @@ binary: 1 foreground, 0 background</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">dice</span><span class="p">(</span><span class="n">outputs</span><span class="p">:</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">targets</span><span class="p">:</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">eps</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span> <span class="n">threshold</span><span class="p">:</span><span class="nb">float</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the binary dice metric</span>
+<span class="sd">    Args:</span>
+<span class="sd">        outputs (list):  A list of predicted elements</span>
+<span class="sd">        targets (list): A list of elements that are to be predicted</span>
+<span class="sd">        eps (float): epsilon</span>
+<span class="sd">        threshold (float): threshold for outputs binarization</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        double:  Dice score</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">threshold</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="p">(</span><span class="n">outputs</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+    <span class="n">intersection</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">targets</span> <span class="o">*</span> <span class="n">outputs</span><span class="p">)</span>
+    <span class="n">union</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">targets</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+    <span class="n">dice</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">intersection</span> <span class="o">/</span> <span class="p">(</span><span class="n">union</span> <span class="o">+</span> <span class="n">eps</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dice</span>
+
+<span class="k">def</span> <span class="nf">metric</span><span class="p">(</span><span class="n">probability</span><span class="p">,</span> <span class="n">truth</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates dice of positive and negative images seperately</span>
+<span class="sd">    `probability` and `truth` must be `torch.Tensors`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">truth</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="n">truth</span> <span class="o">=</span> <span class="n">truth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">truth</span><span class="p">)</span>
+    
+    <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
+        <span class="n">probability</span> <span class="o">=</span> <span class="n">probability</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">truth</span> <span class="o">=</span> <span class="n">truth</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span><span class="p">(</span><span class="n">probability</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">truth</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+        <span class="n">p</span> <span class="o">=</span> <span class="p">(</span><span class="n">probability</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">truth</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+
+        <span class="n">t_sum</span> <span class="o">=</span> <span class="n">t</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">p_sum</span> <span class="o">=</span> <span class="n">p</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">neg_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">t_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">pos_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">t_sum</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">dice_neg</span> <span class="o">=</span> <span class="p">(</span><span class="n">p_sum</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">float</span><span class="p">()</span>
+        <span class="n">dice_pos</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span><span class="o">*</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">((</span><span class="n">p</span><span class="o">+</span><span class="n">t</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">dice_neg</span> <span class="o">=</span> <span class="n">dice_neg</span><span class="p">[</span><span class="n">neg_index</span><span class="p">]</span>
+        <span class="n">dice_pos</span> <span class="o">=</span> <span class="n">dice_pos</span><span class="p">[</span><span class="n">pos_index</span><span class="p">]</span>
+        <span class="n">dice</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">dice_pos</span><span class="p">,</span> <span class="n">dice_neg</span><span class="p">])</span>
+
+        <span class="n">num_neg</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">neg_index</span><span class="p">)</span>
+        <span class="n">num_pos</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pos_index</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">dice</span><span class="p">,</span> <span class="n">dice_neg</span><span class="p">,</span> <span class="n">dice_pos</span><span class="p">,</span> <span class="n">num_neg</span><span class="p">,</span> <span class="n">num_pos</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dices</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span> <span class="n">metric</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
+<span class="n">dices</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>TensorImage(0.0072)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
 
 </div>
     {% endraw %}
@@ -1614,53 +1060,7 @@ binary: 1 foreground, 0 background</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="dice" class="doc_header"><code>dice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L245" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>dice</code>(<strong><code>outputs</code></strong>:<code>Tensor</code>, <strong><code>targets</code></strong>:<code>Tensor</code>, <strong><code>eps</code></strong>:<code>float</code>=<em><code>1e-07</code></em>, <strong><code>threshold</code></strong>:<code>float</code>=<em><code>None</code></em>)</p>
-</blockquote>
-<p>Computes the binary dice metric
-Args:
-    outputs (list):  A list of predicted elements
-    targets (list): A list of elements that are to be predicted
-    eps (float): epsilon
-    threshold (float): threshold for outputs binarization
-Returns:
-    double:  Dice score</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here there'are some functions used by the pure pytorch solution from a kaggle kernel.</p>
-
-</div>
-</div>
-</div>
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L273" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>, <strong><code>reduction</code></strong>=<em><code>'none'</code></em>)</p>
+<h4 id="metric" class="doc_header"><code>metric</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L142" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>metric</code>(<strong><code>probability</code></strong>, <strong><code>truth</code></strong>, <strong><code>threshold</code></strong>=<em><code>0.5</code></em>)</p>
 </blockquote>
 <p>Calculates dice of positive and negative images seperately
 <code>probability</code> and <code>truth</code> must be <code>torch.Tensors</code>.</p>
@@ -1682,7 +1082,7 @@ Returns:
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">metric</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1697,26 +1097,75 @@ Returns:
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>TensorImage([[0.0166],
-        [0.0773],
-        [0.0239],
-        [0.0171],
-        [0.1802],
-        [0.0207],
-        [0.0224],
-        [0.0933],
-        [0.0217],
-        [0.0172],
-        [0.0175],
-        [0.0069],
-        [0.0000],
-        [0.0000],
-        [0.0000],
-        [0.0000],
-        [0.0000],
-        [0.0000],
-        [0.0000],
-        [0.0000]])</pre>
+<pre>(0.007218837807886303, 0.0, 0.02887535123154521)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dim_argmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">compute_val</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">targs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.007218837807886303, 0.0, 0.02887535123154521)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dim_argmax</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">compute_val</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">x1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">x2chs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(0.5, nan, 0.5)</pre>
 </div>
 
 </div>
@@ -1745,103 +1194,51 @@ Returns:
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="predict" class="doc_header"><code>predict</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L307" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>predict</code>(<strong><code>X</code></strong>, <strong><code>threshold</code></strong>)</p>
-</blockquote>
-<p>X is sigmoid output of the model</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h2 id="Meter" class="doc_header"><code>class</code> <code>Meter</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L314" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Meter</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>)</p>
-</blockquote>
-<p>A meter to keep track of iou and dice scores throughout an epoch</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="Meter.get_metrics" class="doc_header"><code>Meter.get_metrics</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L336" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>Meter.get_metrics</code>()</p>
-</blockquote>
-<p>Calc the mean of dices metrics (dice, dice_neg, dice_pos)
-and IoU mean.</p>
-<p>Returns:
-    <code>dices</code> as list of means <code>[dice, dice_neg, dice_pos]</code>,
-    <a href="/steel_segmentation/metrics.html#iou"><code>iou</code></a> as mean of IoUs</p>
-
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-</div>
-    {% endraw %}
-
-    {% raw %}
-    
-<div class="cell border-box-sizing code_cell rendered">
-
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_markdown rendered_html output_subarea ">
-<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L355" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>phase</code></strong>, <strong><code>epoch</code></strong>, <strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>, <strong><code>start</code></strong>)</p>
+<h4 id="epoch_log" class="doc_header"><code>epoch_log</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L183" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>epoch_log</code>(<strong><code>epoch_loss</code></strong>, <strong><code>meter</code></strong>)</p>
 </blockquote>
 <p>logging the metrics at the end of an epoch</p>
 
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">epoch_log</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Loss: 0.0000 | dice: 0.5260 | dice_neg: nan | dice_pos: 0.5260
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.5259531036019325</pre>
 </div>
 
 </div>
