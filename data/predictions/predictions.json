@@ -3,7 +3,7 @@
         "fields":[
             {
                 "name":"index",
-                "type":"integer"
+                "type":"string"
             },
             {
                 "name":"ImageId",
@@ -24,11 +24,6 @@
         "pandas_version":"0.20.0"
     },
     "data":[
-        {
-            "index":0,
-            "ImageId":"f383950e8.jpg",
-            "ClassId":"3",
-            "Mask_path":"f383950e8_pred.png"
-        }
+
     ]
 }

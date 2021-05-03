@@ -234,7 +234,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.8509873386807403</pre>
+<pre>0.5713036010962022</pre>
 </div>
 
 </div>
@@ -323,7 +323,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.8509873386807403</pre>
+<pre>0.5713036010962022</pre>
 </div>
 
 </div>
@@ -373,7 +373,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.8509873386807403</pre>
+<pre>0.5713036010962022</pre>
 </div>
 
 </div>
@@ -590,7 +590,7 @@ is 1 when prediction and mask are empty</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.997932931194858</pre>
+<pre>0.9962328915329041</pre>
 </div>
 
 </div>
@@ -640,7 +640,7 @@ is 1 when prediction and mask are empty</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.997932931194858</pre>
+<pre>0.9962328915329041</pre>
 </div>
 
 </div>
@@ -739,7 +739,7 @@ is 1 when prediction and mask are empty</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">KaggleDiceMulti</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">KaggleDiceCoefMulti</span><span class="p">,</span> <span class="n">logits</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -754,7 +754,7 @@ is 1 when prediction and mask are empty</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5537047484739496</pre>
+<pre>0.5636921149524751</pre>
 </div>
 
 </div>
@@ -791,8 +791,8 @@ is 1 when prediction and mask are empty</p>
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceMulti</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
-<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceMulti</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">),</span> <span class="mf">0.38935</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleCoefDiceMulti</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">test_close</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleCoefDiceMulti</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2chs</span><span class="p">),</span> <span class="mf">0.38935</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -809,7 +809,7 @@ is 1 when prediction and mask are empty</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceMulti</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleCoefDiceMulti</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -824,7 +824,7 @@ is 1 when prediction and mask are empty</p>
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5479950702715486</pre>
+<pre>0.5962340563656034</pre>
 </div>
 
 </div>
@@ -860,7 +860,7 @@ is 1 when prediction and mask are empty</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">KaggleDice</span><span class="p">,</span> <span class="n">logits</span><span class="p">[:,</span><span class="n">ch</span><span class="p">],</span> <span class="n">targs</span><span class="p">[:,</span><span class="n">ch</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">KaggleDiceCoef</span><span class="p">,</span> <span class="n">logits</span><span class="p">[:,</span><span class="n">ch</span><span class="p">],</span> <span class="n">targs</span><span class="p">[:,</span><span class="n">ch</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -873,10 +873,10 @@ is 1 when prediction and mask are empty</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.499020156774916
+<pre>0.556828003457217
 1.0
-0.7144619387251604
-0.001336898395721925
+0.6978286745507603
+0.000111781801922647
 </pre>
 </div>
 </div>
@@ -912,7 +912,7 @@ is 1 when prediction and mask are empty</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDice</span><span class="p">,</span> <span class="n">preds</span><span class="p">[:,</span><span class="n">ch</span><span class="p">],</span> <span class="n">targs</span><span class="p">[:,</span><span class="n">ch</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceCoef</span><span class="p">,</span> <span class="n">preds</span><span class="p">[:,</span><span class="n">ch</span><span class="p">],</span> <span class="n">targs</span><span class="p">[:,</span><span class="n">ch</span><span class="p">]))</span>
 </pre></div>
 
     </div>
@@ -925,10 +925,10 @@ is 1 when prediction and mask are empty</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>0.4363908734731505
+<pre>0.6492999628298848
 1.0
-0.7549927489018264
-0.0005966587112171838
+0.7355494646115235
+8.679802100512108e-05
 </pre>
 </div>
 </div>
@@ -947,8 +947,8 @@ is 1 when prediction and mask are empty</p>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDice</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
-<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDice</span><span class="p">,</span> <span class="n">x1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">),</span> <span class="mf">0.975</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceCoef</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">),</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">test_eq</span><span class="p">(</span><span class="n">compute_val</span><span class="p">(</span><span class="n">FastKaggleDiceCoef</span><span class="p">,</span> <span class="n">x1</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2</span><span class="p">),</span> <span class="mf">0.975</span><span class="p">)</span>
 </pre></div>
 
     </div>

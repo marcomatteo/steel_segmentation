@@ -25,8 +25,8 @@ Check [here](https://nbdev.fast.ai/) the `nbdev` documentation.
 To create the library, the documentation and tests execute these commands:
 ```
 nbdev_build_lib
-nbdev_clean_nbs
 nbdev_test_nbs
+nbdev_clean_nbs
 nbdev_build_docs
 ```
 
@@ -60,8 +60,8 @@ In the `nbs` folder there are all the notebooks used to build the `steel_segment
 
 |Models|Public score|Private score|Percentile Private LB|
 |------|------------|-------------|----------|
-|Pytorch-UNET-ResNet18|0.87530|0.85364|85°|
-|Pytorch-UNET-ResNet34|0.88591|0.88572|46°|
-|FastAI-UNET-ResNet34|0.88648|0.88830|23°|
-|Pytorch-FPN-ResNet34|0.89054|0.88911|19°|
-|Ensemble-UNET-ResNet34-FPN-ResNet34|0.89184|0.89262|16°|
+|Pytorch UNET-ResNet18|0.87530|0.85364|85°|
+|Pytorch UNET-ResNet34|0.88591|0.88572|46°|
+|FastAI UNET-ResNet34|0.88648|0.88830|23°|
+|Pytorch FPN-ResNet34|0.89054|0.88911|19°|
+|Ensemble UNET-ResNet34_FPN-ResNet34|0.89184|0.89262|16°|
