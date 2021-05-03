@@ -278,7 +278,7 @@ nb_path: "nbs/07_trainer.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="convert_params" class="doc_header"><code>convert_params</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L152" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_params</code>(<strong><code>o</code></strong>:<code>list</code>)</p>
+<h4 id="convert_params" class="doc_header"><code>convert_params</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/trainer.py#L151" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>convert_params</code>(<strong><code>o</code></strong>:<code>list</code>)</p>
 </blockquote>
 <p>Converts <code>o</code> into Pytorch-compatable param groups
 <code>o</code> should be a set of layer-groups that should be split in the optimizer</p>
@@ -290,6 +290,7 @@ nb_path: "nbs/07_trainer.ipynb"
   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
   <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">x</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
 </pre></div>
+<p>Reference: <a href="https://github.com/muellerzr/fastai_minima">repo</a>.</p>
 
 </div>
 

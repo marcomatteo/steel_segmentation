@@ -148,7 +148,6 @@ class Trainer:
             print()
 
 # Cell
-# reference: https://github.com/muellerzr/fastai_minima
 def convert_params(o:list) -> list:
     """
     Converts `o` into Pytorch-compatable param groups
@@ -165,6 +164,8 @@ def convert_params(o:list) -> list:
       def __init__(self): self.a,self.b = nn.Parameter(torch.randn(1)),nn.Parameter(torch.randn(1))
       def forward(self, x): return x*self.a + self.b
     ```
+
+    Reference: [repo](https://github.com/muellerzr/fastai_minima).
     """
     if not isinstance(o[0], dict):
         splitter = []

@@ -75,7 +75,17 @@ class AlbumentationsTransform(ItemTransform, RandTransform):
         self.idx = split_idx
 
     def encodes(self, o):
-        img, mask = o # TBD
+        if isinstance(o, tuple) or isinstance(o, list):
+            aug_img, aug_mask = self.encode_tuple(o)
+            return PILImage.create(aug_img), PILMask.create(aug_mask)
+        elif isinstance(o, PILImage):
+            aug_img = self.encode_image(o)
+            return PILImage.create(aug_img)
+        else:
+            raise ValueError(f"Tfm of object of type {type(o)} not implemented")
+
+    def encode_tuple(self, o):
+        img, mask = o
         if self.idx == 0:
             aug = self.train_aug(image=np.array(img),mask=np.array(mask))
             aug_img = aug['image']
@@ -84,7 +94,12 @@ class AlbumentationsTransform(ItemTransform, RandTransform):
             aug = self.valid_aug(image=np.array(img),mask=np.array(mask))
             aug_img = aug['image']
             aug_mask = aug['mask']
-        return PILImage.create(aug_img), PILMask.create(aug_mask)
+        return aug_img, aug_mask
+
+    def encode_image(self, o):
+        img = o
+        aug = self.valid_aug(image=np.array(img))
+        return aug["image"]
 
 # Cell
 def SteelMaskBlock(codes=None, flatten_mask=False):

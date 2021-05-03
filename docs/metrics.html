@@ -234,7 +234,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5837592276242999</pre>
+<pre>0.8509873386807403</pre>
 </div>
 
 </div>
@@ -270,7 +270,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L22" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>with_logits</code></strong>=<em><code>False</code></em>) :: <code>Metric</code></p>
+<h2 id="ModDiceMulti" class="doc_header"><code>class</code> <code>ModDiceMulti</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L24" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>ModDiceMulti</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>with_logits</code></strong>=<em><code>False</code></em>) :: <code>Metric</code></p>
 </blockquote>
 <p>Averaged Dice metric (Macro F1) for multiclass target in segmentation</p>
 
@@ -323,7 +323,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5837592276242999</pre>
+<pre>0.8509873386807403</pre>
 </div>
 
 </div>
@@ -373,7 +373,7 @@ nb_path: "nbs/05_metrics.ipynb"
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.5837592276242999</pre>
+<pre>0.8509873386807403</pre>
 </div>
 
 </div>
@@ -536,7 +536,147 @@ $$</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="single_dice_coef" class="doc_header"><code>single_dice_coef</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L69" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>single_dice_coef</code>(<strong><code>y_true</code></strong>, <strong><code>y_pred</code></strong>, <strong><code>smooth</code></strong>=<em><code>1</code></em>)</p>
+<h2 id="KaggleDice" class="doc_header"><code>class</code> <code>KaggleDice</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L71" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>KaggleDice</code>(<strong><code>axis</code></strong>=<em><code>1</code></em>, <strong><code>with_logits</code></strong>=<em><code>False</code></em>, <strong><code>eps</code></strong>=<em><code>1e-09</code></em>) :: <code>Metric</code></p>
+</blockquote>
+<p>Multi-class Dice used in Severstal comp,
+is 1 when prediction and mask are empty</p>
+
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_kobj</span> <span class="o">=</span> <span class="n">KaggleDice</span><span class="p">(</span><span class="n">with_logits</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kobj</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">targs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.997932931194858</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">dice_kobj</span> <span class="o">=</span> <span class="n">KaggleDice</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_val</span><span class="p">(</span><span class="n">dice_kobj</span><span class="p">,</span> <span class="n">pred</span><span class="o">=</span><span class="n">preds</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">targs</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0.997932931194858</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Trying to cast a metric founded in a Kaggle discussion. These metrics work but can be problematic with a valuation phase with more than 1000 examples.</p>
+
+</div>
+</div>
+</div>
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_markdown rendered_html output_subarea ">
+<h4 id="single_dice_coef" class="doc_header"><code>single_dice_coef</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L128" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>single_dice_coef</code>(<strong><code>y_true</code></strong>, <strong><code>y_pred</code></strong>, <strong><code>smooth</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 <p>Binary segmentation function.</p>
 
@@ -561,7 +701,7 @@ $$</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="single_dice_coef_channel" class="doc_header"><code>single_dice_coef_channel</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L76" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>single_dice_coef_channel</code>(<strong><code>y_true</code></strong>, <strong><code>y_pred</code></strong>, <strong><code>smooth</code></strong>=<em><code>1</code></em>)</p>
+<h4 id="single_dice_coef_channel" class="doc_header"><code>single_dice_coef_channel</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/metrics.py#L135" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>single_dice_coef_channel</code>(<strong><code>y_true</code></strong>, <strong><code>y_pred</code></strong>, <strong><code>smooth</code></strong>=<em><code>1</code></em>)</p>
 </blockquote>
 <p>Multichannel segmentation function.</p>
 
@@ -578,6 +718,16 @@ $$</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">KaggleDiceCoefMulti</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">single_dice_coef_channel</span><span class="p">,</span> <span class="n">to_np</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -618,6 +768,16 @@ $$</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FastKaggleCoefDiceMulti</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">single_dice_coef_channel</span><span class="p">,</span> <span class="n">to_np</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -678,6 +838,16 @@ $$</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">KaggleDiceCoef</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">single_dice_coef</span><span class="p">,</span> <span class="n">to_np</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
@@ -720,6 +890,16 @@ $$</p>
     {% raw %}
     
 <div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FastKaggleDiceCoef</span> <span class="o">=</span> <span class="n">AccumMetric</span><span class="p">(</span><span class="n">single_dice_coef</span><span class="p">,</span> <span class="n">to_np</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">flatten</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
 
 </div>
     {% endraw %}
