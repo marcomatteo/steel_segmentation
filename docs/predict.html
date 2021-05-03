@@ -99,7 +99,7 @@ nb_path: "nbs/08_predict.ipynb"
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">arch</span> <span class="o">=</span> <span class="n">resnet34</span>
-<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmentation_dls_from_df</span><span class="p">(</span><span class="n">train_df</span><span class="o">=</span><span class="n">train_multi</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">bs</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">1600</span><span class="p">))</span>
+<span class="n">dls</span> <span class="o">=</span> <span class="n">get_segmentation_dls_from_df</span><span class="p">(</span><span class="n">train_df</span><span class="o">=</span><span class="n">train_multi</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">100</span><span class="p">],</span> <span class="n">bs</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">256</span><span class="p">,</span><span class="mi">1600</span><span class="p">))</span>
 <span class="n">segmentation_learner</span> <span class="o">=</span> <span class="n">unet_learner</span><span class="p">(</span><span class="n">dls</span><span class="o">=</span><span class="n">dls</span><span class="p">,</span> <span class="n">arch</span><span class="o">=</span><span class="n">arch</span><span class="p">,</span> <span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">model_dir</span><span class="o">=</span><span class="n">models_dir</span><span class="p">)</span>
 </pre></div>
 
@@ -199,7 +199,7 @@ nb_path: "nbs/08_predict.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(5, 2)
+<pre>(1, 2)
 </pre>
 </div>
 </div>
@@ -278,7 +278,7 @@ and returns the <a href="/steel_segmentation/predict.html#Predict.df"><code>Pred
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>From 0 to 5 of 5
+<pre>From 0 to 1 of 1
 </pre>
 </div>
 </div>
@@ -295,7 +295,7 @@ and returns the <a href="/steel_segmentation/predict.html#Predict.df"><code>Pred
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>(20, 2)
+<pre>(4, 2)
 </pre>
 </div>
 </div>
@@ -329,27 +329,22 @@ and returns the <a href="/steel_segmentation/predict.html#Predict.df"><code>Pred
   <tbody>
     <tr>
       <th>0</th>
-      <td>00c24a74c.jpg_1</td>
+      <td>72aaba8ad.jpg_1</td>
       <td></td>
     </tr>
     <tr>
       <th>1</th>
-      <td>00c24a74c.jpg_2</td>
+      <td>72aaba8ad.jpg_2</td>
       <td></td>
     </tr>
     <tr>
       <th>2</th>
-      <td>00c24a74c.jpg_3</td>
-      <td></td>
+      <td>72aaba8ad.jpg_3</td>
+      <td>514 1 524 1 530 2 542 2 546 2 553 1 564 1 567 1 770 1 772 89 862 21 884 2 889 1 1024 124 1280 3 1285 57 1343 17 1365 1 1376 1 1378 2 1382 2 1385 5 1391 1 1538 2 1541 63 1609 5 1615 2 1620 2 1633 1 1637 5 1644 4 1794 1 1798 62 1867 3 1871 2 1874 1 1877 1 1888 2 1895 1 1903 1 2050 1 2054 1 2056 18 2076 6 2089 30 2122 10 2133 1 2144 5 2150 3 2158 2 2306 1 2308 3 2316 12 2329 1 2332 6 2340 32 2373 3 2377 13 2400 9 2562 112 2678 2 2816 1 2818 103 2924 2 2935 1 3072 92 3166 8 3176 1 3180 2 3184 2 3188 4 3328 114 3444 4 3449 2 3452 1 3584 112 3700 3 3704 7 3840 93 3934 16 3957 2 3961 3 3965 2 409...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>00c24a74c.jpg_4</td>
-      <td></td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>01dbcd2ec.jpg_1</td>
+      <td>72aaba8ad.jpg_4</td>
       <td></td>
     </tr>
   </tbody>
@@ -435,22 +430,22 @@ From 0 to 1 of 1
   <tbody>
     <tr>
       <th>0</th>
-      <td>0002cc93b.jpg_1</td>
+      <td>72aaba8ad.jpg_1</td>
       <td></td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0002cc93b.jpg_2</td>
+      <td>72aaba8ad.jpg_2</td>
       <td></td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0002cc93b.jpg_3</td>
-      <td></td>
+      <td>72aaba8ad.jpg_3</td>
+      <td>514 1 524 1 530 2 542 2 546 2 553 1 564 1 567 1 770 1 772 89 862 21 884 2 889 1 1024 124 1280 3 1285 57 1343 17 1365 1 1376 1 1378 2 1382 2 1385 5 1391 1 1538 2 1541 63 1609 5 1615 2 1620 2 1633 1 1637 5 1644 4 1794 1 1798 62 1867 3 1871 2 1874 1 1877 1 1888 2 1895 1 1903 1 2050 1 2054 1 2056 18 2076 6 2089 30 2122 10 2133 1 2144 5 2150 3 2158 2 2306 1 2308 3 2316 12 2329 1 2332 6 2340 32 2373 3 2377 13 2400 9 2562 112 2678 2 2816 1 2818 103 2924 2 2935 1 3072 92 3166 8 3176 1 3180 2 3184 2 3188 4 3328 114 3444 4 3449 2 3452 1 3584 112 3700 3 3704 7 3840 93 3934 16 3957 2 3961 3 3965 2 409...</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0002cc93b.jpg_4</td>
+      <td>72aaba8ad.jpg_4</td>
       <td></td>
     </tr>
   </tbody>
@@ -543,7 +538,7 @@ From 0 to 1 of 1
     <tr>
       <th>2</th>
       <td>f383950e8.jpg_3</td>
-      <td></td>
+      <td>514 1 516 1 527 17 551 4 560 2 566 3 571 1 603 1 770 1 772 112 886 1 888 3 892 2 1024 128 1281 75 1357 3 1364 2 1389 1 1536 1 1538 62 1601 2 1604 14 1620 2 1624 2 1642 2 1645 1 1792 67 1860 2 1864 11 1880 1 1899 1 2050 65 2116 13 2130 1 2136 4 2155 3 2305 2 2308 62 2371 13 2386 2 2389 1 2392 4 2400 2 2411 2 2560 94 2655 3 2659 11 2816 81 2898 2 2901 1 2903 3 2911 2 2917 4 2922 4 3072 92 3165 5 3174 6 3328 110 3584 110 3840 94 3935 15 4096 110 4352 110 4608 91 4704 1 4712 3 4717 1 4864 94 4959 5 4966 10 4979 1 4981 1 5120 107 5228 4 5233 7 5376 90 5469 1 5478 5 5485 1 5491 1 5632 108 5741 3...</td>
     </tr>
     <tr>
       <th>3</th>
@@ -635,6 +630,12 @@ Returns the <a href="/steel_segmentation/predict.html#Predict.df_masks"><code>Pr
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th>0</th>
+      <td>f383950e8.jpg</td>
+      <td>3</td>
+      <td>f383950e8_pred.png</td>
+    </tr>
   </tbody>
 </table>
 </div>
