@@ -2,7 +2,9 @@
 > A walk through different solutions for the Severstal Kaggle competition.
 
 
-![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/nbs/index.ipynb)
+![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/nbs/index.ipynb)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/marcomatteo/steel_deployment/HEAD?urlpath=%2Fvoila%2Frender%2Fsteel_deploy.ipynb)
 
 This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition hosted by Kaggle.
 Kaggle is a platform that provides various datasets from the real world machine learning problems and engages a large community of people.
@@ -10,13 +12,14 @@ Severstal is a Russian company operating in the steel and mining industry. It cr
 
 I used `pytorch` ([Pytorch website](https://pytorch.org/get-started/locally/)) and `fastai` ([FastAI docs](https://docs.fast.ai/#Installing)) as Deep Learning Framework to this project.
 
+In the [steel_deployment](https://github.com/marcomatteo/steel_deployment) repository you can find a Binder/Voila web app for the deployment of the models built with this library (still updating).
+
 ## Install
 
 To install this package you only need to clone the repository and install via pip:
 
 ```
-git clone https://github.com/marcomatteo/steel_segmentation.git
-pip install -e steel_segmentation
+pip install git+https://github.com/marcomatteo/steel_segmentation.git
 ```
 
 The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `dev_nbs` folder. 
@@ -47,6 +50,7 @@ Now run these cells:
 Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
 ```
+!pip install kaggle
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
