@@ -52,6 +52,7 @@ Now you're authenticated with the Kaggle API. Download and unzip the data with:
 ```
 !pip install kaggle
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
+!mkdir data
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
