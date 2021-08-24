@@ -1,0 +1,116 @@
+from fastai.vision.augment import RandTransform
+from fastai.vision.data import PILMask, PILImage, TransformBlock, TensorMask
+from fastai.vision.core import AddMaskCodes
+from fastcore.all import Path, L, Transform, ItemTransform
+import os
+import pandas as pd
+import numpy as np
+import torch
+from utils import rle2mask, mask2rle
+
+class ReadImagePathFromIndex(Transform):
+    """Read image name from `train_pivot` and returns the image path"""
+    def __init__(self, pref):
+        self.pref = str(pref) + os.path.sep if isinstance(pref, Path) else pref
+
+    def encodes(self, row:pd.Series, **kwargs):
+        o = row.name # ImageId
+        return f'{self.pref}{o}' 
+
+class ReadRLEs(Transform):
+    """Read RLEs from `train_pivot` and return a list or RLEs."""
+    def __init__(self, cols=[1,2,3,4]):
+        self.cols = L(cols)
+
+    def encodes(self, row:pd.Series, **kwargs):
+        return [row[i] if not row[i] is np.nan else ''
+                for i in self.cols]
+
+class MakeMask(Transform):
+    """Read RLEs list and return a np.array of the mask"""
+    h, w = (256, 1600)
+
+    def __init__(self, flatten=True):
+        self.flatten = flatten
+
+    def encodes(self, o:list, **kwargs):
+        mask = np.zeros((self.h, self.w, 4), dtype=np.float32) # 4:class 1～4 (ch:0～3)
+
+        for i in range(4):
+            rle = o[i]
+            if rle is not '':
+                mask[:, :, i] = rle2mask(rle=rle, value=1, shape=(self.h,self.w))
+
+        if self.flatten:
+            classes = np.array(range(1,5))
+            return (mask * classes).sum(-1)
+
+        return mask
+
+    def decodes(self, mask, **kwargs):
+        mask = (mask * np.array(range(1,5))).sum(-1) if len(mask.shape) == 3 else mask
+        return [mask2rle(np.where(mask==c, mask, 0)) for c in range(1,5)]
+
+class ChannelMask(Transform):
+    """Transform (x,y) tensor masks from [w, h] to [channels, w, h]"""
+    order=9
+
+    def create_mask(self, mask):
+        new_mask = torch.zeros(4, mask.shape[0], mask.shape[1])
+        for i in range(4):
+            new_mask[i] = torch.where(mask==(i+1), 1, 0)
+        return new_mask
+
+    def decode_mask(self, mask, classes):
+        # tensorboard log images bug in TensorBoardCallback after_epoch
+        if mask.device != classes.device:
+            mask = mask.to(classes.device)
+        return (mask * classes).sum(0)
+
+    def encodes(self, o:TensorMask):
+        if o.dim() == 2: return self.create_mask(o)
+        elif o.dim() == 3:
+            new_batch = []
+            for mask in o: new_batch.append(self.create_mask(mask))
+            return torch.stack(new_batch, axis=0)
+        else: return o
+
+    def decodes(self, o:TensorMask):
+        classes = torch.tensor(range(1,5)).unsqueeze(-1).unsqueeze(-1)
+        if o.dim() == 3: return self.decode_mask(o, classes)
+        elif o.dim() == 4:
+            new_masks = []
+            for mask in o:
+                new_masks.append(self.decode_mask(mask, classes))
+            return torch.stack(new_masks, axis=0)
+        else: return o
+
+class AlbumentationsTransform(ItemTransform, RandTransform):
+    "A transform handler for multiple `Albumentation` transforms"
+    split_idx,order=None,2
+    def __init__(self, train_aug, valid_aug): 
+        self.train_aug, self.valid_aug = train_aug, valid_aug
+
+    def before_call(self, b, split_idx):
+        self.idx = split_idx
+
+    def encodes(self, o):
+        img, mask = o
+        if self.idx == 0:
+            aug = self.train_aug(image=np.array(img),mask=np.array(mask))
+            aug_img = aug['image']
+            aug_mask = aug['mask']
+        else:
+            aug = self.valid_aug(image=np.array(img),mask=np.array(mask))
+            aug_img = aug['image']
+            aug_mask = aug['mask']
+        return PILImage.create(aug_img), PILMask.create(aug_mask)
+
+def SteelMaskBlock():
+    tfm_mask = MakeMask()
+    tfm_addCodes = AddMaskCodes([1,2,3,4])
+    tfm_block = TransformBlock(
+        type_tfms=[tfm_mask, PILMask.create],
+        item_tfms=[tfm_addCodes]
+    )
+    return tfm_block
