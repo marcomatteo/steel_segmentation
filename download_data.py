@@ -3,6 +3,7 @@ from sys import platform
 from pathlib import Path
 
 def run_cmd(cmd):
+    """From: https://stackoverflow.com/questions/14894993/running-windows-shell-commands-with-python"""
     result = []
     process = subprocess.Popen(cmd,
                                shell=True,

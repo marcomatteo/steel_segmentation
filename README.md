@@ -22,8 +22,22 @@ To install this package you only need to clone the repository and install via pi
 pip install git+https://github.com/marcomatteo/steel_segmentation.git
 ```
 
+### Editable install
+
+To install and edit this package you only need to clone the repository and install via pip:
+
+```
+clone git+https://github.com/marcomatteo/steel_segmentation.git
+pip install -e steel_segmentation
+```
+
+
 The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `dev_nbs` folder. 
 Check [here](https://nbdev.fast.ai/) the `nbdev` documentation.
+
+```
+pip install nbdev
+```
 
 To create the library, the documentation and tests execute these commands:
 ```
@@ -33,7 +47,12 @@ nbdev_clean_nbs
 nbdev_build_docs
 ```
 
-This enviroment works on MacOS and Linux, use Linux WSL for Windows.
+This enviroment works on MacOS and Linux. In Windows the WLS with Ubuntu 20.04 is raccomended.
+
+Training only in Windows needs one package more: 
+```
+conda install pywin32
+```
 
 ## Download the dataset
 

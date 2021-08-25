@@ -60,15 +60,42 @@ Severstal is a Russian company operating in the steel and mining industry. It cr
 <p>To install this package you only need to clone the repository and install via pip:</p>
 
 <pre><code>pip install git+https://github.com/marcomatteo/steel_segmentation.git</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Editable-install">Editable install<a class="anchor-link" href="#Editable-install"> </a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To install and edit this package you only need to clone the repository and install via pip:</p>
+
+<pre><code>clone git+https://github.com/marcomatteo/steel_segmentation.git
+pip install -e steel_segmentation</code></pre>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>The library is based on <code>nbdev</code>, a powerful tool that builds a python package from Juptyer Notebooks, from the <code>dev_nbs</code> folder. 
 Check <a href="https://nbdev.fast.ai/">here</a> the <code>nbdev</code> documentation.</p>
+
+<pre><code>pip install nbdev</code></pre>
 <p>To create the library, the documentation and tests execute these commands:</p>
 
 <pre><code>nbdev_build_lib
 nbdev_test_nbs
 nbdev_clean_nbs
 nbdev_build_docs</code></pre>
-<p>This enviroment works on MacOS and Linux, use Linux WSL for Windows.</p>
+<p>This enviroment works on MacOS and Linux. In Windows the WLS with Ubuntu 20.04 is raccomended.</p>
+<p>Training only in Windows needs one package more:</p>
+
+<pre><code>conda install pywin32</code></pre>
 
 </div>
 </div>
