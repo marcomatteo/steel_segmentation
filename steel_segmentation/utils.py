@@ -67,9 +67,19 @@ def get_train_pivot(df):
     """
     Summarize the training csv with ClassId as columns and values EncodedPixels
     """
+    def rles2classids(s: pd.Series):
+        classids = []
+        for classid in s.index:
+            if classid != "n":
+                value = s[classid]
+                if not (value is np.nan):
+                    classids.append(str(classid))
+        return " ".join(classids)
+
     train_pivot = df.pivot(
         index="ImageId", columns="ClassId", values="EncodedPixels")
     train_pivot["n"] = train_pivot.notnull().sum(1)
+    train_pivot["ClassIds"] = train_pivot.apply(rles2classids, axis=1)
     return train_pivot
 
 # Cell
@@ -145,7 +155,7 @@ def make_mask(item, df, flatten=False):
 
     fname = cond.name
     # without 0 ClassId, only 1,2,3,4 ClassId
-    labels = cond[1:-1]
+    labels = cond[1:-2]
 
     h, w = (256, 1600)
     masks = np.zeros((h, w, 4), dtype=np.float32) # 4:class 1～4 (ch:0～3)
