@@ -85,14 +85,16 @@ def get_valid_aug(height, width):
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 train_aug = get_train_aug(*size)
-valid_aug = get_valid_aug(*size)
+valid_aug = get_valid_aug(height=256, width=1600)
 block = SteelDataBlock(path, train_aug=train_aug, valid_aug=valid_aug)
 dls = SteelDataLoaders(block, df, bs=bs, device=device)
-
+dls.valid.bs = bs // 2
 
 # %%
-xb, yb = dls.one_batch()
-print(xb.shape, yb.shape)
+xb, yb = dls.train.one_batch()
+print(f"Training batch shapes (x,y): {xb.shape}, {yb.shape}")
+xb, yb = dls.valid.one_batch()
+print(f"Validation batch shapes (x,y): {xb.shape}, {yb.shape}")
 
 # %% [markdown]
 # ## Model
@@ -131,8 +133,6 @@ learner.show_training_loop()
 # %%
 # logging info
 log_dir = Path("../logs") / f"unet_resnet_bce_epochs{epochs}_lr{lr}"
-log_dir
-
 
 # %%
 train_cbs = [
