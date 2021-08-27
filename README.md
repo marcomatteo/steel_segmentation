@@ -76,11 +76,11 @@ Now you're authenticated with the Kaggle API (you'll need `kaggle` so `pip insta
 
 All of the experiments are based on Jupyter Notebooks and in the `nbs` folder there are all the notebooks used to build the `steel_segmentation` library (still updating):
 
-- [Explorating Data Analysis](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/eda.html): data analysis, plots and utility functions.
-- [Transforms](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/transforms.html): leveraging Middle-level API of `fastai` for custom data loading pipeline.
-- [Optimizer utility functions](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/optimizer.html)
-- [Loss functions](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/loss.html)
-- [Metrics](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/metrics.html)
+- [Explorating Data Analysis](https://marcomatteo.github.io/steel_segmentation/eda.html): data analysis, plots and utility functions.
+- [Transforms](https://marcomatteo.github.io/steel_segmentation/transforms.html): leveraging Middle-level API of `fastai` for custom data loading pipeline.
+- [Optimizer utility functions](https://marcomatteo.github.io/steel_segmentation/optimizer.html)
+- [Loss functions](https://marcomatteo.github.io/steel_segmentation/loss.html)
+- [Metrics](https://marcomatteo.github.io/steel_segmentation/metrics.html)
 
 ## Results
 

@@ -29,10 +29,13 @@ index = {"palet": "01_eda.ipynb",
          "SteelDataLoaders": "02_transforms.ipynb",
          "params": "03_optimizer.ipynb",
          "convert_params": "03_optimizer.ipynb",
+         "smp_splitter": "03_optimizer.ipynb",
+         "opt_func": "03_optimizer.ipynb",
          "SoftDiceLoss": "04_loss.ipynb",
          "WeightedSoftDiceLoss": "04_loss.ipynb",
          "SoftBCEDiceLoss": "04_loss.ipynb",
          "MultiClassesSoftBCEDiceLoss": "04_loss.ipynb",
+         "LossEnabler": "04_loss.ipynb",
          "ModDiceMulti": "05_metrics.ipynb"}
 
 modules = ["utils.py",
