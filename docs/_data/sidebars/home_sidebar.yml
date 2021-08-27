@@ -13,33 +13,21 @@ entries:
     title: Getting started
   - folderitems:
     - output: web,pdf
-      title: Dataset metadata
-      url: metadata.html
+      title: Explorating Data Analysis
+      url: eda.html
     - output: web,pdf
-      title: Mask visualization
-      url: masks.html
+      title: Dataset Transforms
+      url: transforms.html
     - output: web,pdf
-      title: Datasets
-      url: datasets.html
-    - output: web,pdf
-      title: Dataloaders
-      url: dataloaders.html
-    - output: web,pdf
-      title: Metrics
-      url: metrics.html
+      title: Optimizer utilities
+      url: optimizer.html
     - output: web,pdf
       title: Loss functions
       url: loss.html
     - output: web,pdf
-      title: Trainer
-      url: trainer.html
-    - output: web,pdf
-      title: Predict
-      url: predict.html
-    - output: web,pdf
-      title: Visualize results
-      url: visualize.html
+      title: Custom metrics
+      url: metrics.html
     output: web
-    title: Library steel_segmentation
+    title: Notebooks
   output: web
   title: Sidebar

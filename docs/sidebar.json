@@ -2,15 +2,11 @@
     "Getting started": {
         "Overview": "/"
     },
-    "Library steel_segmentation": {
-        "Dataset metadata": "metadata.html",
-        "Mask visualization": "masks.html",
-        "Datasets": "datasets.html",
-        "Dataloaders": "dataloaders.html",
-        "Metrics": "metrics.html",
+    "Notebooks": {
+        "Explorating Data Analysis": "eda.html",
+        "Dataset Transforms": "transforms.html",
+        "Optimizer utilities": "optimizer.html",
         "Loss functions": "loss.html",
-        "Trainer": "trainer.html",
-        "Predict": "predict.html",
-        "Visualize results": "visualize.html"
+        "Custom metrics": "metrics.html"
     }
 }

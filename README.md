@@ -3,43 +3,60 @@
 
 
 ![CI](https://github.com/marcomatteo/steel_segmentation/workflows/CI/badge.svg?branch=master) 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/marcomatteo/steel_segmentation/blob/master/nbs/index.ipynb)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/marcomatteo/steel_deployment/HEAD?urlpath=%2Fvoila%2Frender%2Fsteel_deploy.ipynb)
 
 This repository wants to explore different solutions for the [Severstal](https://www.kaggle.com/c/severstal-steel-defect-detection/overview) competition hosted by Kaggle.
 Kaggle is a platform that provides various datasets from the real world machine learning problems and engages a large community of people.
 Severstal is a Russian company operating in the steel and mining industry. It creates a vast industrial data lake and in the 2019 looked to machine learning to improve automation, increase efficiency, and maintain high quality in their production.
 
-I used `pytorch` ([Pytorch website](https://pytorch.org/get-started/locally/)) and `fastai` ([FastAI docs](https://docs.fast.ai/#Installing)) as Deep Learning Framework to this project.
+The goal is to detect steel defects with segmentation models. The solutions are based on [Pytorch](https://pytorch.org/get-started/locally/) with [FastAI](https://docs.fast.ai/#Installing) as high level deep learning framework.
+
+In this repository you will find some Jupyter Notebooks used to build the `steel_segmentation` library with [nbdev](https://nbdev.fast.ai/) and the training notebooks.
 
 In the [steel_deployment](https://github.com/marcomatteo/steel_deployment) repository you can find a Binder/Voila web app for the deployment of the models built with this library (still updating).
 
 ## Install
 
-To install this package you only need to clone the repository and install via pip:
+To install this package, clone and install the repository and install via:
 
 ```
 pip install git+https://github.com/marcomatteo/steel_segmentation.git
 ```
 
-The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks, from the `dev_nbs` folder. 
-Check [here](https://nbdev.fast.ai/) the `nbdev` documentation.
+### Editable install
 
-To create the library, the documentation and tests execute these commands:
+To install and edit this package:
+
 ```
+clone git+https://github.com/marcomatteo/steel_segmentation.git
+pip install -e steel_segmentation
+```
+
+
+The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks.
+
+```
+pip install nbdev
+```
+
+To create the library, the documentation and tests use these commands:
+```
+nbdev_clean_nbs
 nbdev_build_lib
 nbdev_test_nbs
-nbdev_clean_nbs
 nbdev_build_docs
 ```
 
-This enviroment works on MacOS and Linux, use Linux WSL for Windows.
+This enviroment works on MacOS and Linux. In Windows the WLS with Ubuntu 20.04 is raccomended.
+
+Training only in Windows needs one package more to solve `ipykernel` issues: 
+```
+conda install pywin32
+```
 
 ## Download the dataset
 
 To download the [Kaggle](https://www.kaggle.com/) competition data you will need an account (if this is the first time with the API follow this [link](https://github.com/Kaggle/kaggle-api)) to generate the credentials, download and copy the `kaggle.json` into the repository directory.
-
-Now run these cells:
 
 ```
 !mkdir ~/.kaggle
@@ -47,10 +64,9 @@ Now run these cells:
 !chmod 600 ~/.kaggle/kaggle.json
 ```
 
-Now you're authenticated with the Kaggle API. Download and unzip the data with:
+Now you're authenticated with the Kaggle API (you'll need `kaggle` so `pip install kaggle` first), download and unzip the data:
 
 ```
-!pip install kaggle
 !kaggle competitions download -c severstal-steel-defect-detection -p {path}
 !mkdir data
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
@@ -58,8 +74,13 @@ Now you're authenticated with the Kaggle API. Download and unzip the data with:
 
 ## Notebooks
 
-All of the experiments are based on Jupyter Notebooks. 
-In the `nbs` folder there are all the notebooks used to build the `steel_segmentation` library, to train different Deep Learning models and evaluate them with the testset.
+All of the experiments are based on Jupyter Notebooks and in the `nbs` folder there are all the notebooks used to build the `steel_segmentation` library (still updating):
+
+- [Explorating Data Analysis](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/eda.html): data analysis, plots and utility functions.
+- [Transforms](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/transforms.html): leveraging Middle-level API of `fastai` for custom data loading pipeline.
+- [Optimizer utility functions](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/optimizer.html)
+- [Loss functions](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/loss.html)
+- [Metrics](https://github.com/marcomatteo/steel_segmentation/tree/master/docs/metrics.html)
 
 ## Results
 
