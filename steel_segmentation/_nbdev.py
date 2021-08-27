@@ -27,21 +27,17 @@ index = {"palet": "11_eda.ipynb",
          "get_kfold_splits": "12_transforms.ipynb",
          "KFoldSplitter": "12_transforms.ipynb",
          "SteelDataLoaders": "12_transforms.ipynb",
+         "params": "13_optimizer.ipynb",
+         "convert_params": "13_optimizer.ipynb",
          "SoftDiceLoss": "14_loss.ipynb",
          "WeightedSoftDiceLoss": "14_loss.ipynb",
          "SoftBCEDiceLoss": "14_loss.ipynb",
          "MultiClassesSoftBCEDiceLoss": "14_loss.ipynb",
-         "ModDiceMulti": "15_metrics.ipynb",
-         "KaggleDice": "15_metrics.ipynb",
-         "single_dice_coef": "15_metrics.ipynb",
-         "single_dice_coef_channel": "15_metrics.ipynb",
-         "KaggleDiceCoefMulti": "15_metrics.ipynb",
-         "FastKaggleCoefDiceMulti": "15_metrics.ipynb",
-         "KaggleDiceCoef": "15_metrics.ipynb",
-         "FastKaggleDiceCoef": "15_metrics.ipynb"}
+         "ModDiceMulti": "15_metrics.ipynb"}
 
 modules = ["utils.py",
            "transforms.py",
+           "optimizer.py",
            "losses.py",
            "metrics.py"]
 
