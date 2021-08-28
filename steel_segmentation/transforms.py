@@ -185,7 +185,8 @@ def SteelDataBlock(path, splitter=None, train_aug=None, valid_aug=None, *args, *
 # Cell
 def get_kfold_splits(df_pivot, nsplits=2):
     df = df_pivot.reset_index()
-
+    X = df["ImageId"].to_numpy()
+    y = df["ClassIds"].to_numpy()
     skf = StratifiedKFold(n_splits=nsplits, shuffle=True)
     splits = []
     for i, (train_index, valid_index) in enumerate(skf.split(X, y)):

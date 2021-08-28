@@ -61,10 +61,13 @@ def get_train_df(path, only_faulty=False, pivot=False):
 
     # Renaming and fillna
     train_all.rename(columns={'_merge': 'status'}, inplace=True)
-    rename_dict = {"both": "faulty", "left_only": "no_faulty"}
+    rename_dict = {"both": "faulty", "left_only": "no_faulty", "right_only": "missing"}
     train_all["status"] = train_all["status"].cat.rename_categories(rename_dict)
+    train_all = train_all[train_all["status"]!="missing"]
+
     train_all.ClassId.fillna(0, inplace=True)
     train_all.ClassId = train_all.ClassId.astype('int64')
+
     train_all.EncodedPixels.fillna(-1, inplace=True)
     train_all["ImageId_ClassId"] = train_all["ImageId"] + "_" + train_all["ClassId"].astype('str')
 
