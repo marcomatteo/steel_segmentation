@@ -72,7 +72,7 @@ Now you're authenticated with the Kaggle API (you'll need `kaggle` so `pip insta
 !unzip -q -n {path}/severstal-steel-defect-detection.zip -d {path}
 ```
 
-## Notebooks
+## Library notebooks
 
 All of the experiments are based on Jupyter Notebooks and in the `nbs` folder there are all the notebooks used to build the `steel_segmentation` library (still updating):
 
@@ -81,6 +81,13 @@ All of the experiments are based on Jupyter Notebooks and in the `nbs` folder th
 - [Optimizer utility functions](https://marcomatteo.github.io/steel_segmentation/optimizer.html)
 - [Loss functions](https://marcomatteo.github.io/steel_segmentation/loss.html)
 - [Metrics](https://marcomatteo.github.io/steel_segmentation/metrics.html)
+
+## Training
+
+Training script in `scripts` folder:
+
+- `segmentation_train.py`: training segmentation models from [qubvel repository](https://github.com/qubvel/segmentation_models.pytorch).
+- `create_submission.py` : create a kaggle submission from a segmentation model trained and save the csv in `data/submissions/`.
 
 ## Results
 
