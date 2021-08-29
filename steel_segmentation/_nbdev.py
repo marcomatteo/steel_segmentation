@@ -3,6 +3,7 @@
 __all__ = ["index", "modules", "custom_doc_links", "git_url"]
 
 index = {"palet": "01_eda.ipynb",
+         "seed_everything": "01_eda.ipynb",
          "print_competition_data": "01_eda.ipynb",
          "get_train_pivot": "01_eda.ipynb",
          "get_train_df": "01_eda.ipynb",

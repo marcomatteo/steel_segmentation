@@ -98,8 +98,9 @@ class SoftBCEDiceLoss(nn.Module):
 #reference: https://github.com/zdaiot/Kaggle-Steel-Defect-Detection
 class MultiClassesSoftBCEDiceLoss(nn.Module):
 
-    def __init__(self, classes_num=4, size_average=True, dice_weights=[0.2, 0.8], bce_pos_weights=[2.0,2.0,1.0,1.5], loss_weights=[0.7, 0.3]):
+    def __init__(self, classes_num=4, size_average=True, dice_weights=[0.2, 0.8], bce_pos_weights=[2.0,2.0,1.0,1.5], loss_weights=[0.7, 0.3], thresh=0.5):
         super().__init__()
+        self.thresh = thresh
         self.classes_num = classes_num
         self.soft_bce_dice_losses = [
             SoftBCEDiceLoss(bce_pos_weight=pos_weight, size_average=size_average, dice_weights=dice_weights, loss_weights=loss_weights)
@@ -122,6 +123,12 @@ class MultiClassesSoftBCEDiceLoss(nn.Module):
         loss /= self.classes_num
 
         return loss
+
+    def decodes(self, x):
+        return (x>self.thresh).float().argmax(dim=1)
+
+    def activation(self, x):
+        return torch.sigmoid(x)
 
 # Cell
 class LossEnabler(Callback):
