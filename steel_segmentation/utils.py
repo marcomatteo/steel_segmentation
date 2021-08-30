@@ -127,28 +127,21 @@ def get_classification_df(df: pd.DataFrame):
     return train_multi.reset_index()[["ImageId", "ClassId_multi"]]
 
 # Cell
-def rle2mask(rle: str, value: int, shape):
+def rle2mask(mask_rle, value=1, shape=(1600,256)):
     """
-    From a RLE encoded pixels returns a mask
-    with `value` for defected pixels
-    (e.g. `value`=1 so 1 -> defected, 0 -> groundtruth)
-    and `shape` as tuple (height, width).
+    mask_rle: run-length as string formated (start length)
+    shape: (width,height) of array to return
+    Returns numpy array, 1 - mask, 0 - background
+    Source: https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode
     """
-    assert len(shape) == 2, "The shape must be (height, width)"
-    assert isinstance(shape[0], int)
-    assert isinstance(shape[1], int)
-
-    h, w = shape
-    mask = np.zeros(h * w, dtype=np.uint8)
-
-    rle = rle.split(" ")
-    positions = map(int, rle[0::2])
-    length = map(int, rle[1::2])
-
-    for pos, le in zip(positions, length):
-        mask[pos:(pos + le)] = value
-
-    return mask.reshape(h, w, order='F')
+    s = mask_rle.split()
+    starts, lengths = [np.asarray(x, dtype=int) for x in (s[0:][::2], s[1:][::2])]
+    starts -= 1
+    ends = starts + lengths
+    img = np.zeros(shape[0]*shape[1], dtype=np.uint8)
+    for lo, hi in zip(starts, ends):
+        img[lo:hi] = value
+    return img.reshape(shape).T
 
 # Cell
 def make_mask(item, df, flatten=False):
@@ -190,15 +183,15 @@ def make_mask(item, df, flatten=False):
 
 # Cell
 def mask2rle(mask):
-    '''
-    From https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode
+    """
+    Efficient implementation of mask2rle, from @paulorzp
 
-    Attributes: `mask`: numpy array with 1 -> mask, 0 -> background.
-
-    Returns: run length as string formated
-    '''
-    pixels= mask.T.flatten()
-    pixels = np.concatenate([pixels, [0]])
+    img: numpy array, 1 - mask, 0 - background
+    Returns run length as string formated
+    Source: https://www.kaggle.com/xhlulu/efficient-mask2rle
+    """
+    pixels = mask.T.flatten()
+    pixels = np.pad(pixels, ((1, 1), ))
     runs = np.where(pixels[1:] != pixels[:-1])[0] + 1
     runs[1::2] -= runs[::2]
     return ' '.join(str(x) for x in runs)

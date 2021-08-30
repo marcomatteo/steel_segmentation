@@ -44,8 +44,9 @@ def get_model():
     elif arch == "fpn":
         model = smp.FPN(encoder_name=encoder_name, encoder_weights="imagenet", classes=4, activation=None)
 
-    weights = torch.load((model_weights_file))["model"]
-    model.load_state_dict(weights)
+    if not (fine_tuning_weights is None):
+        weights = torch.load((model_weights_file))["model"]
+        model.load_state_dict(weights)
     return model
 
 model = get_model().to(device)
