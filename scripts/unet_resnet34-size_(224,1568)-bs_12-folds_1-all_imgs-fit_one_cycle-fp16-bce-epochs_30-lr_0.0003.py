@@ -72,12 +72,7 @@ tensorboard_run_name = f"{arch}_{encoder_name}-" \
     + ("fp16" if mixed_prec else "fp32") + "-" \
     + f"{loss}-epochs_{epochs}-lr_{lr}"
 
-df = get_train_df(train_path, only_faulty=only_faulty, pivot=True)
-cond = df[0] != -1 # no common hard negatives
-hard_neg_patterns = pd.read_csv(
-    train_path/"hard_negatives_patterns.txt", header=None, names=["ImageId"])
-cond_hn = df.index.isin(hard_neg_patterns["ImageId"].tolist())
-df = df.loc[cond|cond_hn]
+df = get_train_df(train_path, only_faulty=only_faulty, pivot=True, hard_negatives=True)
 
 train_aug = get_train_aug(*size)
 valid_aug = get_valid_aug(height=256, width=1600) # validation on full size

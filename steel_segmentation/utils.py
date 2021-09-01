@@ -57,7 +57,7 @@ def get_train_pivot(df):
     train_pivot["ClassIds"] = train_pivot.apply(rles2classids, axis=1)
     return train_pivot
 
-def get_train_df(path, only_faulty=False, pivot=False):
+def get_train_df(path, only_faulty=False, pivot=False, hard_negatives=False):
     """
     Get training DataFrame with all the images in data/train_images.
     Returns only the faulty images if `only_faulty`.
@@ -84,6 +84,12 @@ def get_train_df(path, only_faulty=False, pivot=False):
     train_all.EncodedPixels.fillna(-1, inplace=True)
     train_all["ImageId_ClassId"] = train_all["ImageId"] + "_" + train_all["ClassId"].astype('str')
 
+    if hard_negatives:
+        hard_neg_patterns = pd.read_csv(
+            path/"hard_negatives_patterns.txt", header=None, names=["ImageId"])
+        cond = train_all["status"]=="faulty"
+        cond_hn = train_all["ImageId"].isin(hard_neg_patterns["ImageId"].tolist())
+        train_all = train_all.loc[cond | cond_hn]
     if only_faulty:
         train_all = train_all[train_all["status"]=="faulty"]
     if pivot:

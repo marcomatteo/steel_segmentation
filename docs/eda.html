@@ -344,7 +344,7 @@ nb_path: "nbs/01_eda.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>path</code></strong>, <strong><code>only_faulty</code></strong>=<em><code>False</code></em>, <strong><code>pivot</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="get_train_df" class="doc_header"><code>get_train_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L60" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_train_df</code>(<strong><code>path</code></strong>, <strong><code>only_faulty</code></strong>=<em><code>False</code></em>, <strong><code>pivot</code></strong>=<em><code>False</code></em>, <strong><code>hard_negatives</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Get training DataFrame with all the images in data/train_images.
 Returns only the faulty images if <code>only_faulty</code>.</p>
@@ -798,7 +798,7 @@ Returns only the faulty images if <code>only_faulty</code>.</p>
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="count_pct" class="doc_header"><code>count_pct</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L95" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>count_pct</code>(<strong><code>df</code></strong>, <strong><code>column</code></strong>=<em><code>'ClassId'</code></em>)</p>
+<h4 id="count_pct" class="doc_header"><code>count_pct</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L101" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>count_pct</code>(<strong><code>df</code></strong>, <strong><code>column</code></strong>=<em><code>'ClassId'</code></em>)</p>
 </blockquote>
 <p>Returns a <code>pandas.DataFrame</code> with count and frequencies stats for <code>column</code>.</p>
 
@@ -3977,7 +3977,7 @@ z
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L104" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
+<h4 id="get_classification_df" class="doc_header"><code>get_classification_df</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L110" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_classification_df</code>(<strong><code>df</code></strong>:<code>DataFrame</code>)</p>
 </blockquote>
 <p>Get the DataFrame for the multiclass classification model</p>
 
@@ -4458,7 +4458,7 @@ z
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="rle2mask" class="doc_header"><code>rle2mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L130" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rle2mask</code>(<strong><code>rle</code></strong>, <strong><code>value</code></strong>=<em><code>1</code></em>, <strong><code>shape</code></strong>=<em><code>(256, 1600)</code></em>)</p>
+<h4 id="rle2mask" class="doc_header"><code>rle2mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L136" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>rle2mask</code>(<strong><code>rle</code></strong>, <strong><code>value</code></strong>=<em><code>1</code></em>, <strong><code>shape</code></strong>=<em><code>(256, 1600)</code></em>)</p>
 </blockquote>
 <p>mask_rle: run-length as string formated (start length)
 shape: (width,height) of array to return
@@ -4711,7 +4711,7 @@ Source: <a href="https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="make_mask" class="doc_header"><code>make_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L147" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_mask</code>(<strong><code>item</code></strong>, <strong><code>df</code></strong>, <strong><code>flatten</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="make_mask" class="doc_header"><code>make_mask</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L153" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>make_mask</code>(<strong><code>item</code></strong>, <strong><code>df</code></strong>, <strong><code>flatten</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Given an item as:</p>
 <ul>
@@ -4754,7 +4754,7 @@ Source: <a href="https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="mask2rle" class="doc_header"><code>mask2rle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L185" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mask2rle</code>(<strong><code>mask</code></strong>)</p>
+<h4 id="mask2rle" class="doc_header"><code>mask2rle</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L191" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>mask2rle</code>(<strong><code>mask</code></strong>)</p>
 </blockquote>
 <p>Efficient implementation of mask2rle, from @paulorzp</p>
 <p>img: numpy array, 1 - mask, 0 - background
@@ -4841,7 +4841,7 @@ Source: <a href="https://www.kaggle.com/xhlulu/efficient-mask2rle">https://www.k
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_mask_image" class="doc_header"><code>plot_mask_image</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L200" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_mask_image</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>img</code></strong>:<code>array</code>, <strong><code>mask</code></strong>:<code>array</code>)</p>
+<h4 id="plot_mask_image" class="doc_header"><code>plot_mask_image</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L206" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_mask_image</code>(<strong><code>name</code></strong>:<code>str</code>, <strong><code>img</code></strong>:<code>array</code>, <strong><code>mask</code></strong>:<code>array</code>)</p>
 </blockquote>
 <p>Plot a np.array image and mask with contours.</p>
 
@@ -4873,7 +4873,7 @@ Source: <a href="https://www.kaggle.com/xhlulu/efficient-mask2rle">https://www.k
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="plot_defected_image" class="doc_header"><code>plot_defected_image</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L216" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_defected_image</code>(<strong><code>img_path</code></strong>:<code>Path</code>, <strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>class_id</code></strong>=<em><code>None</code></em>)</p>
+<h4 id="plot_defected_image" class="doc_header"><code>plot_defected_image</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L222" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>plot_defected_image</code>(<strong><code>img_path</code></strong>:<code>Path</code>, <strong><code>df</code></strong>:<code>DataFrame</code>, <strong><code>class_id</code></strong>=<em><code>None</code></em>)</p>
 </blockquote>
 <p>Plot a <code>img_path</code> Path image from the training folder with contours.</p>
 
@@ -4905,7 +4905,7 @@ Source: <a href="https://www.kaggle.com/xhlulu/efficient-mask2rle">https://www.k
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="get_random_idx" class="doc_header"><code>get_random_idx</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L235" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_random_idx</code>(<strong><code>n</code></strong>:<code>int</code>)</p>
+<h4 id="get_random_idx" class="doc_header"><code>get_random_idx</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L241" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>get_random_idx</code>(<strong><code>n</code></strong>:<code>int</code>)</p>
 </blockquote>
 <p>Return a random sequence of size <code>n</code>.</p>
 
@@ -4943,7 +4943,7 @@ Source: <a href="https://www.kaggle.com/xhlulu/efficient-mask2rle">https://www.k
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h4 id="show_defects" class="doc_header"><code>show_defects</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L243" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>show_defects</code>(<strong><code>path</code></strong>, <strong><code>df</code></strong>, <strong><code>class_id</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>only_defects</code></strong>=<em><code>True</code></em>, <strong><code>multi_defects</code></strong>=<em><code>False</code></em>)</p>
+<h4 id="show_defects" class="doc_header"><code>show_defects</code><a href="https://github.com/marcomatteo/steel_segmentation/tree/master/steel_segmentation/utils.py#L249" class="source_link" style="float:right">[source]</a></h4><blockquote><p><code>show_defects</code>(<strong><code>path</code></strong>, <strong><code>df</code></strong>, <strong><code>class_id</code></strong>=<em><code>None</code></em>, <strong><code>n</code></strong>=<em><code>20</code></em>, <strong><code>only_defects</code></strong>=<em><code>True</code></em>, <strong><code>multi_defects</code></strong>=<em><code>False</code></em>)</p>
 </blockquote>
 <p>Plot multiple images.
 Attributes:
