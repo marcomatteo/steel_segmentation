@@ -127,21 +127,21 @@ def get_classification_df(df: pd.DataFrame):
     return train_multi.reset_index()[["ImageId", "ClassId_multi"]]
 
 # Cell
-def rle2mask(mask_rle, value=1, shape=(1600,256)):
+def rle2mask(rle, value=1, shape=(256,1600)):
     """
     mask_rle: run-length as string formated (start length)
     shape: (width,height) of array to return
     Returns numpy array, 1 - mask, 0 - background
     Source: https://www.kaggle.com/paulorzp/rle-functions-run-lenght-encode-decode
     """
-    s = mask_rle.split()
+    s = rle.split()
     starts, lengths = [np.asarray(x, dtype=int) for x in (s[0:][::2], s[1:][::2])]
     starts -= 1
     ends = starts + lengths
     img = np.zeros(shape[0]*shape[1], dtype=np.uint8)
     for lo, hi in zip(starts, ends):
         img[lo:hi] = value
-    return img.reshape(shape).T
+    return img.reshape((shape[1], shape[0])).T
 
 # Cell
 def make_mask(item, df, flatten=False):

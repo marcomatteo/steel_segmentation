@@ -11,28 +11,15 @@ import cv2
 from steel_segmentation.utils import mask2rle
 
 # from segmentation_train.py to load the model
-bs = 12
-size = (224,512)
-kfolds = 1
-fine_tuning_weights = None # Set to None if first training else the .pth model weights
 arch = "unet" # unet or fpn
 encoder_name = "resnet34" # "efficientnet-b3"
-loss = "BCE" # bce or dice (MultiClassesSoftBCEDiceLoss)
-epochs = 30
-lr = 3e-4
-only_faulty = True # only defected images or all the train_images
-one_cycle = False # fit_one_cycle if True, fit otherwise
-mixed_prec = False # fp16() learner
+
 path = Path(".") # "." if script, "../" if jupyter nb
 train_path = path / "data" # where data dir is
 model_dir = path / "models"
 log_dir = path / "logs" 
-model_weights_name = f"{arch}_{encoder_name}-" \
-    + f"bs_{bs}-folds_{kfolds}-" + ("only_faulty" if only_faulty else "all_imgs") \
-    + "-" + ("fine_tuning-" if not (fine_tuning_weights is None) else "") \
-    + ("fit_one_cycle" if one_cycle else "fit") + "-" \
-    + ("fp16" if mixed_prec else "fp32") + "-" \
-    + f"{loss}-epochs_{epochs}-lr_{lr}"
+
+model_weights_name = "unet_resnet34-bs_12-folds_1-only_faulty-fit-fp32-BCE-epochs_30-lr_0.0003"
 
 device = "cuda"
 model_weights_file = model_dir / (model_weights_name + ".pth")
@@ -44,9 +31,8 @@ def get_model():
     elif arch == "fpn":
         model = smp.FPN(encoder_name=encoder_name, encoder_weights="imagenet", classes=4, activation=None)
 
-    if not (fine_tuning_weights is None):
-        weights = torch.load((model_weights_file))["model"]
-        model.load_state_dict(weights)
+    weights = torch.load((model_weights_file))["model"]
+    model.load_state_dict(weights)
     return model
 
 model = get_model().to(device)
@@ -106,17 +92,16 @@ def post_process(pred, threshold, min_size_pixel_size):
 # %%
 def main():
     dl = get_test_dl(path, 12)
-    threshold = 0.5
-    min_pixel_size = 800
+    threshold = 0.55
+    min_pixel_sizes = [600, 600, 900, 2000]
 
     df_preds = []
     for _, batch in enumerate(tqdm(dl)):
         fnames, images = batch
         batch_preds = predict_batch(images)
-
         for fname, preds in zip(fnames, batch_preds):
             for cls, pred in enumerate(preds):
-                pred, _ = post_process(pred, threshold, min_pixel_size)
+                pred, _ = post_process(pred, threshold, min_pixel_sizes[cls])
                 rle = mask2rle(pred)
                 name = fname + f"_{cls+1}"
                 df_preds.append([name, rle])

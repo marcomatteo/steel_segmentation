@@ -75,6 +75,8 @@ class ChannelMask(Transform):
         # tensorboard log images bug in TensorBoardCallback after_epoch
         if mask.device != classes.device:
             mask = mask.to(classes.device)
+        if mask.shape[0] != classes.shape[0]:
+            return mask # bad workaround for TensorBoardCallback log_preds=True
         return (mask * classes).sum(0)
 
     def encodes(self, o:TensorMask):
