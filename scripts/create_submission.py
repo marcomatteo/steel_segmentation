@@ -19,7 +19,7 @@ train_path = path / "data" # where data dir is
 model_dir = path / "models"
 log_dir = path / "logs" 
 
-model_weights_name = "unet_resnet34-bs_12-folds_1-only_faulty-fit-fp32-BCE-epochs_30-lr_0.0003"
+model_weights_name = "unet_resnet34-bs_24-folds_1-only_faulty-fit_one_cycle-fp16-bce-epochs_30-lr_0.0003"
 
 device = "cuda"
 model_weights_file = model_dir / (model_weights_name + ".pth")

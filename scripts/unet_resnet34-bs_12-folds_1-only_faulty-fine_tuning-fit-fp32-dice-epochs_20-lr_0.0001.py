@@ -1,3 +1,4 @@
+
 # To add a new cell, type '# %%'
 # To add a new markdown cell, type '# %% [markdown]'
 
@@ -5,9 +6,6 @@
 # # Segmentation training
 
 # %% Load libraries
-import logging
-import sys
-
 from fastai.vision.all import *
 from fastai.callback.tensorboard import TensorBoardCallback
 
@@ -46,12 +44,12 @@ def get_valid_aug(height, width):
 bs = 12
 size = (224,512)
 kfolds = 1
-fine_tuning_weights = None # Set to None if first training else the .pth model weights
+fine_tuning_weights = "unet_resnet34-bs_12-folds_1-only_faulty-fit-fp32-BCE-epochs_30-lr_0.0003" # Set to None if first training else the .pth model weights
 arch = "unet" # unet or fpn
 encoder_name = "resnet34" # "efficientnet-b3"
-loss = "BCE" # bce or dice (MultiClassesSoftBCEDiceLoss)
-epochs = 5 # 5 per prova dei logger
-lr = 3e-4
+loss = "dice" # bce or dice (MultiClassesSoftBCEDiceLoss)
+epochs = 20
+lr = 1e-4
 only_faulty = True # only defected images or all the train_images
 one_cycle = False # fit_one_cycle if True, fit otherwise
 mixed_prec = False # fp16() learner
@@ -61,9 +59,6 @@ path = Path(".") # "." if script, "../" if jupyter nb
 train_path = path / "data" # where data dir is
 model_dir = path / "models"
 log_dir = path / "logs" 
-train_log_dir = model_dir / "train_log"
-train_log_dir.mkdir(exist_ok=True)
-
 tensorboard_run_name = f"{arch}_{encoder_name}-" \
     + f"size_({size[0]},{size[1]})-" \
     + f"bs_{bs}-folds_{kfolds}-" + ("only_faulty" if only_faulty else "all_imgs") \
@@ -72,21 +67,6 @@ tensorboard_run_name = f"{arch}_{encoder_name}-" \
     + ("fp16" if mixed_prec else "fp32") + "-" \
     + f"{loss}-epochs_{epochs}-lr_{lr}"
 
-# %% Logging
-file_handler = logging.FileHandler(filename=train_log_dir/f'{tensorboard_run_name}.log')
-stdout_handler = logging.StreamHandler(sys.stdout)
-handlers = [file_handler, stdout_handler]
-
-logging.basicConfig(
-    level=logging.DEBUG, 
-    format='[%(asctime)s] {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
-    handlers=handlers
-)
-
-logger = logging.getLogger('LOGGER')
-print = logger.debug
-
-#%% Get data
 df = get_train_df(train_path, only_faulty=only_faulty, pivot=True)
 
 train_aug = get_train_aug(*size)
@@ -104,7 +84,7 @@ if loss == "BCE":
     criterion = BCEWithLogitsLossFlat(axis=1, pos_weight=torch.tensor([2.0,2.0,1.0,1.5])) 
 else:
     criterion = MultiClassesSoftBCEDiceLoss(bce_pos_weights=torch.tensor([2.0,2.0,1.0,1.5]))
-opt_func = Adam
+opt_func = RAdam
 metrics = [ModDiceMulti(with_logits=True)]
 
 # %% Debug dls
@@ -134,7 +114,7 @@ def train(tensorboard_log:Path, splitter=None):
         opt_func = opt_func,
         metrics = metrics,
         model_dir = model_dir,
-        cbs = [LossEnabler],
+        cbs = [LossEnabler]
     )
     if mixed_prec:
         learner = learner.to_fp16()
@@ -148,7 +128,7 @@ def train(tensorboard_log:Path, splitter=None):
                             trace_model=(False if mixed_prec else True), projector=False),
         GradientAccumulation(n_acc=24),
         SaveModelCallback(monitor="valid_loss", fname=tensorboard_log.name, with_opt=True),
-        ReduceLROnPlateau(monitor='valid_loss', patience=4),
+        ReduceLROnPlateau(monitor='valid_loss', patience=3),
     ]
     if one_cycle:
         learner.fit_one_cycle(epochs, lr_max=lr, cbs=train_cbs)
