@@ -176,3 +176,5 @@ kaggle.json
 *.pt
 
 data
+_docs/
+_proc/
