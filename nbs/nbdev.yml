@@ -1,0 +1,9 @@
+project:
+  output-dir: docs
+
+website:
+  title: "steel_segmentation"
+  site-url: "https://marcomatteo.github.io/steel_segmentation/"
+  description: "A structured solution to the Severstal Kaggle Competition"
+  repo-branch: master
+  repo-url: "https://github.com/marcomatteo/steel_segmentation/tree/master/"
