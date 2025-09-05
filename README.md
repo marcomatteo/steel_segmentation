@@ -19,7 +19,7 @@ In the [steel_deployment](https://github.com/marcomatteo/steel_deployment) repos
 
 To install this package, clone and install the repository and install via:
 
-```
+```bash
 pip install git+https://github.com/marcomatteo/steel_segmentation.git
 ```
 
@@ -27,32 +27,21 @@ pip install git+https://github.com/marcomatteo/steel_segmentation.git
 
 To install and edit this package:
 
-```
+```bash
 clone git+https://github.com/marcomatteo/steel_segmentation.git
+cd steel_segmentation
 pip install -e steel_segmentation
 ```
 
+The library is based on [nbdev](https://github.com/AnswerDotAI/nbdev), a powerful tool that builds a python package from Juptyer Notebooks.
 
-The library is based on `nbdev`, a powerful tool that builds a python package from Juptyer Notebooks.
-
-```
-pip install nbdev
-```
 
 To create the library, the documentation and tests use these commands:
 ```
-nbdev_clean_nbs
-nbdev_build_lib
-nbdev_test_nbs
-nbdev_build_docs
+nbdev_preview
 ```
 
 This enviroment works on MacOS and Linux. In Windows the WLS with Ubuntu 20.04 is raccomended.
-
-Training only in Windows needs one package more to solve `ipykernel` issues: 
-```
-conda install pywin32
-```
 
 ## Download the dataset
 
