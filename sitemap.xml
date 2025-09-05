@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/transforms.html</loc>
+    <lastmod>2025-09-05T14:37:52.946Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/index.html</loc>
+    <lastmod>2025-09-05T14:37:47.447Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/metrics.html</loc>
+    <lastmod>2025-09-05T14:37:52.945Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/eda.html</loc>
+    <lastmod>2025-09-05T14:37:52.739Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/loss.html</loc>
+    <lastmod>2025-09-05T14:37:52.999Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/segmentation_unet_resnet.html</loc>
+    <lastmod>2025-09-05T14:37:47.394Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marcomatteo.github.io/steel_segmentation/optimizer.html</loc>
+    <lastmod>2025-09-05T14:37:49.767Z</lastmod>
+  </url>
+</urlset>
